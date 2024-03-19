@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://zhangyiming748.github.io</id>
+    <title>张益铭的博客</title>
+    <updated>2024-03-19T06:44:47.479Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://zhangyiming748.github.io"/>
+    <link rel="self" href="https://zhangyiming748.github.io/atom.xml"/>
+    <subtitle>子非鱼,安知鱼之乐?
+子非我,安知我不知鱼之乐?</subtitle>
+    <logo>https://zhangyiming748.github.io/images/avatar.png</logo>
+    <icon>https://zhangyiming748.github.io/favicon.ico</icon>
+    <rights>All rights reserved 2024, 张益铭的博客</rights>
+    <entry>
+        <title type="html"><![CDATA[面试的时候为什么非要问一些一线工作人员根本不可能有时间死记硬背的问题]]></title>
+        <id>https://zhangyiming748.github.io/post/why_question/</id>
+        <link href="https://zhangyiming748.github.io/post/why_question/">
+        </link>
+        <updated>2024-03-19T06:36:19.000Z</updated>
+        <content type="html"><![CDATA[<h3 id="golang从是什么时候开始测试slog日志包什么版本之后归入标准库">golang从是什么时候开始测试slog日志包？什么版本之后归入标准库？</h3>
+<p>Golang 从 Go 1.17 版本开始在 <code>golang.org/x/exp/slog</code> 下提供 slog 包的测试版本，并在 Go 1.21 版本正式将其纳入标准库，导入路径为 log/slog。<br>
+slog 包 是 Go 官方团队设计并开发的结构化日志包，旨在提供一种更易用、更高效的日志记录方式。<br>
+slog 包的测试版本 在 Go 1.17 版本中首次提供，主要用于收集社区反馈并进行完善。在测试阶段，slog 包的 API 和功能可能发生变化。<br>
+slog 包 在 Go 1.21 版本中正式纳入标准库，这意味着其 API 和功能已经稳定，可以用于生产环境。<br>
+以下是 slog 包的测试版本和正式版本之间的主要区别：<br>
+• 测试版本 的 API 和功能可能发生变化。<br>
+• 正式版本 的 API 和功能已经稳定。<br>
+• 测试版本 不在 Go 标准库中，需要通过 <code>go mod download</code> 命令下载。<br>
+• 正式版本 在 Go 标准库中，可以直接使用。<br>
+如果您想要使用 slog 包，建议使用 Go 1.21 或更高版本。<br>
+以下是一些关于 slog 包的学习资源：<br>
+• Go 官方文档: [移除了无效网址]<br>
+• Tony Bai: <a href="https://tonybai.com/2023/09/01/slog-a-new-choice-for-logging-in-go">slog正式版来了：Go日志记录新选择！</a></p>
+<h3 id="golang什么时候开始弃用ioutil包">golang什么时候开始弃用ioutil包？</h3>
+<p>Golang 从 Go 1.16 版本开始弃用 ioutil 包。<br>
+原因：<br>
+• ioutil 包中的许多函数功能已被其他包取代，例如 io 包和 os 包。<br>
+• ioutil 包中的函数命名不规范，不易理解。<br>
+• ioutil 包缺乏类型安全性，容易导致错误。<br>
+建议：<br>
+• 优先使用 io 包和 os 包中的函数来替代 ioutil 包中的函数。<br>
+• 如果需要使用 ioutil 包中的函数，请谨慎使用，并注意类型安全性。<br>
+以下是 ioutil 包中一些常用函数的替代方案：<br>
+函数	替代方案</p>
+<pre><code class="language-golang">ReadFile	io.ReadFile
+WriteFile	os.WriteFile
+TempFile	ioutil.TempFile
+ReadDir	ioutil.ReadDir
+</code></pre>
+<p>如果您正在使用 ioutil 包，建议您尽快将其迁移到其他包。</p>
+<h3 id="golang的切片扩容策略从哪一个版本开始发生了改变">golang的切片扩容策略从哪一个版本开始发生了改变</h3>
+<p>Golang 的切片扩容策略在 Go 1.18 版本发生了改变。<br>
+Go 1.18 之前的版本：<br>
+• 当切片容量小于 1024 时，扩容后容量为原来的 2 倍。<br>
+• 当切片容量大于或等于 1024 时，扩容后容量为原来的 1.25 倍。<br>
+Go 1.18 版本之后的版本：<br>
+• 当新切片需要的容量大于两倍扩容的容量，则直接按照新切片需要的容量扩容。<br>
+• 当原切片容量小于阈值（threshold）时，新切片容量变成原来的 2 倍。<br>
+• 当原切片容量大于或等于阈值时，进入循环，每次容量增加（旧容量 + 3 * 阈值） / 4。<br>
+阈值 的值根据系统架构而异，在 32 位系统上为 1024，在 64 位系统上为 4096。<br>
+以下是 Go 1.18 之前和之后切片扩容策略的示例：<br>
+Go 1.18 之前</p>
+<pre><code class="language-Go">s := make([]int, 0, 10)
+// 添加 11 个元素fori := 0; i &lt; 11; i++ {
+    s = append(s, i)
+}
+// 切片容量扩容为 20fmt.Println(cap(s)) // 20
+</code></pre>
+<p>Go 1.18 之后</p>
+<pre><code class="language-Go">s := make([]int, 0, 10)
+// 添加 11 个元素fori := 0; i &lt; 11; i++ {
+    s = append(s, i)
+}
+// 切片容量扩容为 16fmt.Println(cap(s)) // 16
+</code></pre>
+<p>Go 1.18 版本对切片扩容策略的改变主要有以下几个优点：<br>
+• 减少了内存浪费。<br>
+• 提高了内存分配效率。<br>
+• 降低了 GC 压力。<br>
+如果您正在使用 Go 1.18 或更高版本，建议您了解新的切片扩容策略，以便更好地使用切片。</p>
+<h3 id="golang-什么时候废弃了randseed方法">golang 什么时候废弃了rand.Seed方法</h3>
+<p>Golang 在 Go 1.20 版本废弃了 rand.Seed(time.Now().Unix()) 方法，原因如下：</p>
+<ol>
+<li>安全性问题<br>
+• 使用时间戳作为随机种子，在高并发场景下可能导致种子重复，进而导致随机数生成不随机。<br>
+• 使用纳秒时间戳可以提高随机性，但仍然存在重复的可能性。</li>
+<li>可预测性问题<br>
+• 使用时间戳作为随机种子，可以预测随机数生成序列，降低安全性。</li>
+<li>更优的选择<br>
+• Go 提供了 crypto/rand 包，可以生成更安全、更随机的随机数。<br>
+建议：<br>
+• 使用 crypto/rand 包生成随机数，例如：</li>
+</ol>
+<pre><code class="language-Go">reader := rand.Reader{}
+n, err := reader.Read(b)
+iferr != nil{
+    panic(err)
+}
+</code></pre>
+<p>• 如果需要使用 rand 包，可以使用 rand.NewSource() 函数生成新的随机数源，例如：</p>
+<pre><code class="language-Go">source := rand.NewSource(time.Now().UnixNano())
+r := rand.New(source)
+n := r.Intn(100)
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[docker build 如何构建一个同时支持在多平台导入的images？]]></title>
+        <id>https://zhangyiming748.github.io/post/docker_build_multi_images/</id>
+        <link href="https://zhangyiming748.github.io/post/docker_build_multi_images/">
+        </link>
+        <updated>2024-03-10T07:07:58.000Z</updated>
+        <content type="html"><![CDATA[<p>要创建一个同时支持在x86、arm64和amd64平台上运行的Docker镜像，你需要使用多阶段构建，并在每个阶段中为不同的架构编译你的应用程序。</p>
+<p>以下是一个示例Dockerfile，它使用Go语言编写的应用程序：</p>
+<pre><code class="language-dockerfile"># 第一阶段：获取Go编译器
+FROM golang:1.16-alpine AS builder
+
+# 设置工作目录
+WORKDIR /app
+
+# 复制源代码到容器中
+COPY . .
+
+# 编译应用程序
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o app .
+
+# 第二阶段：创建基础镜像
+FROM alpine:latest
+
+# 设置工作目录
+WORKDIR /app
+
+# 从第一阶段复制应用程序
+COPY --from=builder /app/app .
+
+# 暴露端口
+EXPOSE 8080
+
+# 启动应用程序
+CMD [&quot;./app&quot;]
+</code></pre>
+<p>这个Dockerfile首先使用Go编译器的镜像构建一个名为<code>builder</code>的阶段，然后在该阶段中编译应用程序。然后，它创建一个基于Alpine Linux的基础镜像，并从<code>builder</code>阶段复制编译后的应用程序。</p>
+<p>但是，这个Dockerfile只支持amd64架构。要支持其他架构，你需要为每个架构创建一个单独的阶段，并为每个阶段设置适当的<code>GOOS</code>和<code>GOARCH</code>环境变量。例如，要添加对arm64的支持，你可以添加以下阶段：</p>
+<pre><code class="language-dockerfile"># 第三阶段：编译arm64架构的应用程序
+FROM golang:1.16-alpine AS arm64-builder
+
+# 设置工作目录
+WORKDIR /app
+
+# 复制源代码到容器中
+COPY . .
+
+# 编译应用程序
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -o app .
+
+# 第四阶段：将arm64架构的应用程序复制到基础镜像
+FROM alpine:latest
+
+# 设置工作目录
+WORKDIR /app
+
+# 从arm64-builder阶段复制应用程序
+COPY --from=arm64-builder /app/app .
+
+# 暴露端口
+EXPOSE 8080
+
+# 启动应用程序
+CMD [&quot;./app&quot;]
+</code></pre>
+<p>最后，你需要使用<code>docker buildx</code>命令构建镜像，以便在多个架构上构建和测试镜像。例如：</p>
+<pre><code class="language-bash"># 启用Docker构建实验功能
+export DOCKER_BUILDKIT=1
+
+# 构建镜像
+docker buildx build --platform linux/amd64,linux/arm64 -t my-app:latest .
+</code></pre>
+<p>这将在amd64和arm64架构上构建镜像，并将它们标记为<code>my-app:latest</code>。然后，你可以使用<code>docker run</code>命令在适当的架构上运行镜像。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Windows的简繁切换占用Jetbrains全局查找]]></title>
+        <id>https://zhangyiming748.github.io/post/jetbrains_global_find/</id>
+        <link href="https://zhangyiming748.github.io/post/jetbrains_global_find/">
+        </link>
+        <updated>2024-03-10T07:00:14.000Z</updated>
+        <summary type="html"><![CDATA[<figure data-type="image" tabindex="1"><a href="https://imgse.com/i/pFyDzi4"><img src="https://s21.ax1x.com/2024/03/10/pFyDzi4.png" alt="pFyDzi4.png" loading="lazy"></a></figure>
+]]></summary>
+        <content type="html"><![CDATA[<figure data-type="image" tabindex="1"><a href="https://imgse.com/i/pFyDzi4"><img src="https://s21.ax1x.com/2024/03/10/pFyDzi4.png" alt="pFyDzi4.png" loading="lazy"></a></figure>
+<!-- more -->
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[查看一个已经运行的容器run启动命令]]></title>
+        <id>https://zhangyiming748.github.io/post/view_docker_run_command/</id>
+        <link href="https://zhangyiming748.github.io/post/view_docker_run_command/">
+        </link>
+        <updated>2024-03-10T05:14:30.000Z</updated>
+        <content type="html"><![CDATA[<pre><code class="language-bash">sudo apt install python3 python3-pip
+pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
+pip install runlike --break-system-packages
+echo 'PATH=$PATH:/home/zen/.local/bin' &gt;&gt; /home/zen/.bash_profile
+runlike &lt;container name&gt;
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[FFmpeg 的 -strict]]></title>
+        <id>https://zhangyiming748.github.io/post/ffmpeg_strict/</id>
+        <link href="https://zhangyiming748.github.io/post/ffmpeg_strict/">
+        </link>
+        <updated>2024-03-05T07:49:52.000Z</updated>
+        <content type="html"><![CDATA[<p>FFmpeg 的 <code>-strict</code> 选项用于<strong>设置MPEG4视觉编码的兼容性</strong>。</p>
+<p>FFmpeg 是一个强大的开源工具，能够处理多种音频和视频格式的录制、转换及流化。在处理 MPEG-4 视频编码时，<code>-strict</code> 选项特别重要，因为 MPEG-4 标准存在多个版本，不同版本的编解码器之间可能存在兼容性问题。</p>
+<p>具体来说，<code>-strict</code> 选项可以有以下几个值：</p>
+<ol>
+<li><code>-strict -2</code>：这是一个比较宽松的模式，它允许使用一些非标准的编码特性。这在处理一些旧的或者非主流的设备生成的视频文件时可能会有用。</li>
+<li><code>-strict default</code> 或 <code>-strict experimental</code>：这些是更严格的模式，它们要求编码必须符合特定的标准。<code>default</code> 模式通常用于确保编码的兼容性，而 <code>experimental</code> 模式可能包含一些最新的编码技术，但这些技术可能不被所有的播放器支持。</li>
+<li><code>-strict -1</code>：这个选项在新版本的 FFmpeg 中不再推荐使用，因为它允许大量的非标准编码特性，可能会导致编码的视频与其他设备的兼容性问题。</li>
+</ol>
+<p>综上，在使用 FFmpeg 进行 MPEG-4 编码时，选择合适的 <code>-strict</code> 选项可以帮助确保视频文件的兼容性和播放效果。如果不确定应该使用哪个选项，通常建议使用 <code>-strict default</code> 以保证最好的兼容性。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[ffmpeg 内嵌双语字幕]]></title>
+        <id>https://zhangyiming748.github.io/post/ffmpeg_multi_subtitles/</id>
+        <link href="https://zhangyiming748.github.io/post/ffmpeg_multi_subtitles/">
+        </link>
+        <updated>2024-03-01T14:23:33.000Z</updated>
+        <content type="html"><![CDATA[<pre><code class="language-bash">ffmpeg -i &quot;Jimmy Fallon and Meghan Trainor - Wrap Me Up.mp4&quot; -vf &quot;subtitles=chi.srt,subtitles=eng.srt:force_style='MarginV=30'&quot; once.mp4
+# -vf: 嵌入第二个字母的时候设置偏移量(距离底部)
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[环境变量备份]]></title>
+        <id>https://zhangyiming748.github.io/post/environment_variables/</id>
+        <link href="https://zhangyiming748.github.io/post/environment_variables/">
+        </link>
+        <updated>2024-03-01T14:14:17.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="~gitconfig">~/.gitconfig</h1>
+<pre><code class="language-bash">[user]
+      email = zhangyiming748@gmail.com
+      name = zen
+[http]
+      proxy = http://127.0.0.1:8889
+[https]
+       proxy = http://127.0.0.1:8889
+[core]
+        editor = sublime -n -w
+        compression = 0
+[filter &quot;lfs&quot;]
+    process = git-lfs filter-process
+    required = true
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
+</code></pre>
+<h1 id="~bash_profile">~/.bash_profile</h1>
+<pre><code class="language-shell"># set alias
+alias umount='diskutil unmount'
+alias fmtgo='find /Users/zen -name &quot;*.go&quot; -exec gofmt -w {} \;'
+alias ds='find . -name &quot;.DS_Store&quot; -print'
+alias 4k='find . -type f -name &quot;.*&quot; -size -10k -print'
+alias rmds='find . -name &quot;.DS_Store&quot; -exec rm {} \;'
+alias rm4k='find . -type f -name &quot;.*&quot; -size -10k -exec rm -f {} \;'
+alias tarxz=&quot;XZ_OPT='-9ek --threads=10' tar -Jcvf&quot;
+alias ll=&quot;ls -l&quot;
+alias la=&quot;ls -al&quot;
+alias proxy='export all_proxy=http://127.0.0.1:8889'
+alias unproxy='unset all_proxy'
+alias isproxy='curl cip.cc'
+alias curl='curl -C'
+alias yt-dlp='yt-dlp --no-playlist --proxy 192.168.1.5:8889'
+export PATH=$PATH:/Users/zen/Documents/phantomjs/bin
+# 慎重
+if [ -f ~/.bashrc ]; then
+    . ~/.bashrc
+fi
+</code></pre>
+<h1 id="~vimrc">~/.vimrc</h1>
+<pre><code class="language-shell">set number
+set ts=4
+set noexpandtab
+</code></pre>
+<h1 id="~sshconfig">~/.ssh/config</h1>
+<pre><code class="language-shell"># 必须是 github.com
+Host github.com
+HostName github.com
+User git
+
+ProxyCommand nc -v -x 127.0.0.1:1089 %h %p
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[telegram设置代理规则 2023-12-27 Proxy]]></title>
+        <id>https://zhangyiming748.github.io/post/telegram_use_proxy/</id>
+        <link href="https://zhangyiming748.github.io/post/telegram_use_proxy/">
+        </link>
+        <updated>2024-03-01T14:13:05.000Z</updated>
+        <content type="html"><![CDATA[<p><a href="https://core.telegram.org/resources/cidr.txt">原文地址</a><br>
+91.108.56.0/22<br>
+91.108.4.0/22<br>
+91.108.8.0/22<br>
+91.108.16.0/22<br>
+91.108.12.0/22<br>
+149.154.160.0/20<br>
+91.105.192.0/23<br>
+91.108.20.0/22<br>
+185.76.151.0/24<br>
+2001:b28:f23d::/48<br>
+2001:b28:f23f::/48<br>
+2001:67c:4e8::/48<br>
+2001:b28:f23c::/48<br>
+2a0a:f280::/32</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[clash规则]]></title>
+        <id>https://zhangyiming748.github.io/post/clash_roules/</id>
+        <link href="https://zhangyiming748.github.io/post/clash_roules/">
+        </link>
+        <updated>2024-03-01T14:12:18.000Z</updated>
+        <content type="html"><![CDATA[<pre><code class="language-shell">rules:
+  - IP-CIDR,91.108.8.0/21,奇异Cloud,no-resolve
+  - IP-CIDR,91.108.56.0/22,奇异Cloud,no-resolve
+  - IP-CIDR,91.108.4.0/22,奇异Cloud,no-resolve
+  - IP-CIDR,91.108.8.0/22,奇异Cloud,no-resolve
+  - IP-CIDR,91.108.16.0/22,奇异Cloud,no-resolve
+  - IP-CIDR,91.108.12.0/22,奇异Cloud,no-resolve
+  - IP-CIDR,149.154.160.0/20,奇异Cloud,no-resolve
+  - IP-CIDR,91.105.192.0/23,奇异Cloud,no-resolve
+  - IP-CIDR,91.108.20.0/22,奇异Cloud,no-resolve
+  - IP-CIDR,185.76.151.0/24,奇异Cloud,no-resolve
+  - IP-CIDR6,2001:b28:f23d::/48,奇异Cloud,no-resolve
+  - IP-CIDR6,2001:b28:f23f::/48,奇异Cloud,no-resolve
+  - IP-CIDR6,2001:67c:4e8::/48,奇异Cloud,no-resolve
+  - IP-CIDR6,2001:b28:f23c::/48,奇异Cloud,no-resolve
+  - IP-CIDR6,2a0a:f280::/32,奇异Cloud,no-resolve
+  - DOMAIN-KEYWORD,steam,奇异Cloud
+  - DOMAIN-KEYWORD,steam,奇异Cloud
+  - DOMAIN-KEYWORD,1lou,奇异Cloud
+  - DOMAIN-KEYWORD,nfcloud,奇异Cloud
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[docker搭建虚拟桌面]]></title>
+        <id>https://zhangyiming748.github.io/post/docker_build_virtual_deskto/</id>
+        <link href="https://zhangyiming748.github.io/post/docker_build_virtual_deskto/">
+        </link>
+        <updated>2024-03-01T14:09:44.000Z</updated>
+        <content type="html"><![CDATA[<figure data-type="image" tabindex="1"><img src="https://imgse.com/i/pFCmkH1" alt="" loading="lazy"></figure>
+<pre><code class="language-shell">version: '3.5'
+
+services:
+    ubuntu-xfce-vnc:
+        container_name: xfce
+        image: imlala/ubuntu-xfce-vnc-novnc:latest
+        shm_size: &quot;1gb&quot;
+        ports:
+            - 5900:5900
+            - 6080:6080
+        environment: 
+            - VNC_PASSWD=imlala
+            - GEOMETRY=1280x720
+            - DEPTH=24
+        volumes: 
+            - ./Downloads:/root/Downloads
+            - ./Documents:/root/Documents
+            - ./Pictures:/root/Pictures
+            - ./Videos:/root/Videos
+            - ./Music:/root/Music
+        restart: unless-stopped
+</code></pre>
+<pre><code class="language-bash">docker run --name xfce -d --shm-size 1gb -p 5900:5900 -p 6080:6080 -e VNC_PASSWD=imlala -e GEOMETRY=1280x720 
+</code></pre>
+]]></content>
+    </entry>
+</feed>
