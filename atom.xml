@@ -1,0 +1,684 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://zhangyiming748.github.io</id>
+    <title>张益铭的博客</title>
+    <updated>2024-07-02T04:10:54.154Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://zhangyiming748.github.io"/>
+    <link rel="self" href="https://zhangyiming748.github.io/atom.xml"/>
+    <subtitle>子非鱼,安知鱼之乐?
+子非我,安知我不知鱼之乐?</subtitle>
+    <logo>https://zhangyiming748.github.io/images/avatar.png</logo>
+    <icon>https://zhangyiming748.github.io/favicon.ico</icon>
+    <rights>All rights reserved 2024, 张益铭的博客</rights>
+    <entry>
+        <title type="html"><![CDATA[gitcode告诉我们github并不"安全",还是自建私有代码托管服务吧]]></title>
+        <id>https://zhangyiming748.github.io/post/make_gitea_and_action/</id>
+        <link href="https://zhangyiming748.github.io/post/make_gitea_and_action/">
+        </link>
+        <updated>2024-07-02T00:59:45.000Z</updated>
+        <content type="html"><![CDATA[<p>华为和CSDN联合开发了一个gitcode<br>
+爬取了国内外绝大部分人的github仓库<br>
+甚至为这些作者创建了一个他们自己都不知道,但是属于他们的用户账户<br>
+CSDN做这种事不稀奇 毕竟人家就是靠抄袭起家的<br>
+华为这个浓眉大眼的也叛变革命了,还是挺不可思议的<br>
+难道是CSDN给的太多了?</p>
+<h1 id="设置并运行gitea">设置并运行gitea</h1>
+<pre><code class="language-yml">version: &quot;3&quot;
+services:
+  server:
+    image: gitea/gitea:@version@
+    container_name: gitea
+    environment:
+      - USER_UID=1000
+      - USER_GID=1000
+    restart: always
+    networks:
+      - gitea
+    volumes:
+      - ./gitea:/data
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    ports:
+      - &quot;3000:3000&quot;
+      - &quot;222:22&quot;
+</code></pre>
+<p>进入浏览器地址栏输入<code>http://127.0.0.1:3000</code><br>
+进入配置页面输入自己的设置<br>
+确认后即可进入gitea自己的主页<br>
+<a href="https://imgse.com/i/pk6jwtJ"><img src="https://s21.ax1x.com/2024/06/29/pk6jwtJ.png" alt="pk6jwtJ.png" loading="lazy"></a></p>
+<h1 id="配置gitea-action">配置gitea action</h1>
+<p>浏览器输入url<code>http://127.0.0.1/admin/actions/runners</code><br>
+<a href="https://imgse.com/i/pk6jDpR"><img src="https://s21.ax1x.com/2024/06/29/pk6jDpR.png" alt="pk6jDpR.png" loading="lazy"></a><br>
+选择右上角<code>创建Runner</code><br>
+记住这个token<br>
+从[这里](https://gitea.com/gitea/act_runner/releases]下载适合你物理电脑架构的act-runner二进制文件</p>
+<pre><code class="language-bash">chmod +x act_runner
+./act_runner --version
+./act_runner generate-config
+# 运行后会交互提示你输入ip地址
+# 输入你物理记载局域网内的地址而不是localhost,如http://192.168.1.6:3000
+# 回车后要求你输入token,直接复制过来就行
+</code></pre>
+<p>然后编辑<code>docker-compose.yml</code>文件</p>
+<pre><code class="language-yml">version: &quot;3.8&quot;
+services:
+  runner:
+    image: gitea/act_runner:nightly
+    environment:
+      CONFIG_FILE: /config.yaml
+      GITEA_INSTANCE_URL: &lt;和上面地址保持一致&gt;
+      GITEA_RUNNER_REGISTRATION_TOKEN: &lt;和上面token保持一致&gt;
+    volumes:
+      - ./config.yaml:/config.yaml # 确保config文件存在 如果不在同级目录 用绝对路径
+      - ./data:/data
+      - /var/run/docker.sock:/var/run/docker.sock
+</code></pre>
+<h1 id="就可以使用自动构建的功能了">就可以使用自动构建的功能了</h1>
+<figure data-type="image" tabindex="1"><a href="https://imgse.com/i/pk6j59A"><img src="https://s21.ax1x.com/2024/06/29/pk6j59A.png" alt="pk6j59A.png" loading="lazy"></a></figure>
+<h1 id="为什么github的action功能在中国通常被成为ci-cd">为什么github的action功能在中国通常被成为CI / CD ?</h1>
+<p>GitHub 的 Actions 功能在中国通常被称为 &quot;CI/CD&quot;，其中 &quot;CI&quot; 指的是持续集成（Continuous Integration），&quot;CD&quot; 指的是持续部署（Continuous Deployment）。这种称呼主要是因为 GitHub Actions 提供了持续集成和持续部署的功能，使开发者能够自动化构建、测试和部署他们的代码。因此，在中国，人们更倾向于将 GitHub Actions 简称为 &quot;CI/CD&quot;，以表示其集成了持续集成和持续部署的功能。这种简称也更符合行业标准和术语，更容易被开发者理解和使用。</p>
+<p><strong>今天就是天王老子来了 我也要叫它自动构建</strong></p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Github workflows 写法]]></title>
+        <id>https://zhangyiming748.github.io/post/github_workflows/</id>
+        <link href="https://zhangyiming748.github.io/post/github_workflows/">
+        </link>
+        <updated>2024-06-19T02:24:50.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="发布一个release">发布一个release</h1>
+<pre><code class="language-yml">      - name: release
+        run: |
+          time_var=$(date +&quot;%Y%m%d-%H%M%S&quot;)
+          gh release create $time_var --generate-notes
+          gh release upload $time_var ${{ github.workspace }}/whisper.tar.xz
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+</code></pre>
+<h3 id="完整示例">完整示例</h3>
+<pre><code class="language-yml"># .github/workflows/release.yml
+name: xz_releaser
+
+on:
+  pull_request:
+  push:
+    # run only against tags
+    tags:
+      - &quot;xz*&quot;
+    # branches: [ &quot;master&quot; ]
+
+permissions:
+  contents: write
+  # packages: write
+  # issues: write
+
+jobs:
+  free-disk-space:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Free Disk Space (Ubuntu)
+        uses: jlumbroso/free-disk-space@main
+        with:
+          # this might remove tools that are actually needed,
+          # if set to &quot;true&quot; but frees about 6 GB
+          tool-cache: false
+
+          # all of these default to true, but feel free to set to
+          # &quot;false&quot; if necessary for your workflow
+          android: true
+          dotnet: true
+          haskell: true
+          large-packages: true
+          docker-images: false
+          swap-storage: true
+  dockerbuilder:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: go
+        run: go build -o srt main.go
+      - name: pwd
+        run: pwd
+      - name: build
+        run: docker build -t whisper:latest ${{ github.workspace }}
+      - name: saveSpace
+        run: rm -rf /opt/hostedtoolcache
+      - name: export
+        run: docker save whisper:latest | xz --threads=0 -9e --memlimit-compress=0 &gt; whisper.tar.xz
+      - name: check
+        run: ls -ahl ${{ github.workspace }}
+      - name: Upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: xz
+          path: ${{ github.workspace }}/whisper.tar.xz
+          compression-level: 9 # max compression
+      - name: release
+        run: |
+          time_var=$(date +&quot;%Y%m%d-%H%M%S&quot;)
+          gh release create $time_var --generate-notes
+          gh release upload $time_var ${{ github.workspace }}/whisper.tar.xz
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+</code></pre>
+<h1 id="发布一套完整的gorelease">发布一套完整的GoRelease</h1>
+<pre><code class="language-yml">      - name: Run GoReleaser
+        uses: goreleaser/goreleaser-action@v5
+        with:
+          # either 'goreleaser' (default) or 'goreleaser-pro'
+          distribution: goreleaser
+          version: latest
+          args: release --clean
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Your GoReleaser Pro key, if you are using the 'goreleaser-pro' distribution
+          # GORELEASER_KEY: ${{ secrets.GORELEASER_KEY }}
+</code></pre>
+<h3 id="完整示例-2">完整示例</h3>
+<pre><code class="language-yml"># .github/workflows/release.yml
+name: goreleaser
+
+on:
+  pull_request:
+  push:
+    # run only against tags
+    tags:
+      - &quot;v*&quot;
+
+permissions:
+  contents: write
+  # packages: write
+  # issues: write
+
+jobs:
+  goreleaser:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: stable
+      # More assembly might be required: Docker logins, GPG, etc.
+      # It all depends on your needs.
+      - name: Run GoReleaser
+        uses: goreleaser/goreleaser-action@v5
+        with:
+          # either 'goreleaser' (default) or 'goreleaser-pro'
+          distribution: goreleaser
+          version: latest
+          args: release --clean
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Your GoReleaser Pro key, if you are using the 'goreleaser-pro' distribution
+          # GORELEASER_KEY: ${{ secrets.GORELEASER_KEY }}
+      - name: Upload Build Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: workspace_artifacts
+          path: ${{ github.workspace }}
+</code></pre>
+<h1 id="节省空间">节省空间</h1>
+<pre><code class="language-yml">      - name: saveSpace
+        run: rm -rf /opt/hostedtoolcache
+</code></pre>
+<h3 id="完整示例-3">完整示例</h3>
+<pre><code class="language-yml"># .github/workflows/release.yml
+name: tar_releaser
+
+on:
+  pull_request:
+  push:
+    # run only against tags
+    tags:
+      - &quot;tar*&quot;
+    # branches: [ &quot;master&quot; ]
+
+permissions:
+  contents: write
+  # packages: write
+  # issues: write
+
+jobs:
+  dockerbuilder:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: go
+        run: go build -o srt main.go
+      - name: pwd
+        run: pwd
+      - name: build
+        run: docker build -t whisper:latest ${{ github.workspace }}
+      - name: saveSpace
+        run: rm -rf /opt/hostedtoolcache
+      - name: export
+        run: docker save whisper:latest -o whisper.tar
+#      - name: coreutils
+#        run : apt install -y coreutils
+      - name: split
+        run: split -n l/10 whisper.tar whisper_part_
+        # cat archive_part_* &gt; combined.tar
+      # More assembly might be required: Docker logins, GPG, etc.
+      # It all depends on your needs.
+      - name: check
+        run : ls -ahl ${{ github.workspace }}
+      - name: Upload aa
+        uses: actions/upload-artifact@v4
+        with:
+          name: aa
+          path: ${{ github.workspace }}/whisper_part_aa
+          compression-level: 9 # max compression
+      - name: Upload ab
+        uses: actions/upload-artifact@v4
+        with:
+          name: ab
+          path: ${{ github.workspace }}/whisper_part_ab
+          compression-level: 9 # max compression
+      - name: Upload ac
+        uses: actions/upload-artifact@v4
+        with:
+          name: ac
+          path: ${{ github.workspace }}/whisper_part_ac
+          compression-level: 9 # max compression
+      - name: Upload ad
+        uses: actions/upload-artifact@v4
+        with:
+          name: ad
+          path: ${{ github.workspace }}/whisper_part_ad
+          compression-level: 9 # max compression
+      - name: Upload ae
+        uses: actions/upload-artifact@v4
+        with:
+          name: ae
+          path: ${{ github.workspace }}/whisper_part_ae
+          compression-level: 9 # max compression
+      - name: Upload af
+        uses: actions/upload-artifact@v4
+        with:
+          name: af
+          path: ${{ github.workspace }}/whisper_part_af
+          compression-level: 9 # max compression
+      - name: Upload ag
+        uses: actions/upload-artifact@v4
+        with:
+          name: ag
+          path: ${{ github.workspace }}/whisper_part_ag
+          compression-level: 9 # max compression
+      - name: Upload ah
+        uses: actions/upload-artifact@v4
+        with:
+          name: ah
+          path: ${{ github.workspace }}/whisper_part_ah
+          compression-level: 9 # max compression
+      - name: Upload ai
+        uses: actions/upload-artifact@v4
+        with:
+          name: ai
+          path: ${{ github.workspace }}/whisper_part_ai
+          compression-level: 9 # max compression
+      - name: Upload aj
+        uses: actions/upload-artifact@v4
+        with:
+          name: aj
+          path: ${{ github.workspace }}/whisper_part_aj
+          compression-level: 9 # max compression
+
+</code></pre>
+<h1 id="保存工件">保存工件</h1>
+<pre><code class="language-yml">      - name: Upload aa
+        uses: actions/upload-artifact@v4
+        with:
+          name: aa
+          path: ${{ github.workspace }}/whisper_part_aa
+          compression-level: 9 # max compression
+</code></pre>
+<h1 id="完整示例-4">完整示例</h1>
+<pre><code class="language-yml"># .github/workflows/release.yml
+name: tar_releaser
+
+on:
+  pull_request:
+  push:
+    # run only against tags
+    tags:
+      - &quot;tar*&quot;
+    # branches: [ &quot;master&quot; ]
+
+permissions:
+  contents: write
+  # packages: write
+  # issues: write
+
+jobs:
+  dockerbuilder:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: go
+        run: go build -o srt main.go
+      - name: pwd
+        run: pwd
+      - name: build
+        run: docker build -t whisper:latest ${{ github.workspace }}
+      - name: saveSpace
+        run: rm -rf /opt/hostedtoolcache
+      - name: export
+        run: docker save whisper:latest -o whisper.tar
+#      - name: coreutils
+#        run : apt install -y coreutils
+      - name: split
+        run: split -n l/10 whisper.tar whisper_part_
+        # cat archive_part_* &gt; combined.tar
+      # More assembly might be required: Docker logins, GPG, etc.
+      # It all depends on your needs.
+      - name: check
+        run : ls -ahl ${{ github.workspace }}
+      - name: Upload aa
+        uses: actions/upload-artifact@v4
+        with:
+          name: aa
+          path: ${{ github.workspace }}/whisper_part_aa
+          compression-level: 9 # max compression
+      - name: Upload ab
+        uses: actions/upload-artifact@v4
+        with:
+          name: ab
+          path: ${{ github.workspace }}/whisper_part_ab
+          compression-level: 9 # max compression
+      - name: Upload ac
+        uses: actions/upload-artifact@v4
+        with:
+          name: ac
+          path: ${{ github.workspace }}/whisper_part_ac
+          compression-level: 9 # max compression
+      - name: Upload ad
+        uses: actions/upload-artifact@v4
+        with:
+          name: ad
+          path: ${{ github.workspace }}/whisper_part_ad
+          compression-level: 9 # max compression
+      - name: Upload ae
+        uses: actions/upload-artifact@v4
+        with:
+          name: ae
+          path: ${{ github.workspace }}/whisper_part_ae
+          compression-level: 9 # max compression
+      - name: Upload af
+        uses: actions/upload-artifact@v4
+        with:
+          name: af
+          path: ${{ github.workspace }}/whisper_part_af
+          compression-level: 9 # max compression
+      - name: Upload ag
+        uses: actions/upload-artifact@v4
+        with:
+          name: ag
+          path: ${{ github.workspace }}/whisper_part_ag
+          compression-level: 9 # max compression
+      - name: Upload ah
+        uses: actions/upload-artifact@v4
+        with:
+          name: ah
+          path: ${{ github.workspace }}/whisper_part_ah
+          compression-level: 9 # max compression
+      - name: Upload ai
+        uses: actions/upload-artifact@v4
+        with:
+          name: ai
+          path: ${{ github.workspace }}/whisper_part_ai
+          compression-level: 9 # max compression
+      - name: Upload aj
+        uses: actions/upload-artifact@v4
+        with:
+          name: aj
+          path: ${{ github.workspace }}/whisper_part_aj
+          compression-level: 9 # max compression
+
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[debian bookworm设置系统开机后自动运行网络时间同步]]></title>
+        <id>https://zhangyiming748.github.io/post/debian_startup_ntp/</id>
+        <link href="https://zhangyiming748.github.io/post/debian_startup_ntp/">
+        </link>
+        <updated>2024-06-19T02:21:18.000Z</updated>
+        <content type="html"><![CDATA[<p>对于Debian Bookworm系统开机后自动进行网络时间同步，可以通过以下步骤进行设置：</p>
+<ol>
+<li>
+<p><strong>确认系统时区</strong></p>
+<ul>
+<li><strong>查看系统时区</strong>：使用<code>timedatectl</code>命令检查当前系统的时区。如果时区不是您所在地区的标准时区，需要更改为正确的时区[<sup>3</sup>]。</li>
+<li><strong>修正系统时区</strong>：使用<code>sudo timedatectl set-timezone &quot;Asia/Shanghai&quot;</code>命令可以将系统时区修改为上海时区，根据您的实际位置选择正确的时区[<sup>3</sup>]。</li>
+</ul>
+</li>
+<li>
+<p><strong>查看并校正本地时间</strong></p>
+<ul>
+<li><strong>查看本地时间</strong>：使用<code>timedatectl</code>命令查看当前系统时间和日期[<sup>3</sup>]。</li>
+<li><strong>手动校正本地时间</strong>：如果本地时间与NTP服务器时间误差较大（1000秒以上），可以使用<code>ntpdate</code>命令手动校正本地时间，如<code>ntpdate ntp.ntsc.ac.cn</code>[<sup>1</sup>]。</li>
+</ul>
+</li>
+<li>
+<p><strong>配置NTP自动校时</strong></p>
+<ul>
+<li><strong>编辑NTP配置文件</strong>：使用<code>sudo nano /etc/ntpsec/ntp.conf</code>命令编辑NTP的配置文件。将默认的pool配置注释掉，并添加你想要使用的NTP服务器地址[<sup>1</sup>]。</li>
+</ul>
+</li>
+<li>
+<p><strong>设置systemd定时同步</strong></p>
+<ul>
+<li><strong>创建同步服务文件</strong>：使用<code>sudo nano /etc/systemd/system/ntp-sync.service</code>命令创建一个新的服务文件，内容如下：<pre><code>[Unit]
+Description=NTP Sync
+After=network-online.target
+Wants=network-online.target
+OnCalendar=daily
+
+[Service]
+ExecStart=/usr/sbin/ntpdate -s -b -u -p 8 NTP服务器地址
+
+[Install]
+WantedBy=default.target
+</code></pre>
+替换<code>NTP服务器地址</code>为你实际要使用的NTP服务器的地址[<sup>2</sup>]。</li>
+<li><strong>启动并启用同步服务</strong>：使用如下命令启用并启动NTP同步服务，并确保服务在每次网络连接后自动运行<pre><code>sudo systemctl enable ntp-sync.service
+sudo systemctl start ntp-sync.service
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>设置systemd-timesyncd工具</strong></p>
+<ul>
+<li><strong>确认工具设置</strong>：确认<code>systemd-timesyncd</code>工具的设置，这是一个内置的时间同步服务，可以替代传统的ntpd服务[<sup>3</sup>]。</li>
+</ul>
+</li>
+<li>
+<p><strong>检查并确认时间同步</strong></p>
+<ul>
+<li><strong>查看服务状态</strong>：使用<code>sudo systemctl status ntp-sync.service</code>命令查看NTP同步服务的状态，确保服务已启动并且正在运行[<sup>2</sup>]。</li>
+</ul>
+</li>
+</ol>
+<p>总的来说，通过上述步骤，您的Debian Bookworm系统将在每次开机后自动执行网络时间同步，确保系统时间的准确性和一致性。这不仅有助于系统日志和维护的精确性，还对许多依赖准确时间的应用和服务有重要作用。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Windows11设置系统开机后自动运行网络时间同步]]></title>
+        <id>https://zhangyiming748.github.io/post/windows_startup_ntp/</id>
+        <link href="https://zhangyiming748.github.io/post/windows_startup_ntp/">
+        </link>
+        <updated>2024-06-19T02:18:17.000Z</updated>
+        <content type="html"><![CDATA[<p>为了设置Windows 11系统在开机后自动进行网络时间同步，可以通过<strong>添加一个任务计划，让系统启动后立即向时间服务器同步时间</strong>。这种方式不需要借助任何插件或第三方工具[<sup>1</sup>]。以下是设置的具体步骤：</p>
+<ol>
+<li><strong>确保Internet时间配置</strong>：
+<ul>
+<li><strong>打开控制面板</strong>：使用Win+R快捷键打开运行对话框，输入“control”打开控制面板。</li>
+<li><strong>设置Internet时间同步</strong>：在控制面板中选择“日期和时间”，然后点击“Internet时间”选项卡。勾选“与Internet时间服务器同步”并输入服务器地址，点击“立即更新”以确保当前可以正常同步时间。</li>
+<li><strong>确认服务启动类型</strong>：同样通过Win+R打开运行对话框，输入“services.msc”打开服务窗口，找到“Windows Time”服务，右键属性将其启动类型设置为“自动”。</li>
+</ul>
+</li>
+<li><strong>添加计划任务</strong>：
+<ul>
+<li><strong>创建新任务</strong>：通过Win+R输入“taskschd.msc”打开任务计划程序，在右侧点击“创建任务”。</li>
+<li><strong>设置任务名称和描述</strong>：将任务名称设为“开机即同步时间”，描述为“系统启动后自动向服务器同步一次时间”。</li>
+</ul>
+</li>
+<li><strong>配置安全选项</strong>：
+<ul>
+<li><strong>调整安全设置</strong>：在“安全选项”中，选择“不管用户是否登录都要运行”，勾选“不存储密码”和“使用最高权限运行”。</li>
+</ul>
+</li>
+<li><strong>设置触发器</strong>：
+<ul>
+<li><strong>配置触发条件</strong>：在“触发器”选项卡中点击“新建”，开始任务选择“启动时”。高级设置中勾选“延迟任务时间”，设定为30秒以等待网络连接，然后勾选“已启用”。</li>
+</ul>
+</li>
+<li><strong>定义操作行为</strong>：
+<ul>
+<li><strong>编辑操作动作</strong>：在“操作”选项卡中点击“新建”，操作默认为“启动程序”，在“程序或脚本”中填入<code>%windir%\system32\cmd.exe</code>，在“添加参数”中填入<code>/k w32tm /resync</code>。</li>
+</ul>
+</li>
+<li><strong>确定网络条件</strong>：
+<ul>
+<li><strong>指定网络条件</strong>：在“条件”选项卡中，确保勾选“只有在以下网络连接可用时才启动”，并选择适当的网络连接。</li>
+</ul>
+</li>
+<li><strong>进行最终设置</strong>：
+<ul>
+<li><strong>完成进一步设置</strong>：在“设置”选项卡中，勾选“如果过了计划开始时间，立即启动任务”以及“如果任务失败，按以下频率重新启动”。</li>
+</ul>
+</li>
+</ol>
+<p>综上所述，通过这些步骤，您的Windows 11系统将在每次开机后自动进行网络时间同步，确保系统时间的准确性。这种自动化的时间同步方法不仅避免了手动校正时间的麻烦，还有助于维持系统中文件、电子邮件和其它依赖时间戳的数据的一致性和准确性。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[清理 Docker 缓存]]></title>
+        <id>https://zhangyiming748.github.io/post/docker_clean/</id>
+        <link href="https://zhangyiming748.github.io/post/docker_clean/">
+        </link>
+        <updated>2024-06-15T11:52:35.000Z</updated>
+        <content type="html"><![CDATA[<pre><code class="language-bash">docker system prune -a
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[ffmpeg将一段音频循环播放20遍]]></title>
+        <id>https://zhangyiming748.github.io/post/ffmpeg_loop_mp3/</id>
+        <link href="https://zhangyiming748.github.io/post/ffmpeg_loop_mp3/">
+        </link>
+        <updated>2024-06-12T00:42:32.000Z</updated>
+        <content type="html"><![CDATA[<pre><code class="language-bash">ffmpeg -stream_loop 20 -i input.mp3 -c copy output.mp3
+</code></pre>
+<p>将&quot;input.mp3&quot;替换为您的输入音频文件名，&quot;output.mp3&quot;替换为您想要输出的文件名。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[ffmpeg 中 -async 1  有什么作用  是否能提高编码效率]]></title>
+        <id>https://zhangyiming748.github.io/post/ffmpeg_async/</id>
+        <link href="https://zhangyiming748.github.io/post/ffmpeg_async/">
+        </link>
+        <updated>2024-06-04T04:22:37.000Z</updated>
+        <content type="html"><![CDATA[<p>在 FFmpeg 中，<code>-async</code> 选项用于控制音频和视频流之间的同步。当选项的值为 1 时，FFmpeg 将尽可能保持音视频同步，即使这样做会导致视频帧率变化。</p>
+<p>该选项的效果取决于输入音视频流的质量和同步状况。如果输入流本身已经同步，那么使用 -async 1 可能不会有太大帮助。但如果输入流存在同步问题，例如音频比视频提前或延后，那么使用 -async 1 可以帮助解决这些问题。</p>
+<p>使用 -async 1 不会直接提高编码效率，因为它主要用于解决同步问题。然而，如果输入流存在同步问题，使用 -async 1 可以帮助确保输出流的质量，从而避免因同步问题导致的额外处理或重新编</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[shell脚本如何直接使用当前用户环境变量的alias]]></title>
+        <id>https://zhangyiming748.github.io/post/shell_use_alias/</id>
+        <link href="https://zhangyiming748.github.io/post/shell_use_alias/">
+        </link>
+        <updated>2024-05-21T17:25:34.000Z</updated>
+        <content type="html"><![CDATA[<p>在 shell 脚本中，默认情况下，不能直接使用当前用户环境变量的 alias。这是因为 shell 脚本在一个子 shell 中运行，而子 shell 不会继承父 shell 的别名（alias）。然而，有一种方法可以解决这个问题。</p>
+<p>首先，你需要在脚本开头添加以下行：</p>
+<pre><code class="language-bash">shopt -s expand_aliases
+source ~/.bashrc
+</code></pre>
+<p>第一行 shopt -s expand_aliases 允许 shell 脚本在解释别名时进行扩展。第二行 source ~/.bashrc 加载当前用户的环境变量，其中包括 alias</p>
+<p>然后，你就可以在脚本中使用当前用户环境变量的 alias 了</p>
+<p>以下是一个示例脚本</p>
+<pre><code class="language-bash">#!/bin/bash
+
+shopt -s expand_aliases
+source ~/.bashrc
+
+# 使用当前用户环境变量的 alias
+alias_command
+在这个示例中，alias_command 是一个在当前用户的环境变量中定义的 alias
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[sources.list新格式]]></title>
+        <id>https://zhangyiming748.github.io/post/new_sources_list/</id>
+        <link href="https://zhangyiming748.github.io/post/new_sources_list/">
+        </link>
+        <updated>2024-05-07T16:47:38.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="sourceslist格式-etcaptsourceslist">sources.list格式 <code>/etc/apt/sources.list</code></h1>
+<pre><code class="language-bash"># 默认注释了源码仓库，如有需要可自行取消注释
+deb http://mirrors.ustc.edu.cn/debian bookworm main contrib non-free non-free-firmware
+# deb-src http://mirrors.ustc.edu.cn/debian bookworm main contrib non-free non-free-firmware
+deb http://mirrors.ustc.edu.cn/debian bookworm-updates main contrib non-free non-free-firmware
+# deb-src http://mirrors.ustc.edu.cn/debian bookworm-updates main contrib non-free non-free-firmware
+
+# backports 软件源，请按需启用
+# deb http://mirrors.ustc.edu.cn/debian bookworm-backports main contrib non-free non-free-firmware
+# deb-src http://mirrors.ustc.edu.cn/debian bookworm-backports main contrib non-free non-free-firmware
+</code></pre>
+<h1 id="deb822格式-etcaptsourceslistddebiansources">deb822格式 <code>/etc/apt/sources.list.d/debian.sources</code></h1>
+<pre><code class="language-bash">Types: deb
+URIs: http://mirrors4.tuna.tsinghua.edu.cn/debian
+Suites: bookworm bookworm-updates
+Components: main contrib non-free non-free-firmware
+Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
+
+Types: deb
+URIs: http://mirrors4.tuna.tsinghua.edu.cn/debian-security
+Suites: bookworm-security
+Components: main contrib non-free non-free-firmware
+Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
+
+Types: deb-src
+URIs: http://mirrors4.tuna.tsinghua.edu.cn/debian
+Suites: bookworm bookworm-updates
+Components: main contrib non-free non-free-firmware
+Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
+
+Types: deb-src
+URIs: http://mirrors4.tuna.tsinghua.edu.cn/debian-security
+Suites: bookworm-security
+Components: main contrib non-free non-free-firmware
+Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[获取pip安装包的缓存 以便迁移到断网环境安装]]></title>
+        <id>https://zhangyiming748.github.io/post/pip_cache/</id>
+        <link href="https://zhangyiming748.github.io/post/pip_cache/">
+        </link>
+        <updated>2024-05-07T09:52:15.000Z</updated>
+        <content type="html"><![CDATA[<p>联网电脑安装后文件保存在 <code>~/.cache/pip</code>文件夹<br>
+打包这个文件夹转移到断网电脑<br>
+断网电脑使用<code>RUN pip install &lt;package name&gt; --break-system-packages</code>直接安装</p>
+]]></content>
+    </entry>
+</feed>
