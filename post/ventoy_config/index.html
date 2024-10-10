@@ -1,0 +1,2709 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>Ventoy配置文件 | 张益铭的博客</title>
+<meta name="description" content="子非鱼,安知鱼之乐?
+子非我,安知我不知鱼之乐?">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="shortcut icon" href="https://zhangyiming748.github.io/favicon.ico?v=1728561503640">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="stylesheet" href="https://unpkg.com/papercss@1.6.1/dist/paper.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://zhangyiming748.github.io/styles/main.css">
+
+
+  
+
+  
+    <link rel="stylesheet" href="https://unpkg.com/disqusjs@1.1/dist/disqusjs.css" />
+  
+
+<script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-141755803-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-141755803-1');
+</script>
+
+
+  </head>
+  <body>
+  
+    <nav class="navbar border fixed split-nav">
+  <div class="nav-brand">
+    <h3><a href="https://zhangyiming748.github.io">张益铭的博客</a></h3>
+  </div>
+  <div class="collapsible">
+    <input id="collapsible1" type="checkbox" name="collapsible1">
+    <button>
+      <label for="collapsible1">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+      </label>
+    </button>
+    <div class="collapsible-body">
+      <ul class="inline">
+        
+          <li>
+            
+              <a href="/" class="menu">
+                首页
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/archives" class="menu">
+                归档
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/tags" class="menu">
+                标签
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/post/about" class="menu">
+                关于
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/post/test" class="menu">
+                长期测试
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="https://yeasy.gitbook.io/docker_practice/" class="menu" target="_blank">
+                docker
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="https://mirrors.tuna.tsinghua.edu.cn/" class="menu" target="_blank">
+                清华源
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="https://appstorrent.ru/" class="menu" target="_blank">
+                mac软件
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="http://api.jrsgslb.cn/cos/url.php?return=img" class="menu" target="_blank">
+                手气不错
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/post/anime" class="menu">
+                下载队列
+              </a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div id="top" class="row site">
+      <div class="sm-12 md-8 col">
+        <div class="paper">
+          <article class="article">
+            <h1>Ventoy配置文件</h1>
+            <p class="article-meta">
+              2022-09-26
+              
+                <a href="https://zhangyiming748.github.io/tag/gHhqkzUH9/" class="badge success">
+                  ventoy
+                </a>
+              
+            </p>
+            
+            <div class="post-content" v-pre>
+              <p>如果你使用的是Linux系统,完全可以通过VentoyPlugson傻瓜化图形界面操作获得和码农一样的个性化定制<br>
+<img src="https://www.ventoy.net/static/img/ventoyplugson_cn.png" alt="VentoyPlugson.sh" loading="lazy"></p>
+<h1 id="其中最关键的配置文件写法示例">其中最关键的配置文件写法示例</h1>
+<pre><code class="language-json">{
+    &quot;control&quot;:[
+        { &quot;VTOY_WIN11_BYPASS_CHECK&quot;: &quot;1&quot; },
+        { &quot;VTOY_HELP_TXT_LANGUAGE&quot;: &quot;zh_CN&quot; },// 主界面使用的语言
+        { &quot;VTOY_DEFAULT_SEARCH_ROOT&quot;: &quot;/iso&quot; }// 查找镜像启示的目录,避免全盘搜索不必要的文件,加快速度
+    ],
+    &quot;theme&quot;:{
+        &quot;file&quot;: &quot;/ventoy/theme/bigsur/theme.txt&quot;,// 使用的主题文件
+        &quot;gfxmode&quot;: &quot;1920x1080&quot;// 第一个界面使用的分辨率,如果你有设置壁纸的话,最好这里设置一下
+    },
+    &quot;menu_alias&quot;:[
+        {
+            &quot;image&quot;: &quot;/iso/en_windows_thin_pc_x86_697681.iso&quot;,// 镜像所在位置
+            &quot;alias&quot;: &quot;Windows Thin PC&quot;// 镜像在启动选择菜单中显示的名称
+        },
+        {
+            &quot;image&quot;: &quot;/iso/cn_windows_10_enterprise_ltsc_2019_x64_dvd_d17070a8.iso&quot;,
+            &quot;alias&quot;: &quot;Windows 10 LTSC&quot;
+        },
+        {
+            &quot;image&quot;: &quot;/iso/gparted-live-1.4.0-1-amd64.iso&quot;,
+            &quot;alias&quot;: &quot;Gparted&quot;
+        },
+        {
+            &quot;image&quot;: &quot;/iso/uniontechos-desktop-21.3-home-amd64.iso&quot;,
+            &quot;alias&quot;: &quot;UOS家庭版&quot;
+        },
+        {
+            &quot;image&quot;: &quot;/iso/Hikari_PE_X64_V8.2_SC.iso&quot;,
+            &quot;alias&quot;: &quot;Hikari PE&quot;
+        },
+        {
+            &quot;image&quot;: &quot;/iso/ubuntu-22.04-desktop-amd64.iso&quot;,
+            &quot;alias&quot;: &quot;Ubuntu 22.04&quot;
+        },
+        {
+            &quot;image&quot;: &quot;/iso/openEuler-22.03-LTS-x86_64-dvd.iso&quot;,
+            &quot;alias&quot;: &quot;openEuler 22.03&quot;
+        },
+        {
+            &quot;image&quot;: &quot;/iso/uos-livetools-desktop-20220425_amd.iso&quot;,
+            &quot;alias&quot;: &quot;UOS-Tools&quot;
+        },
+        {
+            &quot;image&quot;: &quot;/iso/19044.1288.211006-0501.21h2_release_svc_refresh_CLIENT_LTSC_EVAL_x64FRE_zh-cn.iso&quot;,
+            &quot;alias&quot;: &quot;Windows LTSC 2021&quot;
+        }
+    ]
+}
+</code></pre>
+<h1 id="比较大的数据分区目录结构">比较大的数据分区目录结构</h1>
+<pre><code class="language-shell">.
+├── Edgeless
+│         ├── Nes_Inport.7z
+│         ├── Resource
+│         │         ├── ATI_25.10.1.39_泉水叮咚.7z
+│         │         ├── HDTunePro_5.7.5.0_0.0.7z
+│         │         ├── LLFTool低格工具_4.40.0.0_Cno.7z
+│         │         ├── WindowsGame_1.0.0.0_可爱の萌新酱.7z
+│         │         ├── 鲁大师_6.1022.3255.120_Horatio+Shaw.7z
+│         │         ├── 芯片精灵_1.0.0.0_Brzh.7z
+│         │         ├── 火绒安全_5.0.69.5_Cno(bot).7z
+│         │         ├── 搜狗拼音_8.4.0.1039_Cno.7z
+│         │         ├── 无线网卡驱动_1.0.0.0_光卡.7z
+│         │         ├── 网卡增强驱动_1.1.0_Fir.7z
+│         │         ├── 植物大战僵尸beta版_6.25.4.1_Cno.7z
+│         │         ├── 一键启用所有插件.cmd
+│         │         ├── 一键禁用所有插件.cmd
+│         │         └── 硬盘整数分区计算器_1.2_System3206.7z
+│         ├── version.txt
+│         └── wp.jpg  
+├── Edgeless_4-1-0.wim
+├── System Volume Information
+│         ├── EDP
+│         │         └── Recovery
+│         ├── IndexerVolumeGuid
+│         └── WPSettings.dat
+├── fonts
+│         ├── ttf
+│         │         ├── JetBrainsMono-Bold.ttf
+│         │         ├── JetBrainsMono-BoldItalic.ttf
+│         │         ├── JetBrainsMono-ExtraBold.ttf
+│         │         ├── JetBrainsMono-ExtraBoldItalic.ttf
+│         │         ├── JetBrainsMono-ExtraLight.ttf
+│         │         ├── JetBrainsMono-ExtraLightItalic.ttf
+│         │         ├── JetBrainsMono-Italic.ttf
+│         │         ├── JetBrainsMono-Light.ttf
+│         │         ├── JetBrainsMono-LightItalic.ttf
+│         │         ├── JetBrainsMono-Medium.ttf
+│         │         ├── JetBrainsMono-MediumItalic.ttf
+│         │         ├── JetBrainsMono-Regular.ttf
+│         │         ├── JetBrainsMono-SemiBold.ttf
+│         │         ├── JetBrainsMono-SemiBoldItalic.ttf
+│         │         ├── JetBrainsMono-Thin.ttf
+│         │         ├── JetBrainsMono-ThinItalic.ttf
+│         │         ├── JetBrainsMonoNL-Bold.ttf
+│         │         ├── JetBrainsMonoNL-BoldItalic.ttf
+│         │         ├── JetBrainsMonoNL-ExtraBold.ttf
+│         │         ├── JetBrainsMonoNL-ExtraBoldItalic.ttf
+│         │         ├── JetBrainsMonoNL-ExtraLight.ttf
+│         │         ├── JetBrainsMonoNL-ExtraLightItalic.ttf
+│         │         ├── JetBrainsMonoNL-Italic.ttf
+│         │         ├── JetBrainsMonoNL-Light.ttf
+│         │         ├── JetBrainsMonoNL-LightItalic.ttf
+│         │         ├── JetBrainsMonoNL-Medium.ttf
+│         │         ├── JetBrainsMonoNL-MediumItalic.ttf
+│         │         ├── JetBrainsMonoNL-Regular.ttf
+│         │         ├── JetBrainsMonoNL-SemiBold.ttf
+│         │         ├── JetBrainsMonoNL-SemiBoldItalic.ttf
+│         │         ├── JetBrainsMonoNL-Thin.ttf
+│         │         └── JetBrainsMonoNL-ThinItalic.ttf
+│         ├── variable
+│         │         ├── JetBrainsMono-Italic[wght].ttf
+│         │         └── JetBrainsMono[wght].ttf
+│         └── webfonts
+│             ├── JetBrainsMono-Bold.woff2
+│             ├── JetBrainsMono-BoldItalic.woff2
+│             ├── JetBrainsMono-ExtraBold.woff2
+│             ├── JetBrainsMono-ExtraBoldItalic.woff2
+│             ├── JetBrainsMono-ExtraLight.woff2
+│             ├── JetBrainsMono-ExtraLightItalic.woff2
+│             ├── JetBrainsMono-Italic.woff2
+│             ├── JetBrainsMono-Light.woff2
+│             ├── JetBrainsMono-LightItalic.woff2
+│             ├── JetBrainsMono-Medium.woff2
+│             ├── JetBrainsMono-MediumItalic.woff2
+│             ├── JetBrainsMono-Regular.woff2
+│             ├── JetBrainsMono-SemiBold.woff2
+│             ├── JetBrainsMono-SemiBoldItalic.woff2
+│             ├── JetBrainsMono-Thin.woff2
+│             └── JetBrainsMono-ThinItalic.woff2
+├── iso
+│         ├── 19044.1288.211006-0501.21h2_release_svc_refresh_CLIENT_LTSC_EVAL_x64FRE_zh-cn.iso
+│         ├── Hikari_PE_X64_V8.2_SC.iso
+│         ├── Kylin-Server-10-SP2-x86-Release-Build09-20210524.iso
+│         ├── cn_windows_10_enterprise_ltsc_2019_x64_dvd_d17070a8.iso
+│         ├── en_windows_thin_pc_x86_697681.iso
+│         ├── gparted-live-1.4.0-1-amd64.iso
+│         ├── gparted-live-1.4.0-5-amd64.iso
+│         ├── openEuler-22.03-LTS-x86_64-dvd.iso
+│         ├── openKylin-0.7.5-x86_64.iso
+│         ├── ubuntu-22.04-desktop-amd64.iso
+│         ├── ubuntu-22.04.1-live-server-amd64.iso
+│         ├── uniontechos-desktop-21.3-home-amd64.iso
+│         ├── uos-livetools-desktop-20220425_amd.iso
+│         └── zh-cn_windows_11_business_editions_version_21h2_updated_july_2022_x64_dvd_b53f45ba.iso
+├── tools
+│         ├── Debian
+│         │         └── icalingua_2.6.4_amd64.deb
+│         ├── Universal
+│         │         ├── Dism++10.1.1002.1.zip
+│         │         ├── Gamesys_V1.1-Gamersky.rar
+│         │         ├── Intel-Driver-and-Support-Assistant-Installer.exe
+│         │         ├── LTSB-Add-MicrosoftStore-master.zip
+│         │         ├── MicrosoftCorporationII.WindowsSubsystemForAndroid_2205.40000.14.0_neutral___8wekyb3d8bbwe.Msixbundle
+│         │         ├── MicrosoftCorporationII.WindowsSubsystemForLinux_0.61.8.0_neutral___8wekyb3d8bbwe.Msixbundle
+│         │         ├── OneDriveSetup.exe
+│         │         ├── Tools.zip
+│         │         ├── VMware-tools-windows-11.0.0-14549434.iso
+│         │         ├── VMware-workstation-16.2.3-19376536.exe
+│         │         ├── Win7经典游戏和组件.zip
+│         │         ├── Windows Media Center For Win11.zip
+│         │         ├── Windows7Games_for_Windows_11_10_8.zip
+│         │         ├── balena-etcher-electron_1.7.9_amd64.deb
+│         │         ├── rufus-3.19p.exe
+│         │         ├── ventoy-1.0.78-linux.tar.gz
+│         │         └── windowsdesktop-runtime-6.0.4-win-x64.exe
+│         ├── Windows 10
+│         │         ├── 7z2107-x64.exe
+│         │         ├── WindowsDefenderControl.zip
+│         │         └── 数字权利激活工具.zip
+│         ├── Windows thin PC
+│         │         ├── WindowsThinPC功能包.zip
+│         │         ├── lp.cab
+│         │         └── 证书和语言包.zip
+│         └── openEuler
+│             └── readme.openEuler
+├── ventoy
+│         ├── theme
+│         │         └── bigsur
+│         │             ├── DejaVuSans-48.pf2
+│         │             ├── DejaVuSans-Regular-14.pf2
+│         │             ├── background.png
+│         │             ├── boot_menu_c.png
+│         │             ├── boot_menu_e.png
+│         │             ├── boot_menu_n.png
+│         │             ├── boot_menu_ne.png
+│         │             ├── boot_menu_nw.png
+│         │             ├── boot_menu_s.png
+│         │             ├── boot_menu_se.png
+│         │             ├── boot_menu_sw.png
+│         │             ├── boot_menu_w.png
+│         │             ├── icons
+│         │             │         ├── Manjaro.i686.png
+│         │             │         ├── Manjaro.x86_64.png
+│         │             │         ├── antergos.png
+│         │             │         ├── arch.png
+│         │             │         ├── archlinux.png
+│         │             │         ├── arcolinux.png
+│         │             │         ├── bsd.png
+│         │             │         ├── cancel.png
+│         │             │         ├── chakra.png
+│         │             │         ├── crunchbang.png
+│         │             │         ├── debian.png
+│         │             │         ├── deepin.png
+│         │             │         ├── devuan.png
+│         │             │         ├── driver.png
+│         │             │         ├── edit.png
+│         │             │         ├── edubuntu.png
+│         │             │         ├── efi.png
+│         │             │         ├── elementary.png
+│         │             │         ├── endeavouros.png
+│         │             │         ├── fedora.png
+│         │             │         ├── find.efi.png
+│         │             │         ├── find.none.png
+│         │             │         ├── frugalware.png
+│         │             │         ├── gentoo.png
+│         │             │         ├── gnu-linux.png
+│         │             │         ├── help.png
+│         │             │         ├── iso.png
+│         │             │         ├── kali.png
+│         │             │         ├── kaos.png
+│         │             │         ├── kbd.png
+│         │             │         ├── korora.png
+│         │             │         ├── kubuntu.png
+│         │             │         ├── lang.png
+│         │             │         ├── lfs.png
+│         │             │         ├── linux.png
+│         │             │         ├── linuxmint.png
+│         │             │         ├── lubuntu.png
+│         │             │         ├── macosx.png
+│         │             │         ├── mageia.png
+│         │             │         ├── manjaro.png
+│         │             │         ├── memtest.png
+│         │             │         ├── opensuse.png
+│         │             │         ├── pop-os.png
+│         │             │         ├── recovery.png
+│         │             │         ├── restart.png
+│         │             │         ├── sabayon.png
+│         │             │         ├── shutdown.png
+│         │             │         ├── siduction.png
+│         │             │         ├── solus.png
+│         │             │         ├── steamos.png
+│         │             │         ├── type.png
+│         │             │         ├── tz.png
+│         │             │         ├── ubuntu.png
+│         │             │         ├── unknown.png
+│         │             │         ├── unset.png
+│         │             │         ├── void.png
+│         │             │         ├── windows.png
+│         │             │         ├── xubuntu.png
+│         │             │         └── zorin-os.png
+│         │             ├── item_c.png
+│         │             ├── item_e.png
+│         │             ├── item_n.png
+│         │             ├── item_ne.png
+│         │             ├── item_nw.png
+│         │             ├── item_s.png
+│         │             ├── item_se.png
+│         │             ├── item_sw.png
+│         │             ├── item_w.png
+│         │             ├── password_field.png
+│         │             ├── select_c.png
+│         │             ├── select_e.png
+│         │             ├── select_n.png
+│         │             ├── select_ne.png
+│         │             ├── select_nw.png
+│         │             ├── select_s.png
+│         │             ├── select_se.png
+│         │             ├── select_sw.png
+│         │             ├── select_w.png
+│         │             ├── slider_c.png
+│         │             ├── slider_n.png
+│         │             ├── slider_s.png
+│         │             ├── terminal_c.png
+│         │             ├── terminal_e.png
+│         │             ├── terminal_n.png
+│         │             ├── terminal_ne.png
+│         │             ├── terminal_nw.png
+│         │             ├── terminal_s.png
+│         │             ├── terminal_se.png
+│         │             ├── terminal_sw.png
+│         │             ├── terminal_w.png
+│         │             ├── terminus-12.pf2
+│         │             ├── terminus-14.pf2
+│         │             ├── terminus-16.pf2
+│         │             └── theme.txt
+│         ├── ventoy.json
+│         ├── ventoy_backup.json
+│         └── ventoy_wimboot.img
+├── wallpaper
+│         ├── (2).jpg
+│         └── (9).jpg
+└── wim
+    └── install.wim
+
+22 directories, 221 files
+</code></pre>
+<h1 id="比较小的启动分区目录结构">比较小的启动分区目录结构</h1>
+<pre><code class="language-shell">.
+├── EFI
+│         └── BOOT
+│             ├── BOOTAA64.EFI
+│             ├── BOOTIA32.EFI
+│             ├── BOOTMIPS.EFI
+│             └── BOOTX64.EFI
+├── grub
+│         ├── arm64-efi
+│         │         ├── adler32.mod
+│         │         ├── affs.mod
+│         │         ├── afs.mod
+│         │         ├── archelp.mod
+│         │         ├── bfs.mod
+│         │         ├── blscfg.mod
+│         │         ├── bswap_test.mod
+│         │         ├── btrfs.mod
+│         │         ├── cbfs.mod
+│         │         ├── cmdline_cat_test.mod
+│         │         ├── cmp.mod
+│         │         ├── cmp_test.mod
+│         │         ├── command.lst
+│         │         ├── cpio.mod
+│         │         ├── cpio_be.mod
+│         │         ├── crc64.mod
+│         │         ├── crypto.lst
+│         │         ├── cryptodisk.mod
+│         │         ├── ctz_test.mod
+│         │         ├── date.mod
+│         │         ├── datehook.mod
+│         │         ├── disk.mod
+│         │         ├── div.mod
+│         │         ├── div_test.mod
+│         │         ├── dm_nv.mod
+│         │         ├── efinet.mod
+│         │         ├── elf.mod
+│         │         ├── eval.mod
+│         │         ├── exfctest.mod
+│         │         ├── f2fs.mod
+│         │         ├── fdt.lst
+│         │         ├── fdt.mod
+│         │         ├── fs.lst
+│         │         ├── functional_test.mod
+│         │         ├── fwload.mod
+│         │         ├── gcry_arcfour.mod
+│         │         ├── gcry_blowfish.mod
+│         │         ├── gcry_camellia.mod
+│         │         ├── gcry_cast5.mod
+│         │         ├── gcry_crc.mod
+│         │         ├── gcry_des.mod
+│         │         ├── gcry_dsa.mod
+│         │         ├── gcry_idea.mod
+│         │         ├── gcry_md4.mod
+│         │         ├── gcry_rfc2268.mod
+│         │         ├── gcry_rijndael.mod
+│         │         ├── gcry_rmd160.mod
+│         │         ├── gcry_rsa.mod
+│         │         ├── gcry_seed.mod
+│         │         ├── gcry_serpent.mod
+│         │         ├── gcry_sha1.mod
+│         │         ├── gcry_sha256.mod
+│         │         ├── gcry_tiger.mod
+│         │         ├── gcry_twofish.mod
+│         │         ├── gcry_whirlpool.mod
+│         │         ├── geli.mod
+│         │         ├── gfxterm_menu.mod
+│         │         ├── gptsync.mod
+│         │         ├── hello.mod
+│         │         ├── help.mod
+│         │         ├── hexdump.mod
+│         │         ├── hfs.mod
+│         │         ├── hfspluscomp.mod
+│         │         ├── jfs.mod
+│         │         ├── keystatus.mod
+│         │         ├── ldm.mod
+│         │         ├── loadenv.mod
+│         │         ├── lsacpi.mod
+│         │         ├── lsefi.mod
+│         │         ├── lsefimmap.mod
+│         │         ├── lsefisystab.mod
+│         │         ├── lsmmap.mod
+│         │         ├── lssal.mod
+│         │         ├── luks.mod
+│         │         ├── lvm.mod
+│         │         ├── macbless.mod
+│         │         ├── macho.mod
+│         │         ├── mdraid09.mod
+│         │         ├── mdraid09_be.mod
+│         │         ├── mdraid1x.mod
+│         │         ├── memdisk.mod
+│         │         ├── memrw.mod
+│         │         ├── minix.mod
+│         │         ├── minix2.mod
+│         │         ├── minix2_be.mod
+│         │         ├── minix3.mod
+│         │         ├── minix3_be.mod
+│         │         ├── minix_be.mod
+│         │         ├── moddep.lst
+│         │         ├── mouse.mod
+│         │         ├── mpi.mod
+│         │         ├── msdospart.mod
+│         │         ├── mul_test.mod
+│         │         ├── nilfs2.mod
+│         │         ├── normal.mod
+│         │         ├── ntfscomp.mod
+│         │         ├── odc.mod
+│         │         ├── offsetio.mod
+│         │         ├── part_acorn.mod
+│         │         ├── part_amiga.mod
+│         │         ├── part_bsd.mod
+│         │         ├── part_dfly.mod
+│         │         ├── part_dvh.mod
+│         │         ├── part_plan.mod
+│         │         ├── part_sun.mod
+│         │         ├── part_sunpc.mod
+│         │         ├── partmap.lst
+│         │         ├── parttool.lst
+│         │         ├── parttool.mod
+│         │         ├── password.mod
+│         │         ├── pbkdf2_test.mod
+│         │         ├── pgp.mod
+│         │         ├── probe.mod
+│         │         ├── procfs.mod
+│         │         ├── progress.mod
+│         │         ├── raid5rec.mod
+│         │         ├── raid6rec.mod
+│         │         ├── reiserfs.mod
+│         │         ├── romfs.mod
+│         │         ├── scsi.mod
+│         │         ├── search_fs_file.mod
+│         │         ├── search_fs_uuid.mod
+│         │         ├── search_label.mod
+│         │         ├── setjmp.mod
+│         │         ├── setjmp_test.mod
+│         │         ├── sfs.mod
+│         │         ├── shift_test.mod
+│         │         ├── signature_test.mod
+│         │         ├── sleep_test.mod
+│         │         ├── smbios.mod
+│         │         ├── strtoull_test.mod
+│         │         ├── syslinuxcfg.mod
+│         │         ├── terminal.lst
+│         │         ├── test_blockarg.mod
+│         │         ├── testload.mod
+│         │         ├── testspeed.mod
+│         │         ├── tga.mod
+│         │         ├── time.mod
+│         │         ├── tr.mod
+│         │         ├── ufs1.mod
+│         │         ├── ufs1_be.mod
+│         │         ├── ufs2.mod
+│         │         ├── verifiers.mod
+│         │         ├── video.lst
+│         │         ├── videoinfo.mod
+│         │         ├── videotest.mod
+│         │         ├── videotest_checksum.mod
+│         │         ├── xen_boot.mod
+│         │         ├── xnu_uuid.mod
+│         │         ├── xnu_uuid_test.mod
+│         │         ├── zfs.mod
+│         │         ├── zfscrypt.mod
+│         │         ├── zfsinfo.mod
+│         │         └── zstd.mod
+│         ├── checksum.cfg
+│         ├── debug.cfg
+│         ├── fonts
+│         │         ├── ascii.pf2
+│         │         └── unicode.pf2
+│         ├── grub.cfg
+│         ├── help.tar.gz
+│         ├── hwinfo.cfg
+│         ├── i386-efi
+│         │         ├── adler32.mod
+│         │         ├── affs.mod
+│         │         ├── afs.mod
+│         │         ├── ahci.mod
+│         │         ├── aout.mod
+│         │         ├── appleldr.mod
+│         │         ├── archelp.mod
+│         │         ├── ata.mod
+│         │         ├── backtrace.mod
+│         │         ├── bfs.mod
+│         │         ├── blscfg.mod
+│         │         ├── bsd.mod
+│         │         ├── bswap_test.mod
+│         │         ├── btrfs.mod
+│         │         ├── cbfs.mod
+│         │         ├── cbls.mod
+│         │         ├── cbmemc.mod
+│         │         ├── cbtable.mod
+│         │         ├── cbtime.mod
+│         │         ├── cmdline_cat_test.mod
+│         │         ├── cmp.mod
+│         │         ├── cmp_test.mod
+│         │         ├── command.lst
+│         │         ├── cpio.mod
+│         │         ├── cpio_be.mod
+│         │         ├── cpuid.mod
+│         │         ├── crc64.mod
+│         │         ├── crypto.lst
+│         │         ├── cryptodisk.mod
+│         │         ├── cs5536.mod
+│         │         ├── ctz_test.mod
+│         │         ├── date.mod
+│         │         ├── datehook.mod
+│         │         ├── disk.mod
+│         │         ├── div.mod
+│         │         ├── div_test.mod
+│         │         ├── dm_nv.mod
+│         │         ├── efinet.mod
+│         │         ├── ehci.mod
+│         │         ├── elf.mod
+│         │         ├── eval.mod
+│         │         ├── exfctest.mod
+│         │         ├── f2fs.mod
+│         │         ├── fdt.lst
+│         │         ├── fixvideo.mod
+│         │         ├── fs.lst
+│         │         ├── functional_test.mod
+│         │         ├── gcry_arcfour.mod
+│         │         ├── gcry_blowfish.mod
+│         │         ├── gcry_camellia.mod
+│         │         ├── gcry_cast5.mod
+│         │         ├── gcry_crc.mod
+│         │         ├── gcry_des.mod
+│         │         ├── gcry_dsa.mod
+│         │         ├── gcry_idea.mod
+│         │         ├── gcry_md4.mod
+│         │         ├── gcry_rfc2268.mod
+│         │         ├── gcry_rijndael.mod
+│         │         ├── gcry_rmd160.mod
+│         │         ├── gcry_rsa.mod
+│         │         ├── gcry_seed.mod
+│         │         ├── gcry_serpent.mod
+│         │         ├── gcry_sha1.mod
+│         │         ├── gcry_sha256.mod
+│         │         ├── gcry_tiger.mod
+│         │         ├── gcry_twofish.mod
+│         │         ├── gcry_whirlpool.mod
+│         │         ├── gdb.mod
+│         │         ├── geli.mod
+│         │         ├── gptsync.mod
+│         │         ├── hdparm.mod
+│         │         ├── hello.mod
+│         │         ├── help.mod
+│         │         ├── hexdump.mod
+│         │         ├── hfs.mod
+│         │         ├── hfspluscomp.mod
+│         │         ├── iorw.mod
+│         │         ├── jfs.mod
+│         │         ├── keylayouts.mod
+│         │         ├── keystatus.mod
+│         │         ├── ldm.mod
+│         │         ├── legacy_password_test.mod
+│         │         ├── legacycfg.mod
+│         │         ├── linux16.mod
+│         │         ├── loadbios.mod
+│         │         ├── loadenv.mod
+│         │         ├── lsacpi.mod
+│         │         ├── lsefi.mod
+│         │         ├── lsefimmap.mod
+│         │         ├── lsefisystab.mod
+│         │         ├── lsmmap.mod
+│         │         ├── lspci.mod
+│         │         ├── lssal.mod
+│         │         ├── luks.mod
+│         │         ├── lvm.mod
+│         │         ├── macbless.mod
+│         │         ├── macho.mod
+│         │         ├── mdraid09.mod
+│         │         ├── mdraid09_be.mod
+│         │         ├── mdraid1x.mod
+│         │         ├── memdisk.mod
+│         │         ├── memrw.mod
+│         │         ├── minix.mod
+│         │         ├── minix2.mod
+│         │         ├── minix2_be.mod
+│         │         ├── minix3.mod
+│         │         ├── minix3_be.mod
+│         │         ├── minix_be.mod
+│         │         ├── moddep.lst
+│         │         ├── morse.mod
+│         │         ├── mpi.mod
+│         │         ├── msdospart.mod
+│         │         ├── mul_test.mod
+│         │         ├── multiboot.mod
+│         │         ├── multiboot2.mod
+│         │         ├── nativedisk.mod
+│         │         ├── nilfs2.mod
+│         │         ├── normal.mod
+│         │         ├── ntfscomp.mod
+│         │         ├── odc.mod
+│         │         ├── offsetio.mod
+│         │         ├── ohci.mod
+│         │         ├── part_acorn.mod
+│         │         ├── part_amiga.mod
+│         │         ├── part_bsd.mod
+│         │         ├── part_dfly.mod
+│         │         ├── part_dvh.mod
+│         │         ├── part_plan.mod
+│         │         ├── part_sun.mod
+│         │         ├── part_sunpc.mod
+│         │         ├── partmap.lst
+│         │         ├── parttool.lst
+│         │         ├── parttool.mod
+│         │         ├── password.mod
+│         │         ├── pata.mod
+│         │         ├── pbkdf2_test.mod
+│         │         ├── pcidump.mod
+│         │         ├── pgp.mod
+│         │         ├── play.mod
+│         │         ├── probe.mod
+│         │         ├── procfs.mod
+│         │         ├── progress.mod
+│         │         ├── raid5rec.mod
+│         │         ├── raid6rec.mod
+│         │         ├── random.mod
+│         │         ├── rdmsr.mod
+│         │         ├── reiserfs.mod
+│         │         ├── romfs.mod
+│         │         ├── scsi.mod
+│         │         ├── search_fs_file.mod
+│         │         ├── search_fs_uuid.mod
+│         │         ├── search_label.mod
+│         │         ├── setjmp.mod
+│         │         ├── setjmp_test.mod
+│         │         ├── setpci.mod
+│         │         ├── sfs.mod
+│         │         ├── shift_test.mod
+│         │         ├── signature_test.mod
+│         │         ├── sleep_test.mod
+│         │         ├── smbios.mod
+│         │         ├── spkmodem.mod
+│         │         ├── strtoull_test.mod
+│         │         ├── syslinuxcfg.mod
+│         │         ├── terminal.lst
+│         │         ├── test_blockarg.mod
+│         │         ├── testload.mod
+│         │         ├── testspeed.mod
+│         │         ├── tga.mod
+│         │         ├── time.mod
+│         │         ├── tr.mod
+│         │         ├── ufs1.mod
+│         │         ├── ufs1_be.mod
+│         │         ├── ufs2.mod
+│         │         ├── uhci.mod
+│         │         ├── usb.mod
+│         │         ├── usbms.mod
+│         │         ├── usbserial_common.mod
+│         │         ├── usbserial_ftdi.mod
+│         │         ├── usbserial_pl2303.mod
+│         │         ├── usbserial_usbdebug.mod
+│         │         ├── usbtest.mod
+│         │         ├── verifiers.mod
+│         │         ├── video.lst
+│         │         ├── videoinfo.mod
+│         │         ├── videotest.mod
+│         │         ├── videotest_checksum.mod
+│         │         ├── wrmsr.mod
+│         │         ├── xnu.mod
+│         │         ├── xnu_uuid.mod
+│         │         ├── xnu_uuid_test.mod
+│         │         ├── zfs.mod
+│         │         ├── zfscrypt.mod
+│         │         ├── zfsinfo.mod
+│         │         └── zstd.mod
+│         ├── i386-pc
+│         │         ├── acpi.mod
+│         │         ├── adler32.mod
+│         │         ├── affs.mod
+│         │         ├── afs.mod
+│         │         ├── ahci.mod
+│         │         ├── aout.mod
+│         │         ├── archelp.mod
+│         │         ├── ata.mod
+│         │         ├── backtrace.mod
+│         │         ├── bfs.mod
+│         │         ├── bitmap.mod
+│         │         ├── bitmap_scale.mod
+│         │         ├── blscfg.mod
+│         │         ├── bsd.mod
+│         │         ├── bswap_test.mod
+│         │         ├── btrfs.mod
+│         │         ├── bufio.mod
+│         │         ├── cat.mod
+│         │         ├── cbfs.mod
+│         │         ├── cbls.mod
+│         │         ├── cbmemc.mod
+│         │         ├── cbtable.mod
+│         │         ├── cbtime.mod
+│         │         ├── cmdline_cat_test.mod
+│         │         ├── cmosdump.mod
+│         │         ├── cmostest.mod
+│         │         ├── cmp.mod
+│         │         ├── cmp_test.mod
+│         │         ├── command.lst
+│         │         ├── cpio.mod
+│         │         ├── cpio_be.mod
+│         │         ├── cpuid.mod
+│         │         ├── crc64.mod
+│         │         ├── crypto.lst
+│         │         ├── crypto.mod
+│         │         ├── cryptodisk.mod
+│         │         ├── cs5536.mod
+│         │         ├── ctz_test.mod
+│         │         ├── datehook.mod
+│         │         ├── datetime.mod
+│         │         ├── diskfilter.mod
+│         │         ├── div.mod
+│         │         ├── div_test.mod
+│         │         ├── dm_nv.mod
+│         │         ├── efiemu.mod
+│         │         ├── ehci.mod
+│         │         ├── elf.mod
+│         │         ├── eval.mod
+│         │         ├── exfctest.mod
+│         │         ├── f2fs.mod
+│         │         ├── fdt.lst
+│         │         ├── file.mod
+│         │         ├── freedos.mod
+│         │         ├── fs.lst
+│         │         ├── fshelp.mod
+│         │         ├── functional_test.mod
+│         │         ├── gcry_arcfour.mod
+│         │         ├── gcry_blowfish.mod
+│         │         ├── gcry_camellia.mod
+│         │         ├── gcry_cast5.mod
+│         │         ├── gcry_crc.mod
+│         │         ├── gcry_des.mod
+│         │         ├── gcry_dsa.mod
+│         │         ├── gcry_idea.mod
+│         │         ├── gcry_md4.mod
+│         │         ├── gcry_rfc2268.mod
+│         │         ├── gcry_rijndael.mod
+│         │         ├── gcry_rmd160.mod
+│         │         ├── gcry_rsa.mod
+│         │         ├── gcry_seed.mod
+│         │         ├── gcry_serpent.mod
+│         │         ├── gcry_sha1.mod
+│         │         ├── gcry_sha256.mod
+│         │         ├── gcry_sha512.mod
+│         │         ├── gcry_tiger.mod
+│         │         ├── gcry_twofish.mod
+│         │         ├── gcry_whirlpool.mod
+│         │         ├── gdb.mod
+│         │         ├── geli.mod
+│         │         ├── gfxterm_menu.mod
+│         │         ├── gptsync.mod
+│         │         ├── hdparm.mod
+│         │         ├── hello.mod
+│         │         ├── hexdump.mod
+│         │         ├── hfs.mod
+│         │         ├── hfsplus.mod
+│         │         ├── hfspluscomp.mod
+│         │         ├── iorw.mod
+│         │         ├── jfs.mod
+│         │         ├── keylayouts.mod
+│         │         ├── keystatus.mod
+│         │         ├── ldm.mod
+│         │         ├── legacy_password_test.mod
+│         │         ├── legacycfg.mod
+│         │         ├── loadenv.mod
+│         │         ├── lsacpi.mod
+│         │         ├── lsapm.mod
+│         │         ├── lsmmap.mod
+│         │         ├── luks.mod
+│         │         ├── lvm.mod
+│         │         ├── macbless.mod
+│         │         ├── macho.mod
+│         │         ├── mda_text.mod
+│         │         ├── mdraid09.mod
+│         │         ├── mdraid09_be.mod
+│         │         ├── mdraid1x.mod
+│         │         ├── memdisk.mod
+│         │         ├── memrw.mod
+│         │         ├── minix.mod
+│         │         ├── minix2.mod
+│         │         ├── minix2_be.mod
+│         │         ├── minix3.mod
+│         │         ├── minix3_be.mod
+│         │         ├── minix_be.mod
+│         │         ├── mmap.mod
+│         │         ├── moddep.lst
+│         │         ├── morse.mod
+│         │         ├── mpi.mod
+│         │         ├── msdospart.mod
+│         │         ├── mul_test.mod
+│         │         ├── multiboot.mod
+│         │         ├── multiboot2.mod
+│         │         ├── nativedisk.mod
+│         │         ├── net.mod
+│         │         ├── newc.mod
+│         │         ├── nilfs2.mod
+│         │         ├── ntfscomp.mod
+│         │         ├── odc.mod
+│         │         ├── offsetio.mod
+│         │         ├── ohci.mod
+│         │         ├── part_acorn.mod
+│         │         ├── part_amiga.mod
+│         │         ├── part_apple.mod
+│         │         ├── part_bsd.mod
+│         │         ├── part_dfly.mod
+│         │         ├── part_dvh.mod
+│         │         ├── part_plan.mod
+│         │         ├── part_sun.mod
+│         │         ├── part_sunpc.mod
+│         │         ├── partmap.lst
+│         │         ├── parttool.lst
+│         │         ├── parttool.mod
+│         │         ├── password.mod
+│         │         ├── pata.mod
+│         │         ├── pbkdf2.mod
+│         │         ├── pbkdf2_test.mod
+│         │         ├── pcidump.mod
+│         │         ├── pgp.mod
+│         │         ├── plan9.mod
+│         │         ├── play.mod
+│         │         ├── priority_queue.mod
+│         │         ├── probe.mod
+│         │         ├── procfs.mod
+│         │         ├── progress.mod
+│         │         ├── pxe.mod
+│         │         ├── pxechain.mod
+│         │         ├── raid5rec.mod
+│         │         ├── raid6rec.mod
+│         │         ├── random.mod
+│         │         ├── rdmsr.mod
+│         │         ├── regexp.mod
+│         │         ├── reiserfs.mod
+│         │         ├── relocator.mod
+│         │         ├── romfs.mod
+│         │         ├── scsi.mod
+│         │         ├── search_fs_file.mod
+│         │         ├── search_fs_uuid.mod
+│         │         ├── search_label.mod
+│         │         ├── sendkey.mod
+│         │         ├── serial.mod
+│         │         ├── setjmp.mod
+│         │         ├── setjmp_test.mod
+│         │         ├── setpci.mod
+│         │         ├── sfs.mod
+│         │         ├── shift_test.mod
+│         │         ├── signature_test.mod
+│         │         ├── sleep_test.mod
+│         │         ├── smbios.mod
+│         │         ├── spkmodem.mod
+│         │         ├── strtoull_test.mod
+│         │         ├── syslinuxcfg.mod
+│         │         ├── terminal.lst
+│         │         ├── terminfo.mod
+│         │         ├── test_blockarg.mod
+│         │         ├── testload.mod
+│         │         ├── testspeed.mod
+│         │         ├── tga.mod
+│         │         ├── time.mod
+│         │         ├── truecrypt.mod
+│         │         ├── ufs1.mod
+│         │         ├── ufs1_be.mod
+│         │         ├── ufs2.mod
+│         │         ├── uhci.mod
+│         │         ├── usb.mod
+│         │         ├── usbms.mod
+│         │         ├── usbserial_common.mod
+│         │         ├── usbserial_ftdi.mod
+│         │         ├── usbserial_pl2303.mod
+│         │         ├── usbserial_usbdebug.mod
+│         │         ├── usbtest.mod
+│         │         ├── verifiers.mod
+│         │         ├── video.lst
+│         │         ├── wrmsr.mod
+│         │         ├── xnu.mod
+│         │         ├── xnu_uuid.mod
+│         │         ├── xnu_uuid_test.mod
+│         │         ├── zfs.mod
+│         │         ├── zfscrypt.mod
+│         │         ├── zfsinfo.mod
+│         │         └── zstd.mod
+│         ├── keyboard.cfg
+│         ├── localboot.cfg
+│         ├── mips64el-efi
+│         │         ├── adler32.mod
+│         │         ├── affs.mod
+│         │         ├── afs.mod
+│         │         ├── archelp.mod
+│         │         ├── bfs.mod
+│         │         ├── blscfg.mod
+│         │         ├── bswap_test.mod
+│         │         ├── btrfs.mod
+│         │         ├── cbfs.mod
+│         │         ├── cmdline_cat_test.mod
+│         │         ├── cmp.mod
+│         │         ├── cmp_test.mod
+│         │         ├── command.lst
+│         │         ├── cpio.mod
+│         │         ├── cpio_be.mod
+│         │         ├── crc64.mod
+│         │         ├── crypto.lst
+│         │         ├── cryptodisk.mod
+│         │         ├── ctz_test.mod
+│         │         ├── date.mod
+│         │         ├── datehook.mod
+│         │         ├── disk.mod
+│         │         ├── div.mod
+│         │         ├── div_test.mod
+│         │         ├── dm_nv.mod
+│         │         ├── efinet.mod
+│         │         ├── elf.mod
+│         │         ├── eval.mod
+│         │         ├── exfctest.mod
+│         │         ├── f2fs.mod
+│         │         ├── fdt.lst
+│         │         ├── fs.lst
+│         │         ├── functional_test.mod
+│         │         ├── fwload.mod
+│         │         ├── gcry_arcfour.mod
+│         │         ├── gcry_blowfish.mod
+│         │         ├── gcry_camellia.mod
+│         │         ├── gcry_cast5.mod
+│         │         ├── gcry_crc.mod
+│         │         ├── gcry_des.mod
+│         │         ├── gcry_dsa.mod
+│         │         ├── gcry_idea.mod
+│         │         ├── gcry_md4.mod
+│         │         ├── gcry_rfc2268.mod
+│         │         ├── gcry_rijndael.mod
+│         │         ├── gcry_rmd160.mod
+│         │         ├── gcry_rsa.mod
+│         │         ├── gcry_seed.mod
+│         │         ├── gcry_serpent.mod
+│         │         ├── gcry_sha1.mod
+│         │         ├── gcry_sha256.mod
+│         │         ├── gcry_tiger.mod
+│         │         ├── gcry_twofish.mod
+│         │         ├── gcry_whirlpool.mod
+│         │         ├── geli.mod
+│         │         ├── gfxterm_menu.mod
+│         │         ├── gptsync.mod
+│         │         ├── hello.mod
+│         │         ├── help.mod
+│         │         ├── hexdump.mod
+│         │         ├── hfs.mod
+│         │         ├── hfspluscomp.mod
+│         │         ├── jfs.mod
+│         │         ├── keystatus.mod
+│         │         ├── ldm.mod
+│         │         ├── loadenv.mod
+│         │         ├── lsacpi.mod
+│         │         ├── lsefi.mod
+│         │         ├── lsefimmap.mod
+│         │         ├── lsefisystab.mod
+│         │         ├── lsmmap.mod
+│         │         ├── lssal.mod
+│         │         ├── luks.mod
+│         │         ├── lvm.mod
+│         │         ├── macbless.mod
+│         │         ├── macho.mod
+│         │         ├── mdraid09.mod
+│         │         ├── mdraid09_be.mod
+│         │         ├── mdraid1x.mod
+│         │         ├── memdisk.mod
+│         │         ├── memrw.mod
+│         │         ├── minix.mod
+│         │         ├── minix2.mod
+│         │         ├── minix2_be.mod
+│         │         ├── minix3.mod
+│         │         ├── minix3_be.mod
+│         │         ├── minix_be.mod
+│         │         ├── moddep.lst
+│         │         ├── mouse.mod
+│         │         ├── mpi.mod
+│         │         ├── msdospart.mod
+│         │         ├── mul_test.mod
+│         │         ├── nilfs2.mod
+│         │         ├── normal.mod
+│         │         ├── ntfscomp.mod
+│         │         ├── odc.mod
+│         │         ├── offsetio.mod
+│         │         ├── part_acorn.mod
+│         │         ├── part_amiga.mod
+│         │         ├── part_bsd.mod
+│         │         ├── part_dfly.mod
+│         │         ├── part_dvh.mod
+│         │         ├── part_plan.mod
+│         │         ├── part_sun.mod
+│         │         ├── part_sunpc.mod
+│         │         ├── partmap.lst
+│         │         ├── parttool.lst
+│         │         ├── parttool.mod
+│         │         ├── password.mod
+│         │         ├── pbkdf2_test.mod
+│         │         ├── pgp.mod
+│         │         ├── probe.mod
+│         │         ├── procfs.mod
+│         │         ├── progress.mod
+│         │         ├── raid5rec.mod
+│         │         ├── raid6rec.mod
+│         │         ├── reiserfs.mod
+│         │         ├── relocator.mod
+│         │         ├── romfs.mod
+│         │         ├── scsi.mod
+│         │         ├── search_fs_file.mod
+│         │         ├── search_fs_uuid.mod
+│         │         ├── search_label.mod
+│         │         ├── setjmp.mod
+│         │         ├── setjmp_test.mod
+│         │         ├── sfs.mod
+│         │         ├── shift_test.mod
+│         │         ├── signature_test.mod
+│         │         ├── sleep_test.mod
+│         │         ├── smbios.mod
+│         │         ├── strtoull_test.mod
+│         │         ├── syslinuxcfg.mod
+│         │         ├── terminal.lst
+│         │         ├── test_blockarg.mod
+│         │         ├── testload.mod
+│         │         ├── testspeed.mod
+│         │         ├── tga.mod
+│         │         ├── time.mod
+│         │         ├── tr.mod
+│         │         ├── ufs1.mod
+│         │         ├── ufs1_be.mod
+│         │         ├── ufs2.mod
+│         │         ├── verifiers.mod
+│         │         ├── video.lst
+│         │         ├── videoinfo.mod
+│         │         ├── videotest.mod
+│         │         ├── videotest_checksum.mod
+│         │         ├── xnu_uuid.mod
+│         │         ├── xnu_uuid_test.mod
+│         │         ├── zfs.mod
+│         │         ├── zfscrypt.mod
+│         │         ├── zfsinfo.mod
+│         │         └── zstd.mod
+│         ├── power.cfg
+│         ├── themes
+│         │         └── ventoy
+│         │             ├── background.png
+│         │             ├── menu_c.png
+│         │             ├── menu_e.png
+│         │             ├── menu_n.png
+│         │             ├── menu_ne.png
+│         │             ├── menu_nw.png
+│         │             ├── menu_s.png
+│         │             ├── menu_se.png
+│         │             ├── menu_sw.png
+│         │             ├── menu_w.png
+│         │             ├── select_c.png
+│         │             ├── slider_c.png
+│         │             ├── slider_n.png
+│         │             ├── slider_s.png
+│         │             ├── terminal_box_c.png
+│         │             ├── terminal_box_e.png
+│         │             ├── terminal_box_n.png
+│         │             ├── terminal_box_ne.png
+│         │             ├── terminal_box_nw.png
+│         │             ├── terminal_box_s.png
+│         │             ├── terminal_box_se.png
+│         │             ├── terminal_box_sw.png
+│         │             ├── terminal_box_w.png
+│         │             └── theme.txt
+│         └── x86_64-efi
+│             ├── adler32.mod
+│             ├── affs.mod
+│             ├── afs.mod
+│             ├── ahci.mod
+│             ├── aout.mod
+│             ├── appleldr.mod
+│             ├── archelp.mod
+│             ├── ata.mod
+│             ├── backtrace.mod
+│             ├── bfs.mod
+│             ├── blscfg.mod
+│             ├── bsd.mod
+│             ├── bswap_test.mod
+│             ├── btrfs.mod
+│             ├── cbfs.mod
+│             ├── cbls.mod
+│             ├── cbmemc.mod
+│             ├── cbtable.mod
+│             ├── cbtime.mod
+│             ├── cmdline_cat_test.mod
+│             ├── cmp.mod
+│             ├── cmp_test.mod
+│             ├── command.lst
+│             ├── cpio.mod
+│             ├── cpio_be.mod
+│             ├── cpuid.mod
+│             ├── crc64.mod
+│             ├── crypto.lst
+│             ├── cryptodisk.mod
+│             ├── cs5536.mod
+│             ├── ctz_test.mod
+│             ├── date.mod
+│             ├── datehook.mod
+│             ├── disk.mod
+│             ├── div.mod
+│             ├── div_test.mod
+│             ├── dm_nv.mod
+│             ├── efinet.mod
+│             ├── ehci.mod
+│             ├── elf.mod
+│             ├── eval.mod
+│             ├── exfctest.mod
+│             ├── f2fs.mod
+│             ├── fdt.lst
+│             ├── fixvideo.mod
+│             ├── fs.lst
+│             ├── functional_test.mod
+│             ├── gcry_arcfour.mod
+│             ├── gcry_blowfish.mod
+│             ├── gcry_camellia.mod
+│             ├── gcry_cast5.mod
+│             ├── gcry_crc.mod
+│             ├── gcry_des.mod
+│             ├── gcry_dsa.mod
+│             ├── gcry_idea.mod
+│             ├── gcry_md4.mod
+│             ├── gcry_rfc2268.mod
+│             ├── gcry_rijndael.mod
+│             ├── gcry_rmd160.mod
+│             ├── gcry_rsa.mod
+│             ├── gcry_seed.mod
+│             ├── gcry_serpent.mod
+│             ├── gcry_sha1.mod
+│             ├── gcry_sha256.mod
+│             ├── gcry_tiger.mod
+│             ├── gcry_twofish.mod
+│             ├── gcry_whirlpool.mod
+│             ├── geli.mod
+│             ├── gptsync.mod
+│             ├── hdparm.mod
+│             ├── hello.mod
+│             ├── help.mod
+│             ├── hexdump.mod
+│             ├── hfs.mod
+│             ├── hfspluscomp.mod
+│             ├── iorw.mod
+│             ├── jfs.mod
+│             ├── keylayouts.mod
+│             ├── keystatus.mod
+│             ├── ldm.mod
+│             ├── legacy_password_test.mod
+│             ├── legacycfg.mod
+│             ├── linux16.mod
+│             ├── loadbios.mod
+│             ├── loadenv.mod
+│             ├── lsacpi.mod
+│             ├── lsefi.mod
+│             ├── lsefimmap.mod
+│             ├── lsefisystab.mod
+│             ├── lsmmap.mod
+│             ├── lspci.mod
+│             ├── lssal.mod
+│             ├── luks.mod
+│             ├── lvm.mod
+│             ├── macbless.mod
+│             ├── macho.mod
+│             ├── mdraid09.mod
+│             ├── mdraid09_be.mod
+│             ├── mdraid1x.mod
+│             ├── memdisk.mod
+│             ├── memrw.mod
+│             ├── minix.mod
+│             ├── minix2.mod
+│             ├── minix2_be.mod
+│             ├── minix3.mod
+│             ├── minix3_be.mod
+│             ├── minix_be.mod
+│             ├── moddep.lst
+│             ├── morse.mod
+│             ├── mpi.mod
+│             ├── msdospart.mod
+│             ├── mul_test.mod
+│             ├── multiboot.mod
+│             ├── multiboot2.mod
+│             ├── nativedisk.mod
+│             ├── nilfs2.mod
+│             ├── normal.mod
+│             ├── ntfscomp.mod
+│             ├── odc.mod
+│             ├── offsetio.mod
+│             ├── ohci.mod
+│             ├── part_acorn.mod
+│             ├── part_amiga.mod
+│             ├── part_bsd.mod
+│             ├── part_dfly.mod
+│             ├── part_dvh.mod
+│             ├── part_plan.mod
+│             ├── part_sun.mod
+│             ├── part_sunpc.mod
+│             ├── partmap.lst
+│             ├── parttool.lst
+│             ├── parttool.mod
+│             ├── password.mod
+│             ├── pata.mod
+│             ├── pbkdf2_test.mod
+│             ├── pcidump.mod
+│             ├── pgp.mod
+│             ├── play.mod
+│             ├── probe.mod
+│             ├── procfs.mod
+│             ├── progress.mod
+│             ├── raid5rec.mod
+│             ├── raid6rec.mod
+│             ├── random.mod
+│             ├── rdmsr.mod
+│             ├── reiserfs.mod
+│             ├── romfs.mod
+│             ├── scsi.mod
+│             ├── search_fs_file.mod
+│             ├── search_fs_uuid.mod
+│             ├── search_label.mod
+│             ├── setjmp.mod
+│             ├── setjmp_test.mod
+│             ├── setpci.mod
+│             ├── sfs.mod
+│             ├── shift_test.mod
+│             ├── shim_lock.mod
+│             ├── signature_test.mod
+│             ├── sleep_test.mod
+│             ├── smbios.mod
+│             ├── spkmodem.mod
+│             ├── strtoull_test.mod
+│             ├── syslinuxcfg.mod
+│             ├── terminal.lst
+│             ├── test_blockarg.mod
+│             ├── testload.mod
+│             ├── testspeed.mod
+│             ├── tga.mod
+│             ├── time.mod
+│             ├── tpm.mod
+│             ├── tr.mod
+│             ├── ufs1.mod
+│             ├── ufs1_be.mod
+│             ├── ufs2.mod
+│             ├── uhci.mod
+│             ├── usb.mod
+│             ├── usbms.mod
+│             ├── usbserial_common.mod
+│             ├── usbserial_ftdi.mod
+│             ├── usbserial_pl2303.mod
+│             ├── usbserial_usbdebug.mod
+│             ├── usbtest.mod
+│             ├── verifiers.mod
+│             ├── video.lst
+│             ├── videoinfo.mod
+│             ├── videotest.mod
+│             ├── videotest_checksum.mod
+│             ├── wrmsr.mod
+│             ├── xnu.mod
+│             ├── xnu_uuid.mod
+│             ├── xnu_uuid_test.mod
+│             ├── zfs.mod
+│             ├── zfscrypt.mod
+│             ├── zfsinfo.mod
+│             └── zstd.mod
+├── tool
+│         ├── mount.exfat-fuse_aarch64
+│         ├── mount.exfat-fuse_i386
+│         └── mount.exfat-fuse_x86_64
+└── ventoy
+    ├── 7z
+    │         ├── 32
+    │         │         └── 7za.xz
+    │         └── 64
+    │             └── 7za.xz
+    ├── dragonfly.mfs.xz
+    ├── imdisk
+    │         ├── 32
+    │         │         ├── imdisk.cpl
+    │         │         ├── imdisk.exe
+    │         │         └── imdisk.sys
+    │         └── 64
+    │             ├── imdisk.cpl
+    │             ├── imdisk.exe
+    │             └── imdisk.sys
+    ├── ipxe.krn
+    ├── iso9660_aa64.efi
+    ├── iso9660_ia32.efi
+    ├── iso9660_x64.efi
+    ├── memdisk
+    ├── udf_aa64.efi
+    ├── udf_ia32.efi
+    ├── udf_x64.efi
+    ├── ventoy.cpio
+    ├── ventoy_aa64.efi
+    ├── ventoy_arm64.cpio
+    ├── ventoy_efiboot.img.xz
+    ├── ventoy_ia32.efi
+    ├── ventoy_mips64.cpio
+    ├── ventoy_unix.cpio
+    ├── ventoy_x64.efi
+    ├── ventoy_x86.cpio
+    ├── vtloopex.cpio
+    ├── vtoyjump32.exe
+    ├── vtoyjump64.exe
+    ├── vtoyutil_aa64.efi
+    ├── vtoyutil_ia32.efi
+    ├── vtoyutil_x64.efi
+    ├── wimboot.i386.efi.xz
+    └── wimboot.x86_64.xz
+
+19 directories, 981 files
+</code></pre>
+
+            </div>
+          </article>
+        </div>
+        <div class="paper" data-aos="fade-in">
+          
+            <div class="next-post">
+              <div class="next">
+                下一篇
+              </div>
+              <a href="https://zhangyiming748.github.io/post/install_windows/">
+                <h3 class="post-title">
+                  用启动盘安装 Windows 10
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+        
+          
+
+          
+            <div class="paper" data-aos="fade-in">
+              <div id="disqus_thread"></div>
+            </div>
+          
+        
+      </div>
+
+      <div class="sm-12 md-4 col sidebar">
+  <div class="paper info-container">
+    <img src="https://zhangyiming748.github.io/images/avatar.png?v=1728561503640" class="no-responsive avatar">
+    <div class="text-muted">子非鱼,安知鱼之乐?
+子非我,安知我不知鱼之乐?</div>
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      最新文章
+    </div>
+    <div class="row">
+      <ul>
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/wsl_install_cuda/">wsl安装cuda</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/ffmpeg_with_shell/">shell直接转换编码</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/windows_subsystem_of_android_use_proxy/">win11安卓子系统代理的实现</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/ssh_to_macos_with_chinesee/">ssh连接macos中文乱码</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/run_python_in_venv_with_go/">在 Go 语言中直接调用在虚拟环境中运行的 Python 程序</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/get_abspath_with_find/">利用find命令返回绝对路径</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/install_golang_on_android/">在 Android/arm64 架构上通过源码安装新版 Go</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/wsl_cuda_support/">windows 上如何安装支持cuda的docker</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/paid_docker/">速通Docker</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/linux_startup/">linux下如果只希望在开机的时候运行一次脚本 应该怎么写</a>
+            </li>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </ul>
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      标签列表
+    </div>
+    <div class="row">
+      
+        <a href="https://zhangyiming748.github.io/tag/qzc1SQq3q/" class="badge success">
+          nVidia
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/7Ibnloi-i/" class="badge secondary">
+          WSL
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/1CFQNs3S00/" class="badge secondary">
+          shell
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/bCXMDy8-U/" class="badge secondary">
+          ffmpeg
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/A_KFuUKds/" class="badge secondary">
+          Proxy
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/tE7JyHymUI/" class="badge success">
+          Android
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/m-fbGUfZt/" class="badge success">
+          Windows
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/wmIzFoEIP/" class="badge ">
+          macOS
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/X945mIRqj/" class="badge warning">
+          ssh
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/QrQiV5P0S/" class="badge success">
+          python
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/E2-gGJkDg/" class="badge success">
+          Golang
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/9S2Hbs5aF/" class="badge warning">
+          Termux
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/85HirN3QA/" class="badge warning">
+          收费教程
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/OIVRELVRC/" class="badge secondary">
+          Docker
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/whd1tmbG7/" class="badge secondary">
+          Linux
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/SF9usuVqj/" class="badge secondary">
+          fedora
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/oCK_ZlHhX/" class="badge secondary">
+          openKylin
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/Sf_ODGuJI/" class="badge ">
+          Gitea
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/y_Kw8o5PB/" class="badge ">
+          GitHub
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/1QbocojG3/" class="badge warning">
+          AI
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/PMvg7E-Fr/" class="badge secondary">
+          双系统
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/yitXMMZ8s/" class="badge secondary">
+          xiaomi
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/NOMqGtkmio/" class="badge secondary">
+          Magisk
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/uSPmjvKQ6/" class="badge warning">
+          vim
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/O52S4xod7/" class="badge success">
+          nano
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/vYkbFqA51/" class="badge warning">
+          Jetbrains
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/y2nV8ofCl/" class="badge success">
+          knowledge
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/etvDZTSvp/" class="badge secondary">
+          nginx
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/CnfRrFASW/" class="badge success">
+          Git
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/svHvfBDw2/" class="badge success">
+          UOS
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/Qs-o9CgUP/" class="badge secondary">
+          五分钟已经很棒了
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/AWiWiIeFs/" class="badge success">
+          Deepin
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/fGCndQxpp/" class="badge secondary">
+          Raspberry
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/pHreM0cJf/" class="badge warning">
+          欧卡2
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/MqthCZEuF/" class="badge warning">
+          HomeBrew
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/9aViM641i/" class="badge success">
+          MySql
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/rMjOn_-Vr/" class="badge secondary">
+          tencent
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/YHDkAytMg/" class="badge secondary">
+          oracle
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/Oo5pjqygD/" class="badge warning">
+          VirtualBox
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/XdGtzoLPj/" class="badge success">
+          ChatGPT
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/KWd48Zkke/" class="badge warning">
+          npm
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/FrlwPAtkRd/" class="badge success">
+          Nodejs
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/4u1IqSlDf/" class="badge ">
+          openWrt
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/Ps_QL1RK-/" class="badge success">
+          Samba
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/auU862seE/" class="badge success">
+          小米
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/bZrOQ_cvHC/" class="badge warning">
+          电视盒子
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/9R2pw-kMi/" class="badge ">
+          AndroidTV
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/DLTs-6kxd/" class="badge warning">
+          COD
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/PNLCUL_aG/" class="badge warning">
+          Game
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/kONTQ9X-u/" class="badge secondary">
+          黑道圣徒
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/3ge3wV01e/" class="badge warning">
+          Steam
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/GYLNJVSdF/" class="badge warning">
+          vmware
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/1O2FuszwC/" class="badge ">
+          snap
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/mWurRYeSd/" class="badge ">
+          UWP
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/vU03EjBoU/" class="badge secondary">
+          跨平台
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/8M3Y_WiPK/" class="badge secondary">
+          Ubuntu
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/vh0_cV9V9/" class="badge warning">
+          RDP
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/RlEfsxIRy/" class="badge secondary">
+          UTM
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/2Li1q3KkK/" class="badge secondary">
+          WineHq
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/akbUFpHWM/" class="badge secondary">
+          xfce
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/gHhqkzUH9/" class="badge warning">
+          ventoy
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/J2hqqgy1q/" class="badge success">
+          gparted
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/pmLBkvrEV/" class="badge secondary">
+          openEuler
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/W7ZvoH8Ya/" class="badge success">
+          华为
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/Lw5WL9LfT/" class="badge ">
+          SaintsRowTheThird
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/tOjoRhGkq/" class="badge secondary">
+          Gitlab
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/S5LhsRFML/" class="badge ">
+          AppImage
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/eoLpx9JG3/" class="badge ">
+          NTP
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/gAD6snp8U/" class="badge secondary">
+          NieR
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/7NJFDXwY-/" class="badge secondary">
+          Markdown
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/vdcblAPcj/" class="badge success">
+          adb
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/oOmosMagH/" class="badge secondary">
+          网络
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/8jNGiW0SY/" class="badge success">
+          GTA
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/HhYYX0R-k/" class="badge success">
+          youtube
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/WU7bMNjDy/" class="badge ">
+          office
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/HlNHNYrCz/" class="badge ">
+          体育
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/9_I_W5FOy/" class="badge success">
+          bat
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/j49MIdPra/" class="badge ">
+          Androidx86
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/cBDrzFROX/" class="badge success">
+          geek
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/kjzWt_8WM/" class="badge warning">
+          Gridea
+        </a>
+      
+    </div>
+  </div>
+  <div class="paper">
+    Powered by <a href="https://github.com/zhangyiming748" target="_blank">Gridea</a> | <a class="rss" href="https://zhangyiming748.github.io/atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+
+
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+</script>
+
+
+
+  
+
+  
+    <script src="https://unpkg.com/disqusjs@1.1/dist/disqus.js"></script>
+    <script>
+
+    var options = {
+      shortname: 'zhangyiming748-github-io',
+      apikey: 'nmwRR2QnDaSkyLUKsaGV3rCjyY5HsirUNUQA0YQHN8369jhrR8lFqsVmrPuYeadq',
+    }
+    if ('') {
+      options.api = ''
+    }
+    var dsqjs = new DisqusJS(options)
+
+    </script>
+  
+
+
+
+
+  </body>
+</html>

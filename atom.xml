@@ -1,0 +1,987 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://zhangyiming748.github.io</id>
+    <title>张益铭的博客</title>
+    <updated>2024-10-10T12:00:22.607Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://zhangyiming748.github.io"/>
+    <link rel="self" href="https://zhangyiming748.github.io/atom.xml"/>
+    <subtitle>子非鱼,安知鱼之乐?
+子非我,安知我不知鱼之乐?</subtitle>
+    <logo>https://zhangyiming748.github.io/images/avatar.png</logo>
+    <icon>https://zhangyiming748.github.io/favicon.ico</icon>
+    <rights>All rights reserved 2024, 张益铭的博客</rights>
+    <entry>
+        <title type="html"><![CDATA[wsl安装cuda]]></title>
+        <id>https://zhangyiming748.github.io/post/wsl_install_cuda/</id>
+        <link href="https://zhangyiming748.github.io/post/wsl_install_cuda/">
+        </link>
+        <updated>2024-10-10T11:57:36.000Z</updated>
+        <content type="html"><![CDATA[<p>必须是ubuntu发行版<br>
+<a href="https://developer.nvidia.com/cuda-downloads">下载链接</a></p>
+<h1 id="本地安装">本地安装</h1>
+<pre><code class="language-bash">wget https://developer.download.nvidia.com/compute/cuda/repos/wsl-ubuntu/x86_64/cuda-wsl-ubuntu.pin
+sudo mv cuda-wsl-ubuntu.pin /etc/apt/preferences.d/cuda-repository-pin-600
+wget https://developer.download.nvidia.com/compute/cuda/12.6.1/local_installers/cuda-repo-wsl-ubuntu-12-6-local_12.6.1-1_amd64.deb
+sudo dpkg -i cuda-repo-wsl-ubuntu-12-6-local_12.6.1-1_amd64.deb
+sudo cp /var/cuda-repo-wsl-ubuntu-12-6-local/cuda-*-keyring.gpg /usr/share/keyrings/
+sudo apt-get update
+sudo apt-get -y install cuda-toolkit-12-6
+</code></pre>
+<h1 id="网络安装">网络安装</h1>
+<pre><code class="language-bash">wget https://developer.download.nvidia.com/compute/cuda/repos/wsl-ubuntu/x86_64/cuda-keyring_1.1-1_all.deb
+sudo dpkg -i cuda-keyring_1.1-1_all.deb
+sudo apt-get update
+sudo apt-get -y install cuda-toolkit-12-6
+</code></pre>
+<h1 id="run安装">run安装</h1>
+<pre><code class="language-bash">wget https://developer.download.nvidia.com/compute/cuda/12.6.1/local_installers/cuda_12.6.1_560.35.03_linux.run
+sudo sh cuda_12.6.1_560.35.03_linux.run
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[shell直接转换编码]]></title>
+        <id>https://zhangyiming748.github.io/post/ffmpeg_with_shell/</id>
+        <link href="https://zhangyiming748.github.io/post/ffmpeg_with_shell/">
+        </link>
+        <updated>2024-10-10T11:55:36.000Z</updated>
+        <content type="html"><![CDATA[<p>使用shell实现 判断给定文件夹及子文件夹下的视频文件是否为avc编码 如果是 调用ffmpeg -i  文件名 -c:v libx265  转换到当前文件所在文件夹下新建的h265文件夹下 视频名保持一致 扩展名统一为mp4 如果ffmpeg编码命令执行成功 最终删除原始文件</p>
+<pre><code class="language-bash">#!/bin/bash
+
+# 检查是否提供了文件夹路径
+if [ &quot;$#&quot; -ne 1 ]; then
+    echo &quot;用法: $0 &lt;文件夹路径&gt;&quot;
+    exit 1
+fi
+
+# 获取输入的文件夹路径
+input_dir=&quot;$1&quot;
+
+# 创建 h265 文件夹
+output_dir=&quot;$input_dir/h265&quot;
+mkdir -p &quot;$output_dir&quot;
+
+# 遍历文件夹及子文件夹中的所有文件
+find &quot;$input_dir&quot; -type f | while read -r file; do
+    # 检查文件是否为视频文件
+    if [[ &quot;$file&quot; =~ \.(mp4|mkv|avi|mov|flv|wmv)$ ]]; then
+        # 检查视频编码是否为 AVC
+        codec=$(ffprobe -v error -select_streams v:0 -show_entries stream=codec_name -of default=noprint_wrappers=1:nokey=1 &quot;$file&quot;)
+        
+        if [ &quot;$codec&quot; == &quot;h264&quot; ]; then
+            # 获取文件名和扩展名
+            filename=$(basename &quot;$file&quot;)
+            # 生成输出文件的路径
+            output_file=&quot;$output_dir/${filename%.*}.mp4&quot;
+            # 转换视频编码
+            ffmpeg -i &quot;$file&quot; -c:v libx265 &quot;$output_file&quot; -y
+            
+            # 检查 ffmpeg 命令是否成功执行
+            if [ $? -eq 0 ]; then
+                echo &quot;转换成功: $file -&gt; $output_file&quot;
+                # 删除原始文件
+                rm &quot;$file&quot;
+                echo &quot;已删除原始文件: $file&quot;
+            else
+                echo &quot;转换失败: $file&quot;
+            fi
+        fi
+    fi
+done
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[win11安卓子系统代理的实现]]></title>
+        <id>https://zhangyiming748.github.io/post/windows_subsystem_of_android_use_proxy/</id>
+        <link href="https://zhangyiming748.github.io/post/windows_subsystem_of_android_use_proxy/">
+        </link>
+        <updated>2024-10-10T11:53:45.000Z</updated>
+        <content type="html"><![CDATA[<p>将 port 改为你的代理端口后，在 cmd 里运行：<br>
+adb connect 127.0.0.1:58526 &amp;&amp; adb shell “settings put global http_proxy ip route list match 0 table all scope global | cut -F3:port”</p>
+<p>注：port 是你的端口号</p>
+<p>如果要在 powershell 里运行，请将 ` 改为 ``，并且两个 adb 命令分为两行<br>
+如</p>
+<pre><code class="language-powershell">adb shell &quot;settings put global http_proxy ``ip route list match 0 table all scope global | cut -F3``:8889&quot;
+</code></pre>
+<p>删除代理：</p>
+<pre><code class="language-powershell">adb shell settings put global http_proxy :0
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[ssh连接macos中文乱码]]></title>
+        <id>https://zhangyiming748.github.io/post/ssh_to_macos_with_chinesee/</id>
+        <link href="https://zhangyiming748.github.io/post/ssh_to_macos_with_chinesee/">
+        </link>
+        <updated>2024-10-10T11:51:51.000Z</updated>
+        <content type="html"><![CDATA[<p>在 <code>.zprofile</code> 中添加只有在通过 SSH 连接时才会运行的条件，可以使用 <code>$SSH_CONNECTION</code> 环境变量来判断。这个变量在通过 SSH 连接时会被设置，因此可以用它来执行特定的命令或设置。</p>
+<p>以下是一个示例，展示如何在 <code>.zprofile</code> 中添加这样的条件：</p>
+<pre><code class="language-zsh"># .zprofile
+
+# 检查是否通过 SSH 连接
+if [ -n &quot;$SSH_CONNECTION&quot; ]; then
+    # 这里放置你希望在 SSH 连接时执行的命令
+    echo &quot;Welcome! You are connected via SSH.&quot;
+    # 例如，设置某些环境变量
+    export MY_SSH_ENV_VAR=&quot;some_value&quot;
+    export LANG=zh_cn.UTF-8
+    export LC_ALL=zh_CN.UTF-8
+fi
+</code></pre>
+<p>在这个示例中，<code>if [ -n &quot;$SSH_CONNECTION&quot; ]; then</code> 检查 <code>$SSH_CONNECTION</code> 是否非空。如果是，表示当前会话是通过 SSH 连接的，然后可以在条件块中添加你希望执行的命令。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[在 Go 语言中直接调用在虚拟环境中运行的 Python 程序]]></title>
+        <id>https://zhangyiming748.github.io/post/run_python_in_venv_with_go/</id>
+        <link href="https://zhangyiming748.github.io/post/run_python_in_venv_with_go/">
+        </link>
+        <updated>2024-10-10T11:50:22.000Z</updated>
+        <content type="html"><![CDATA[<h3 id="方法一使用-osexec-包">方法一：使用 <code>os/exec</code> 包</h3>
+<p>你可以使用 Go 的 <code>os/exec</code> 包来执行 Python 脚本。首先，确保你的 Python 虚拟环境已经激活，并且你知道 Python 解释器的路径。</p>
+<p>以下是一个简单的示例：</p>
+<pre><code class="language-go">package main
+
+import (
+    &quot;fmt&quot;
+    &quot;os/exec&quot;
+)
+
+func main() {
+    // 指定虚拟环境中的 Python 解释器路径
+    pythonPath := &quot;/path/to/your/venv/bin/python&quot;
+    scriptPath := &quot;/path/to/your/script.py&quot;
+
+    // 创建命令
+    cmd := exec.Command(pythonPath, scriptPath)
+
+    // 运行命令并获取输出
+    output, err := cmd.CombinedOutput()
+    if err != nil {
+        fmt.Printf(&quot;Error: %s\n&quot;, err)
+    }
+
+    // 打印输出
+    fmt.Printf(&quot;Output: %s\n&quot;, output)
+}
+</code></pre>
+<h3 id="方法二使用-cgo-调用-python">方法二：使用 <code>cgo</code> 调用 Python</h3>
+<p>如果你需要更复杂的交互，可以考虑使用 <code>cgo</code> 来调用 Python 的 C API。这种方法相对复杂，通常不推荐用于简单的脚本调用。</p>
+<h3 id="方法三使用-rpc-或-http-接口">方法三：使用 RPC 或 HTTP 接口</h3>
+<p>如果你的 Python 程序可以作为一个服务运行（例如 Flask 或 FastAPI），你可以通过 HTTP 请求从 Go 中调用它。这种方法适合需要频繁交互的场景。</p>
+<p>以下是一个简单的 HTTP 请求示例：</p>
+<pre><code class="language-go">package main
+
+import (
+    &quot;bytes&quot;
+    &quot;fmt&quot;
+    &quot;net/http&quot;
+)
+
+func main() {
+    url := &quot;http://localhost:5000/your-endpoint&quot;
+    jsonData := []byte(`{&quot;key&quot;: &quot;value&quot;}`)
+
+    resp, err := http.Post(url, &quot;application/json&quot;, bytes.NewBuffer(jsonData))
+    if err != nil {
+        fmt.Printf(&quot;Error: %s\n&quot;, err)
+        return
+    }
+    defer resp.Body.Close()
+
+    // 处理响应
+    // ...
+}
+</code></pre>
+<h3 id="总结">总结</h3>
+<p>选择哪种方法取决于你的具体需求。如果只是简单地运行一个脚本，使用 <code>os/exec</code> 是最简单的方式。如果需要更复杂的交互，考虑使用 HTTP 接口或 <code>cgo</code>。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[利用find命令返回绝对路径]]></title>
+        <id>https://zhangyiming748.github.io/post/get_abspath_with_find/</id>
+        <link href="https://zhangyiming748.github.io/post/get_abspath_with_find/">
+        </link>
+        <updated>2024-10-10T11:48:13.000Z</updated>
+        <content type="html"><![CDATA[<p>在使用 <code>find</code> 命令时，可以通过 <code>-exec</code> 选项结合 <code>pwd</code> 命令来返回绝对路径。以下是一个示例：</p>
+<pre><code class="language-bash">find /path/to/search -name &quot;filename&quot; -exec realpath {} \;
+</code></pre>
+<p>在这个命令中：</p>
+<ul>
+<li><code>/path/to/search</code> 是你要搜索的目录。</li>
+<li><code>&quot;filename&quot;</code> 是你要查找的文件名。</li>
+<li><code>-exec realpath {}</code> 会对找到的每个文件执行 <code>realpath</code> 命令，从而返回其绝对路径。</li>
+</ul>
+<p>如果你只想要文件的绝对路径而不需要其他信息，可以使用 <code>-print</code> 选项：</p>
+<pre><code class="language-bash">find /path/to/search -name &quot;filename&quot; -print | xargs realpath
+</code></pre>
+<p>这样，<code>find</code> 命令会找到所有匹配的文件，并通过 <code>xargs</code> 将它们传递给 <code>realpath</code>，从而输出绝对路径。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[在 Android/arm64 架构上通过源码安装新版 Go]]></title>
+        <id>https://zhangyiming748.github.io/post/install_golang_on_android/</id>
+        <link href="https://zhangyiming748.github.io/post/install_golang_on_android/">
+        </link>
+        <updated>2024-10-10T09:11:07.000Z</updated>
+        <content type="html"><![CDATA[<h3 id="1-安装依赖">1. 安装依赖</h3>
+<p>首先，确保你的系统上安装了必要的构建工具和依赖。你可能需要安装 <code>git</code> 和 <code>gcc</code> 等工具。可以使用以下命令安装：</p>
+<pre><code class="language-bash">sudo apt-get update
+sudo apt-get install -y git gcc
+</code></pre>
+<h3 id="2-下载-go-源码">2. 下载 Go 源码</h3>
+<p>访问 Go 的 GitHub 仓库，克隆最新的 Go 源码：</p>
+<pre><code class="language-bash">git clone https://go.googlesource.com/go
+cd go
+</code></pre>
+<h3 id="3-切换到特定版本可选">3. 切换到特定版本（可选）</h3>
+<p>如果你想要安装特定版本的 Go，可以使用以下命令切换到该版本的标签。例如，切换到 <code>go1.20.3</code>：</p>
+<pre><code class="language-bash">git checkout go1.20.3
+</code></pre>
+<h3 id="4-设置环境变量">4. 设置环境变量</h3>
+<p>在编译之前，设置一些环境变量。你可以在终端中运行以下命令：</p>
+<pre><code class="language-bash">export GOOS=linux
+export GOARCH=arm64
+</code></pre>
+<h3 id="5-编译-go">5. 编译 Go</h3>
+<p>在 Go 源码目录中，运行以下命令进行编译：</p>
+<pre><code class="language-bash">cd src
+./make.bash
+</code></pre>
+<p>这个过程可能需要一些时间，具体取决于你的设备性能。</p>
+<h3 id="6-设置-path">6. 设置 PATH</h3>
+<p>编译完成后，你需要将 Go 的 bin 目录添加到你的 <code>PATH</code> 环境变量中。可以在你的 shell 配置文件（如 <code>~/.bashrc</code> 或 <code>~/.profile</code>）中添加以下行：</p>
+<pre><code class="language-bash">export PATH=$PATH:/path/to/go/bin
+</code></pre>
+<p>请将 <code>/path/to/go</code> 替换为你实际的 Go 安装路径。</p>
+<p>然后运行以下命令使更改生效：</p>
+<pre><code class="language-bash">source ~/.bashrc
+</code></pre>
+<h3 id="7-验证安装">7. 验证安装</h3>
+<p>运行以下命令检查 Go 是否安装成功：</p>
+<pre><code class="language-bash">go version
+</code></pre>
+<p>如果安装成功，你应该能看到 Go 的版本信息。</p>
+<h3 id="8-编写和运行-go-程序">8. 编写和运行 Go 程序</h3>
+<p>你可以创建一个简单的 Go 程序来测试安装。在任意目录下创建一个 <code>hello.go</code> 文件，内容如下：</p>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    fmt.Println(&quot;Hello, World!&quot;)
+}
+</code></pre>
+<p>然后在终端中运行：</p>
+<pre><code class="language-bash">go run hello.go
+</code></pre>
+<h3 id="注意事项">注意事项</h3>
+<ul>
+<li>确保你的 Android 设备已经启用开发者选项，并且你有足够的权限进行安装和配置。</li>
+<li>如果在编译过程中遇到问题，请检查是否缺少依赖或工具，并根据错误信息进行调整。</li>
+</ul>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[windows 上如何安装支持cuda的docker]]></title>
+        <id>https://zhangyiming748.github.io/post/wsl_cuda_support/</id>
+        <link href="https://zhangyiming748.github.io/post/wsl_cuda_support/">
+        </link>
+        <updated>2024-09-04T06:51:34.000Z</updated>
+        <content type="html"><![CDATA[<p>在 Windows 上安装支持 CUDA 的 Docker 需要几个步骤。以下是详细的步骤：</p>
+<h3 id="1-安装-docker-desktop">1. 安装 Docker Desktop</h3>
+<ol>
+<li>
+<p><strong>下载 Docker Desktop</strong>：</p>
+<ul>
+<li>访问 <a href="https://www.docker.com/products/docker-desktop">Docker 官方网站</a> 下载 Docker Desktop。</li>
+</ul>
+</li>
+<li>
+<p><strong>安装 Docker Desktop</strong>：</p>
+<ul>
+<li>双击下载的安装程序并按照提示进行安装。</li>
+<li>在安装过程中，确保启用 WSL 2（Windows Subsystem for Linux 2）功能。</li>
+</ul>
+</li>
+<li>
+<p><strong>启动 Docker Desktop</strong>：</p>
+<ul>
+<li>安装完成后，启动 Docker Desktop，并确保它正常运行。</li>
+</ul>
+</li>
+</ol>
+<h3 id="2-启用-wsl-2-和安装-nvidia-驱动">2. 启用 WSL 2 和安装 NVIDIA 驱动</h3>
+<ol>
+<li>
+<p><strong>启用 WSL 2</strong>：</p>
+<ul>
+<li>打开 PowerShell（以管理员身份）并运行以下命令：<pre><code class="language-bash">wsl --set-default-version 2
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>安装 NVIDIA 驱动</strong>：</p>
+<ul>
+<li>访问 <a href="https://developer.nvidia.com/cuda/wsl">NVIDIA 官方网站</a> 下载并安装适用于 WSL 2 的 NVIDIA 驱动程序。</li>
+</ul>
+</li>
+</ol>
+<h3 id="3-安装-nvidia-container-toolkit">3. 安装 NVIDIA Container Toolkit</h3>
+<ol>
+<li>
+<p><strong>打开 WSL 终端</strong>（例如 Ubuntu）并添加 NVIDIA 的包存储库：</p>
+<pre><code class="language-bash">distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
+curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add -
+curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | sudo tee /etc/apt/sources.list.d/nvidia-docker.list
+</code></pre>
+</li>
+<li>
+<p><strong>更新包列表并安装 NVIDIA Docker</strong>：</p>
+<pre><code class="language-bash">sudo apt-get update
+sudo apt-get install -y nvidia-docker2
+</code></pre>
+</li>
+<li>
+<p><strong>重启 Docker</strong>：</p>
+<pre><code class="language-bash">sudo systemctl restart docker
+</code></pre>
+</li>
+</ol>
+<h3 id="4-测试-cuda-docker-容器">4. 测试 CUDA Docker 容器</h3>
+<ol>
+<li>
+<p><strong>运行测试容器</strong>：</p>
+<pre><code class="language-bash">docker run --gpus all nvidia/cuda:11.0-base nvidia-smi
+</code></pre>
+<p>如果一切正常，你应该能看到 NVIDIA GPU 的信息。</p>
+</li>
+</ol>
+<h3 id="注意事项">注意事项</h3>
+<ul>
+<li>确保你的 Windows 版本支持 WSL 2（Windows 10 版本 19044 及更高版本）。</li>
+<li>确保你的 GPU 支持 CUDA。</li>
+<li>如果在安装过程中遇到问题，可以参考 <a href="https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html">NVIDIA Docker 文档</a> 获取更多信息。</li>
+</ul>
+<p>按照这些步骤，你应该能够在 Windows 上成功安装支持 CUDA 的 Docker。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[速通Docker]]></title>
+        <id>https://zhangyiming748.github.io/post/paid_docker/</id>
+        <link href="https://zhangyiming748.github.io/post/paid_docker/">
+        </link>
+        <updated>2024-09-01T14:58:21.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="安装">安装</h1>
+<pre><code class="language-bash"># Add Docker's official GPG key:
+sudo apt-get update
+sudo apt-get install ca-certificates curl
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+# Add the repository to Apt sources:
+echo \
+  &quot;deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian \
+  $(. /etc/os-release &amp;&amp; echo &quot;$VERSION_CODENAME&quot;) stable&quot; | \
+  sudo tee /etc/apt/sources.list.d/docker.list &gt; /dev/null
+sudo apt-get update
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+</code></pre>
+<h1 id="命令">命令</h1>
+<pre><code class="language-bash"># 查看运⾏中的容器
+docker ps
+# 查看所有容器
+docker ps -a
+# 搜索镜像
+docker search nginx
+# 下载镜像
+docker pull nginx
+# 下载指定版本镜像
+docker pull nginx:1.26.0
+# 查看所有镜像
+docker images
+# 删除指定id的镜像
+docker rmi e784f4560448
+# 运⾏⼀个新容器
+docker run nginx
+# 停⽌容器
+docker stop keen_blackwell
+# 启动容器
+docker start 592
+# 重启容器
+docker restart 592
+# 查看容器资源占⽤情况
+docker stats 592
+# 查看容器⽇志
+docker logs 592
+# 删除指定容器
+docker rm 592
+# 强制删除指定容器
+docker rm -f 592
+# 后台启动容器
+docker run -d --name mynginx nginx
+# 后台启动并暴露端⼝
+docker run -d --name mynginx -p 80:80 nginx
+# 进⼊容器内部
+docker exec -it mynginx /bin/bash
+# 提交容器变化打成⼀个新的镜像
+docker commit -m &quot;update index.html&quot; mynginx mynginx:v1.0
+# 保存镜像为指定⽂件
+docker save -o mynginx.tar mynginx:v1.0
+# 删除多个镜像
+docker rmi bde7d154a67f 94543a6c1aef e784f4560448
+# 加载镜像
+docker load -i mynginx.tar 
+# 登录docker hub
+docker login
+# 重新给镜像打标签
+docker tag mynginx:v1.0 leifengyang/mynginx:v1.0
+# 推送镜像
+docker push leifengyang/mynginx:v1.0
+</code></pre>
+<h1 id="存储">存储</h1>
+<p>两种⽅式，注意区分：</p>
+<ul>
+<li>⽬录挂载： -v /app/nghtml:/usr/share/nginx/html</li>
+<li>卷映射：-v ngconf:/etc/nginx</li>
+</ul>
+<pre><code class="language-bash">docker run -d -p 99:80 \
+-v /app/nghtml:/usr/share/nginx/html \
+-v ngconf:/etc/nginx \
+--name app03 \
+nginx
+</code></pre>
+<h1 id="网络">网络</h1>
+<p>创建⾃定义⽹络，实现主机名作为稳定域名访问。</p>
+<h2 id="redis主从同步集群">redis主从同步集群</h2>
+<pre><code class="language-bash"># ⾃定义⽹络
+docker network create mynet
+# 主节点
+docker run -d -p 6379:6379 \
+-v /app/rd1:/bitnami/redis/data \
+-e REDIS_REPLICATION_MODE=master \
+-e REDIS_PASSWORD=123456 \
+--network mynet --name redis01 \
+bitnami/redis
+# 从节点
+docker run -d -p 6380:6379 \
+-v /app/rd2:/bitnami/redis/data \
+-e REDIS_REPLICATION_MODE=slave \
+-e REDIS_MASTER_HOST=redis01 \
+-e REDIS_MASTER_PORT_NUMBER=6379 \
+-e REDIS_MASTER_PASSWORD=123456 \
+-e REDIS_PASSWORD=123456 \
+--network mynet --name redis02 \
+bitnami/redis
+</code></pre>
+<h2 id="启动mysql">启动mysql</h2>
+<pre><code class="language-bash">docker run -d -p 3306:3306 \
+-v /app/myconf:/etc/mysql/conf.d \
+-v /app/mydata:/var/lib/mysql \
+-e MYSQL_ROOT_PASSWORD=123456 \
+mysql:8.0.37-debian
+</code></pre>
+<h1 id="docker-compose">docker compose</h1>
+<h2 id="命令式安装">命令式安装</h2>
+<pre><code class="language-bash"># 创建⽹络
+docker network create blog
+# 启动mysql
+docker run -d -p 3306:3306 \
+-e MYSQL_ROOT_PASSWORD=123456 \
+-e MYSQL_DATABASE=wordpress \
+-v mysql-data:/var/lib/mysql \
+-v /app/myconf:/etc/mysql/conf.d \
+--restart always --name mysql \
+--network blog \
+mysql:8.0
+# 启动 wordpress
+docker run -d -p 8080:80 \
+-e WORDPRESS_DB_HOST=mysql \
+-e WORDPRESS_DB_USER=root \
+-e WORDPRESS_DB_PASSWORD=123456 \
+-e WORDPRESS_DB_NAME=wordpress \
+-v wordpress:/var/www/html \
+--restart always --name wordpress-app \
+--network blog \
+wordpress:latest
+</code></pre>
+<h2 id="composeyml">compose.yml</h2>
+<pre><code class="language-bash">name: myblog
+services:
+  mysql:
+    container_name: mysql
+    image: mysql:8.0
+    ports:
+      - &quot;3306:3306&quot;
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456
+      - MYSQL_DATABASE=wordpress
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - /app/myconf:/etc/mysql/conf.d
+    restart: always
+  wordpress:
+    image: wordpress
+    ports:
+      - &quot;8080:80&quot;
+    environment:
+      WORDPRESS_DB_HOST: mysql
+      WORDPRESS_DB_USER: root
+      WORDPRESS_DB_PASSWORD: 123456
+      WORDPRESS_DB_NAME: wordpress
+    volumes:
+      - wordpress:/var/www/html
+    restart: always
+    depends_on:
+      - mysql
+volumes:
+  mysql-data:
+  wordpress:
+networks:
+  blog:
+</code></pre>
+<h2 id="特性">特性</h2>
+<ul>
+<li>增量更新 修改 Docker Compose ⽂件。重新启动应⽤。只会触发修改项的重新启动。</li>
+<li>数据不删 默认就算down了容器，所有挂载的卷不会被移除。⽐较安全</li>
+<li></li>
+</ul>
+<h1 id="dockerfile">dockerfile</h1>
+<pre><code class="language-dockerfile">FROM openjdk:17
+LABEL author=leifengyang
+COPY app.jar /app.jar
+EXPOSE 8080
+ENTRYPOINT [&quot;java&quot;,&quot;-jar&quot;,&quot;/app.jar&quot;
+</code></pre>
+<h1 id="附录-一键安装超多中间件">附录 一键安装超多中间件</h1>
+<pre><code class="language-bash">#Disable memory paging and swapping performance
+sudo swapoff -a
+# Edit the sysctl config file
+sudo vi /etc/sysctl.conf
+# Add a line to define the desired value
+# or change the value if the key exists,
+# and then save your changes.
+vm.max_map_count=262144
+# Reload the kernel parameters using sysctl
+sudo sysctl -p
+# Verify that the change was applied by checking the value
+cat /proc/sys/vm/max_map_count
+</code></pre>
+<h2 id="yaml">yaml</h2>
+<p>注意：将下⾯⽂件中<code>kafka</code>的<code>119.45.147.122</code>改为你⾃⼰的服务器IP。</p>
+<p>准备⼀个 <code>compose.yaml</code>⽂件，内容如下：</p>
+<pre><code class="language-yml">version: '3.8'  # 添加版本号
+
+name: devsoft
+services:
+  redis:
+    image: bitnami/redis:latest
+    restart: always
+    container_name: redis
+    environment:
+      - REDIS_PASSWORD=123456
+    ports:
+      - '6379:6379'
+    volumes:
+      - redis-data:/bitnami/redis/data
+      - redis-conf:/opt/bitnami/redis/mounted-etc
+
+  mysql:
+    image: mysql:8.0.31
+    restart: always
+    container_name: mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456
+    ports:
+      - '3306:3306'
+      - '33060:33060'
+    volumes:
+      - mysql-conf:/etc/mysql/conf.d
+      - mysql-data:/var/lib/mysql
+
+  rabbit:
+    image: rabbitmq:3-management
+    restart: always
+    container_name: rabbitmq
+    ports:
+      - &quot;5672:5672&quot;
+      - &quot;15672:15672&quot;
+    environment:
+      - RABBITMQ_DEFAULT_USER=rabbit
+      - RABBITMQ_DEFAULT_PASS=rabbit
+      - RABBITMQ_DEFAULT_VHOST=dev
+    volumes:
+      - rabbit-data:/var/lib/rabbitmq
+      - rabbit-app:/etc/rabbitmq
+
+  opensearch-node1:
+    image: opensearchproject/opensearch:2.13.0
+    container_name: opensearch-node1
+    environment:
+      - cluster.name=opensearch-cluster
+      - node.name=opensearch-node1
+      - discovery.seed_hosts=opensearch-node1,opensearch-node2
+      - cluster.initial_cluster_manager_nodes=opensearch-node1,opensearch-node2
+      - bootstrap.memory_lock=true
+      - &quot;OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m&quot;
+      - &quot;DISABLE_INSTALL_DEMO_CONFIG=true&quot;
+      - &quot;DISABLE_SECURITY_PLUGIN=true&quot;
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    ports:
+      - &quot;9200:9200&quot;
+      - &quot;9600:9600&quot;
+    volumes:
+      - opensearch-data1:/usr/share/opensearch/data
+
+  opensearch-node2:
+    image: opensearchproject/opensearch:2.13.0
+    container_name: opensearch-node2
+    environment:
+      - cluster.name=opensearch-cluster
+      - node.name=opensearch-node2
+      - discovery.seed_hosts=opensearch-node1,opensearch-node2
+      - cluster.initial_cluster_manager_nodes=opensearch-node1,opensearch-node2
+      - bootstrap.memory_lock=true
+      - &quot;OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m&quot;
+      - &quot;DISABLE_INSTALL_DEMO_CONFIG=true&quot;
+      - &quot;DISABLE_SECURITY_PLUGIN=true&quot;
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    ports:
+      - &quot;9201:9200&quot;
+      - &quot;9601:9600&quot;
+    volumes:
+      - opensearch-data2:/usr/share/opensearch/data
+
+  opensearch-dashboards:
+    image: opensearchproject/opensearch-dashboards:2.13.0
+    container_name: opensearch-dashboards
+    ports:
+      - &quot;5601:5601&quot;
+    expose:
+      - &quot;5601&quot;
+    environment:
+      - 'OPENSEARCH_HOSTS=[&quot;http://opensearch-node1:9200&quot;,&quot;http://opensearch-node2:9200&quot;]'
+      - &quot;DISABLE_SECURITY_DASHBOARDS_PLUGIN=true&quot;
+
+  zookeeper:
+    image: bitnami/zookeeper:3.9
+    container_name: zookeeper
+    restart: always
+    ports:
+      - &quot;2181:2181&quot;
+    volumes:
+      - &quot;zookeeper_data:/bitnami&quot;
+    environment:
+      - ALLOW_ANONYMOUS_LOGIN=yes
+
+  kafka:
+    image: 'bitnami/kafka:3.4'
+    container_name: kafka
+    restart: always
+    hostname: kafka
+    ports:
+      - '9092:9092'
+      - '9094:9094'
+    environment:
+      - KAFKA_CFG_NODE_ID=0
+      - KAFKA_CFG_PROCESS_ROLES=controller,broker
+      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092,CONTROLLER://:9093,EXTERNAL://0.0.0.0:9094
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092,EXTERNAL://119.45.147.122:9094
+      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CONTROLLER:PLAINTEXT,EXTERNAL:PLAINTEXT,PLAINTEXT:PLAINTEXT
+      - KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=0@kafka:9093
+      - KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER
+      - ALLOW_PLAINTEXT_LISTENER=yes
+      - &quot;KAFKA_HEAP_OPTS=-Xmx512m -Xms512m&quot;
+    volumes:
+      - kafka-conf:/bitnami/kafka/config
+      - kafka-data:/bitnami/kafka/data
+
+  kafka-ui:
+    container_name: kafka-ui
+    image: provectuslabs/kafka-ui:latest
+    restart: always
+    ports:
+      - 8080:8080
+    environment:
+      DYNAMIC_CONFIG_ENABLED: true
+      KAFKA_CLUSTERS_0_NAME: kafka-dev
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:9092
+    volumes:
+      - kafkaui-app:/etc/kafkaui
+
+  nacos:
+    image: nacos/nacos-server:v2.3.1
+    container_name: nacos
+    ports:
+      - 8848:8848
+      - 9848:9848
+    environment:
+      - MODE=standalone
+      - PREFER_HOST_MODE=hostname
+      - JVM_XMX=512m
+      - JVM_XMS=512m
+      - SPRING_DATASOURCE_PLATFORM=mysql
+      - MYSQL_SERVICE_HOST=nacos-mysql
+      - MYSQL_SERVICE_DB_NAME=nacos_devtest
+      - MYSQL_SERVICE_PORT=3306
+      - MYSQL_SERVICE_USER=nacos
+      - MYSQL_SERVICE_PASSWORD=nacos
+      - MYSQL_SERVICE_DB_PARAM=characterEncoding=utf8&amp;connectTimeout=1000&amp;socketTimeout=3000&amp;autoReconnect=true&amp;useUnicode=true&amp;useSSL=false&amp;serverTimezone=Asia/Shanghai&amp;allowPublicKeyRetrieval=true
+      - NACOS_AUTH_IDENTITY_KEY=2222
+      - NACOS_AUTH_IDENTITY_VALUE=2xxx
+      - NACOS_AUTH_TOKEN=SecretKey012345678901234567890123456789012345678901234567890123456789
+      - NACOS_AUTH_ENABLE=true
+    volumes:
+      - /app/nacos/standalone-logs/:/home/nacos/logs
+    depends_on:
+      nacos-mysql:
+        condition: service_healthy
+
+  nacos-mysql:
+    container_name: nacos-mysql
+    build:
+      context: .
+      dockerfile_inline: |
+        FROM mysql:8.0.31
+        ADD https://raw.githubusercontent.com/alibaba/nacos/2.3.2/distribution/conf/mysql-schema.sql /docker-entrypoint-initdb.d/nacos-mysql.sql
+        RUN chown -R mysql:mysql /docker-entrypoint-initdb.d/nacos-mysql.sql
+        EXPOSE 3306
+        CMD [&quot;mysqld&quot;, &quot;--character-set-server=utf8mb4&quot;, &quot;--collation-server=utf8mb4_unicode_ci&quot;]
+    image: nacos/mysql:8.0.30
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=nacos_devtest
+      - MYSQL_USER=nacos
+      - MYSQL_PASSWORD=nacos
+      - LANG=C.UTF-8
+    volumes:
+      - nacos-mysqldata:/var/lib/mysql
+    ports:
+      - &quot;13306:3306&quot;
+    healthcheck:
+      test: [ &quot;CMD&quot;, &quot;mysqladmin&quot;, &quot;ping&quot;, &quot;-h&quot;, &quot;localhost&quot; ]
+      interval: 5s
+      timeout: 10s
+      retries: 10
+
+  prometheus:
+    image: prom/prometheus:v2.52.0
+    container_name: prometheus
+    restart: always
+    ports:
+      - 9090:9090
+    volumes:
+      - prometheus-data:/prometheus
+      - prometheus-conf:/etc/prometheus
+
+  grafana:
+    image: grafana/grafana:10.4.2
+    container_name: grafana
+    restart: always
+    ports:
+      - 3000:3000
+    volumes:
+      - grafana-data:/var/lib/grafana
+
+volumes:
+  redis-data:
+  redis-conf:
+  mysql-conf:
+  mysql-data:
+  rabbit-data:
+  rabbit-app:
+  opensearch-data1:
+  opensearch-data2:
+  nacos-mysqldata:
+  zookeeper_data:
+  kafka-conf:
+  kafka-data:
+  kafkaui-app:
+  prometheus-data:
+  prometheus-conf:
+  grafana-data:
+</code></pre>
+<h2 id="启动">启动</h2>
+<p>在<code>compose.yaml</code>⽂件所在的⽬录下执⾏<br>
+<code>docker compose up -d</code><br>
+等待启动所有容器</p>
+<h2 id="访问">访问</h2>
+<p><a href="https://github.com/vran-dev/PrettyZoo/releases/download/v2.1.1/prettyZoo-win.zip">zookeeper可视化⼯具</a></p>
+<p><a href="https://github.com/qishibo/AnotherRedisDesktopManager/releases/download/v1.64/Another-Redis-Desktop-Manager.1.6.4.exe">redis可视化⼯具</a></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">组件(容器名)</th>
+<th style="text-align:center">介绍</th>
+<th style="text-align:center">访问地址</th>
+<th style="text-align:center">账号/密码</th>
+<th style="text-align:center">特性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Redis(redis)</td>
+<td style="text-align:center">k-v库</td>
+<td style="text-align:center">6379</td>
+<td style="text-align:center">123456</td>
+<td style="text-align:center">已开启AOF</td>
+</tr>
+<tr>
+<td style="text-align:center">MySQL(mysql)</td>
+<td style="text-align:center">数据库</td>
+<td style="text-align:center">3306</td>
+<td style="text-align:center">root/123456</td>
+<td style="text-align:center">默认utf8mb4字符集</td>
+</tr>
+<tr>
+<td style="text-align:center">Rabbit(rabbit)</td>
+<td style="text-align:center">消息队列</td>
+<td style="text-align:center">15672</td>
+<td style="text-align:center">rabbit/rabbit</td>
+<td style="text-align:center">暴露5672和15672端⼝</td>
+</tr>
+<tr>
+<td style="text-align:center">OpenSearch(opensearch-node1/2)</td>
+<td style="text-align:center">检索引擎</td>
+<td style="text-align:center">9200</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">内存512mb,两个节点</td>
+</tr>
+<tr>
+<td style="text-align:center">opensearch-dashboards</td>
+<td style="text-align:center">search可视化</td>
+<td style="text-align:center">5601</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">Zookeeper(zookeeper)</td>
+<td style="text-align:center">分布式协调</td>
+<td style="text-align:center">2181</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">允许匿名登录</td>
+</tr>
+<tr>
+<td style="text-align:center">kafka(kafka)</td>
+<td style="text-align:center">消息队列</td>
+<td style="text-align:center">9092,9094</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">占⽤内存512mb</td>
+</tr>
+<tr>
+<td style="text-align:center">kafka-ui(kafka-ui)</td>
+<td style="text-align:center">kafka可视化</td>
+<td style="text-align:center">8080</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">nacos(nacos)</td>
+<td style="text-align:center">注册/配置中⼼</td>
+<td style="text-align:center">8848</td>
+<td style="text-align:center">nacos/nacos</td>
+<td style="text-align:center">持久化数据到MySQL</td>
+</tr>
+<tr>
+<td style="text-align:center">nacos-mysql(nacos-mysql)</td>
+<td style="text-align:center">nacos配套数据库</td>
+<td style="text-align:center">13306</td>
+<td style="text-align:center">root/root</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">prometheus(prometheus)</td>
+<td style="text-align:center">时序数据库</td>
+<td style="text-align:center">9090</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">grafana(grafana)</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">3000</td>
+<td style="text-align:center">admin/admin</td>
+<td style="text-align:center"></td>
+</tr>
+</tbody>
+</table>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[linux下如果只希望在开机的时候运行一次脚本 应该怎么写]]></title>
+        <id>https://zhangyiming748.github.io/post/linux_startup/</id>
+        <link href="https://zhangyiming748.github.io/post/linux_startup/">
+        </link>
+        <updated>2024-08-28T01:35:27.000Z</updated>
+        <content type="html"><![CDATA[<p>在 Linux 系统中，如果你希望在开机时只运行一次某个脚本，可以考虑将该脚本放在 <code>/etc/rc.local</code> 文件中，或者使用系统的服务管理工具（如 <code>systemd</code>）来创建一个服务。</p>
+<p>如果你坚持要在 <code>/etc/profile.d</code> 中放置脚本，通常这个目录下的脚本会在每次用户登录时执行，而不是仅在开机时执行。因此，放在这里并不适合你的需求。</p>
+<p>以下是两种推荐的方法：</p>
+<h3 id="方法一使用-etcrclocal">方法一：使用 <code>/etc/rc.local</code></h3>
+<ol>
+<li>
+<p>编辑 <code>/etc/rc.local</code> 文件（如果该文件不存在，可以创建它）：</p>
+<pre><code class="language-bash">sudo nano /etc/rc.local
+</code></pre>
+</li>
+<li>
+<p>在 <code>exit 0</code> 之前添加你的脚本命令，例如：</p>
+<pre><code class="language-bash">/path/to/your/script.sh
+</code></pre>
+</li>
+<li>
+<p>确保 <code>/etc/rc.local</code> 文件是可执行的：</p>
+<pre><code class="language-bash">sudo chmod +x /etc/rc.local
+</code></pre>
+</li>
+</ol>
+<h3 id="方法二使用-systemd-创建服务">方法二：使用 <code>systemd</code> 创建服务</h3>
+<ol>
+<li>
+<p>创建一个新的服务文件，例如 <code>/etc/systemd/system/myscript.service</code>：</p>
+<pre><code class="language-bash">sudo nano /etc/systemd/system/myscript.service
+</code></pre>
+</li>
+<li>
+<p>在文件中添加以下内容：</p>
+<pre><code class="language-ini">[Unit]
+Description=Run my script at startup
+
+[Service]
+Type=oneshot
+ExecStart=/path/to/your/script.sh
+
+[Install]
+WantedBy=multi-user.target
+</code></pre>
+</li>
+<li>
+<p>重新加载 <code>systemd</code> 配置：</p>
+<pre><code class="language-bash">sudo systemctl daemon-reload
+</code></pre>
+</li>
+<li>
+<p>启用该服务，使其在开机时运行：</p>
+<pre><code class="language-bash">sudo systemctl enable myscript.service
+</code></pre>
+</li>
+</ol>
+<p>这两种方法都可以确保你的脚本在系统启动时只运行一次。选择适合你需求的方法即可。</p>
+]]></content>
+    </entry>
+</feed>
