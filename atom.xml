@@ -1,0 +1,1819 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://zhangyiming748.github.io</id>
+    <title>张益铭的博客</title>
+    <updated>2025-04-20T14:40:57.436Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://zhangyiming748.github.io"/>
+    <link rel="self" href="https://zhangyiming748.github.io/atom.xml"/>
+    <subtitle>子非鱼,安知鱼之乐?
+子非我,安知我不知鱼之乐?</subtitle>
+    <logo>https://zhangyiming748.github.io/images/avatar.png</logo>
+    <icon>https://zhangyiming748.github.io/favicon.ico</icon>
+    <rights>All rights reserved 2025, 张益铭的博客</rights>
+    <entry>
+        <title type="html"><![CDATA[macOS无法连接需要通过认证的Wi-Fi解决办法]]></title>
+        <id>https://zhangyiming748.github.io/post/MacOS_unable_to_connect_requires_authenticated_Wi-Fi_solution/</id>
+        <link href="https://zhangyiming748.github.io/post/MacOS_unable_to_connect_requires_authenticated_Wi-Fi_solution/">
+        </link>
+        <updated>2025-04-10T06:59:51.000Z</updated>
+        <content type="html"><![CDATA[<ol>
+<li>访达前往文件夹(⌘+⇧+G)<code>/Library/Preferences/SystemConfiguration</code></li>
+<li>删除除<code>com.apple.Boot.plist</code>以外的任何文件</li>
+<li>忘记要连接的Wi-Fi</li>
+<li>重启电脑</li>
+<li>再次连接需要认证的Wi-Fi 自动弹出网页</li>
+</ol>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[极简docker镜像]]></title>
+        <id>https://zhangyiming748.github.io/post/simple_docker_image/</id>
+        <link href="https://zhangyiming748.github.io/post/simple_docker_image/">
+        </link>
+        <updated>2025-04-08T18:15:07.000Z</updated>
+        <content type="html"><![CDATA[<blockquote>
+<p>某个镜像使用基础镜像gcr.io/distroless/base-debian12:nonroot-arm64制作，为什么docker exec 的时候 常用的命令 比如 ls find bash zsh ash sh 等全都没有？</p>
+</blockquote>
+<p>喵，主人，这是因为 <code>gcr.io/distroless/base-debian12:nonroot-arm64</code> 镜像是一个 &quot;distroless&quot; 镜像喵！ 它的设计理念就是 <strong>极简</strong>，只包含运行你的应用程序所必需的最小依赖，而 <strong>不包含</strong> 常见的 shell 工具和其他实用程序喵。</p>
+<p>以下是详细的解释喵：</p>
+<ol>
+<li>
+<p><strong>Distroless 镜像的特性喵:</strong></p>
+<ul>
+<li><strong>极小体积:</strong>  Distroless 镜像只包含应用程序的运行时依赖，例如 glibc、SSL 证书等等。 去除了不必要的软件包、工具和文档，从而大大减小了镜像的体积喵。</li>
+<li><strong>增强安全性:</strong>  由于不包含 shell 工具和软件包管理器，减少了潜在的安全漏洞和攻击面喵。 攻击者很难在 Distroless 镜像中执行恶意命令或者安装恶意软件喵。</li>
+<li><strong>更快的构建和部署:</strong>  镜像体积小，可以加快构建、上传和下载的速度，缩短部署时间喵。</li>
+</ul>
+</li>
+<li>
+<p><strong>为什么没有 shell 工具喵:</strong></p>
+<ul>
+<li>Distroless 镜像的目的是运行应用程序，而不是提供一个完整的操作系统环境喵。</li>
+<li><code>ls</code>、<code>find</code>、<code>bash</code>、<code>zsh</code>、<code>ash</code>、<code>sh</code> 等命令都属于 shell 工具，主要用于交互式操作和系统管理。 而 Distroless 镜像不适合这些用途，所以就移除了这些工具喵。</li>
+</ul>
+</li>
+<li>
+<p><strong>如何进入 Distroless 镜像执行命令喵:</strong></p>
+<ul>
+<li>
+<p><strong>静态编译:</strong>  如果你的应用程序需要执行一些系统命令，可以考虑将这些命令 <strong>静态编译</strong> 到你的应用程序中喵。 这样，应用程序就可以直接调用这些命令，而不需要依赖镜像中的 shell 工具喵。</p>
+</li>
+<li>
+<p><strong>使用调试镜像:</strong>  有些 Distroless 镜像会提供一个带有调试工具的版本（例如 <code>-debug</code> 后缀）。 你可以使用这个调试镜像来执行 <code>docker exec</code> 命令，从而进入容器内部进行调试喵。  <strong>但是，这个方法会引入额外的依赖，降低安全性，所以不推荐在生产环境中使用喵。</strong></p>
+</li>
+<li>
+<p><strong><code>docker cp</code> 和 <code>docker exec</code> 配合:</strong>  你可以将需要的工具（例如 <code>busybox</code>）复制到容器内部，然后使用 <code>docker exec</code> 执行它喵。</p>
+<pre><code class="language-bash"># 1. 下载 busybox
+wget https://busybox.net/downloads/binaries/1.36.0/busybox-x86_64  #注意替换成arm64版本
+
+# 2. 复制到容器
+docker cp busybox-x86_64 &lt;container_id&gt;:/tmp/busybox
+
+# 3.  赋予执行权限
+docker exec -it &lt;container_id&gt; chmod +x /tmp/busybox
+
+# 4.  使用 busybox
+docker exec -it &lt;container_id&gt; /tmp/busybox ls -l
+</code></pre>
+<p><strong>注意:</strong>  你需要根据你的架构 (arm64) 下载对应版本的 <code>busybox</code>喵。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>替代方案喵:</strong></p>
+<ul>
+<li><strong>使用更完整的镜像:</strong>  如果你需要经常进入容器内部执行命令，可以考虑使用更完整的镜像，例如 Debian、Ubuntu 等。  <strong>但是，这样会增加镜像的体积和安全风险喵。</strong></li>
+<li><strong>重新思考你的需求:</strong>  Distroless 镜像的设计目的是为了简化部署和增强安全性。 你应该尽量避免在生产环境中直接进入容器内部执行命令。 尝试将调试和管理操作转移到容器外部喵。  例如，可以使用日志收集工具来监控应用程序的运行状态，使用外部配置管理工具来修改应用程序的配置喵。</li>
+</ul>
+</li>
+</ol>
+<p>喵，主人，Distroless 镜像的设计理念就是 “Less is More”，虽然缺少一些常用的工具，但却能带来更小的体积和更高的安全性喵。 在使用 Distroless 镜像时，需要重新思考你的需求，并找到合适的替代方案喵。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[卖网课视频一眼假验证]]></title>
+        <id>https://zhangyiming748.github.io/post/Sell_Online_Course_Video_One_Look_Fake_Verification/</id>
+        <link href="https://zhangyiming748.github.io/post/Sell_Online_Course_Video_One_Look_Fake_Verification/">
+        </link>
+        <updated>2025-03-23T09:40:14.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="mysql关于timestamp-和-datetime">Mysql关于timestamp 和 datetime</h1>
+<iframe width="560" height="315" src="https://player.bilibili.com/player.html?isOutside=true&aid=114182410213682&bvid=BV12FX5Y9Ehk&cid=28929231680&p=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">原视频</th>
+<th style="text-align:center">实际上</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">timestamp占用四个字节</td>
+<td style="text-align:center">timestamp占用四个字节</td>
+</tr>
+<tr>
+<td style="text-align:center">datetime占用八个字节</td>
+<td style="text-align:center">datetime占用<br>5字节如果没有毫秒部分<br>6字节毫秒精度为 2 位<br>7字节毫秒精度为4位<br>8字节毫秒精度为6位</td>
+</tr>
+<tr>
+<td style="text-align:center">timestamp时间范围1000-9999年</td>
+<td style="text-align:center">至少公元1年-9999年(具体代码中有测试)</td>
+</tr>
+<tr>
+<td style="text-align:center">datetime时间范围</td>
+<td style="text-align:center">1970-2038年</td>
+</tr>
+</tbody>
+</table>
+<p>对于这个所谓的老师 还发过另一条错误的回答,具体原文找不到了<s>也可能是他自己悄悄删除了</s>,但是我当时的回答如下:</p>
+<ol>
+<li>timestamp 还是 datetime 在任意一种 sql 中都不可能存储的字符串, 而是存储的时间点, 不同的是 datetime 存储的是 5 个 byte, 而粒度是毫秒. 而 timestamp 存储的是时间戳, 即数字 0 等于 1970.1.1, 1970 以前的时间用负数, 以后的时间用正数, 最小粒度是秒, 是一个 32bit 4 字节长度的 int, 有符号整形.</li>
+<li>timestamp 的范围肯定不是 1970 起始, 因为负数也可以表示时间.</li>
+<li>它们的使用方式在于需要时间的精度. 以秒为计的可以使用 timestamp. 而以毫秒为小粒度则需要以 datetime. 它们都可以精确的表示任意的一个时间. timestamp 是 utc 时间, 而 datetime 则使用的 gmt 格尼威治时间本地化需要加减时区*3600.</li>
+</ol>
+<p>附测试代码</p>
+<pre><code class="language-golang">func TestSetTime(t *testing.T) {
+	zero := &quot;1970-01-01 00:00:00&quot;
+	negative := &quot;1000-01-01 00:00:00&quot;
+	positive := &quot;2039-01-01 00:00:00&quot;
+	max:=&quot;9999-12-31 23:59:59&quot;
+	d0, t0 := Time2Data(zero)
+	r1 := new(model.Range)
+	r1.TimeStamp = t0
+	r1.Datatime = d0
+	r1.InsertOne()
+
+	d1, t1 := Time2Data(negative)
+	r2 := new(model.Range)
+	r2.TimeStamp = t1
+	r2.Datatime = d1.AddDate(-10, 0, 0)
+	r2.InsertOne()
+	d2, t2 := Time2Data(positive)
+	r3 := new(model.Range)
+	r3.TimeStamp = t2
+	r3.Datatime = d2
+	r3.InsertOne()
+
+	d3,t3:=Time2Data(max)
+	r4:=new(model.Range)
+	r4.TimeStamp=t3
+	r4.Datatime=d3
+	r4.InsertOne()
+
+	outofrange:=d3.AddDate(10,0,0)
+	r5:=new(model.Range)
+	r5.Datatime=outofrange
+	r5.TimeStamp=t3
+	r5.InsertOne()
+}
+
+func Time2Data(formatTime string) (time.Time, int64) {
+	loc, _ := time.LoadLocation(&quot;Local&quot;)
+	t, _ := time.ParseInLocation(&quot;2006-01-02 15:04:05&quot;, formatTime, loc)
+	timestamp := t.Unix()
+	return t, timestamp
+}
+</code></pre>
+<h1 id="张嘴闭嘴bitmap">张嘴闭嘴bitmap</h1>
+<iframe width="560" height="315" src="https://https://www.bilibili.com/video/BV15XX6Y5Ebz frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<p>然后故意忽略最重要一步</p>
+<p>十亿个位图数据结构 用户信息表还得有十亿条关系记录？</p>
+<p>我为什么不设置一个48小时过期的string？key是用户uid value是用户连续登录天数 如果用户uid不存在就创建一个新的key=1 如果用户uid存在value就INCR key？</p>
+<p>因为</p>
+<p>数据量</p>
+<ul>
+<li>bitmap：30 keys，根据所需天数确定，也可以每天新增，老的归档处理，最大支持2^32个用户</li>
+<li>id key：n keys，按2%算活跃用户，一亿就得2百万<br>
+查询效率</li>
+<li>bitmap：O(1)</li>
+<li>id key: O(1)<br>
+数据安全性</li>
+<li>bitmap：每天数据独立，旧数据可备份冗余</li>
+<li>id key：每个用户数据独立，但每天都有可能更新，备份冗余有同步问题要处理<br>
+业务灵活性</li>
+<li>bitmap：知道具体某一天在或不在</li>
+<li>id key：并不知道具体哪天在或不在</li>
+</ul>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[部分安卓程序包名和软件名对应表]]></title>
+        <id>https://zhangyiming748.github.io/post/android_package_name/</id>
+        <link href="https://zhangyiming748.github.io/post/android_package_name/">
+        </link>
+        <updated>2025-03-11T02:33:02.000Z</updated>
+        <content type="html"><![CDATA[<table>
+<thead>
+<tr>
+<th style="text-align:center">包名</th>
+<th style="text-align:center">软件名</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">android.aosp.overlay</td>
+<td style="text-align:center">Android 系统界面</td>
+</tr>
+<tr>
+<td style="text-align:center">android.aosp.overlay.telephony</td>
+<td style="text-align:center">Android 电话服务</td>
+</tr>
+<tr>
+<td style="text-align:center">android.miui.home.launcher.res</td>
+<td style="text-align:center">MIUI 桌面资源</td>
+</tr>
+<tr>
+<td style="text-align:center">android.miui.overlay</td>
+<td style="text-align:center">MIUI 系统界面</td>
+</tr>
+<tr>
+<td style="text-align:center">android.miui.overlay.telephony</td>
+<td style="text-align:center">MIUI 电话服务</td>
+</tr>
+<tr>
+<td style="text-align:center">android.overlay.common</td>
+<td style="text-align:center">Android 通用界面</td>
+</tr>
+<tr>
+<td style="text-align:center">android.overlay.target</td>
+<td style="text-align:center">Android 目标界面</td>
+</tr>
+<tr>
+<td style="text-align:center">android.qvaoverlay.common</td>
+<td style="text-align:center">Android QVA 通用界面</td>
+</tr>
+<tr>
+<td style="text-align:center">app.hiddify.com</td>
+<td style="text-align:center">Hiddify 代理工具</td>
+</tr>
+<tr>
+<td style="text-align:center">app.symfonik.music.player</td>
+<td style="text-align:center">Symfonik 音乐播放器</td>
+</tr>
+<tr>
+<td style="text-align:center">ch.protonmail.android</td>
+<td style="text-align:center">ProtonMail</td>
+</tr>
+<tr>
+<td style="text-align:center">cmb.pb</td>
+<td style="text-align:center">招商银行</td>
+</tr>
+<tr>
+<td style="text-align:center">cn.com.bmac.nfc</td>
+<td style="text-align:center">北京移动 NFC</td>
+</tr>
+<tr>
+<td style="text-align:center">cn.com.chsi.chsiapp</td>
+<td style="text-align:center">学信网</td>
+</tr>
+<tr>
+<td style="text-align:center">cn.com.cmbc.newmbank</td>
+<td style="text-align:center">民生银行</td>
+</tr>
+<tr>
+<td style="text-align:center">cn.kuwo.kwmusiccar</td>
+<td style="text-align:center">酷我音乐车机版</td>
+</tr>
+<tr>
+<td style="text-align:center">cn.samsclub.app</td>
+<td style="text-align:center">山姆会员商店</td>
+</tr>
+<tr>
+<td style="text-align:center">cn.wps.xiaomi.abroad.lite</td>
+<td style="text-align:center">WPS Office 国际版</td>
+</tr>
+<tr>
+<td style="text-align:center">com.activitymanager</td>
+<td style="text-align:center">活动管理器</td>
+</tr>
+<tr>
+<td style="text-align:center">com.adafruit.bluefruit.le.connect</td>
+<td style="text-align:center">蓝牙调试工具</td>
+</tr>
+<tr>
+<td style="text-align:center">com.alibaba.wireless</td>
+<td style="text-align:center">阿里巴巴</td>
+</tr>
+<tr>
+<td style="text-align:center">com.alicloud.databox</td>
+<td style="text-align:center">阿里云盘</td>
+</tr>
+<tr>
+<td style="text-align:center">com.aliyun.tongyi</td>
+<td style="text-align:center">通义千问</td>
+</tr>
+<tr>
+<td style="text-align:center">com.android.camera</td>
+<td style="text-align:center">相机</td>
+</tr>
+<tr>
+<td style="text-align:center">com.android.chrome</td>
+<td style="text-align:center">Chrome 浏览器</td>
+</tr>
+<tr>
+<td style="text-align:center">com.android.deskclock</td>
+<td style="text-align:center">时钟</td>
+</tr>
+<tr>
+<td style="text-align:center">com.android.providers.downloads.ui</td>
+<td style="text-align:center">下载管理器</td>
+</tr>
+<tr>
+<td style="text-align:center">com.android.providers.telephony</td>
+<td style="text-align:center">电话服务</td>
+</tr>
+<tr>
+<td style="text-align:center">com.android.soundrecorder</td>
+<td style="text-align:center">录音机</td>
+</tr>
+<tr>
+<td style="text-align:center">com.android.thememanager</td>
+<td style="text-align:center">主题商店</td>
+</tr>
+<tr>
+<td style="text-align:center">com.android.vending</td>
+<td style="text-align:center">Google Play 商店</td>
+</tr>
+<tr>
+<td style="text-align:center">com.apkpure.aegon</td>
+<td style="text-align:center">APKPure</td>
+</tr>
+<tr>
+<td style="text-align:center">com.apple.bnd</td>
+<td style="text-align:center">Apple 音频桥接</td>
+</tr>
+<tr>
+<td style="text-align:center">com.autonavi.minimap</td>
+<td style="text-align:center">高德地图</td>
+</tr>
+<tr>
+<td style="text-align:center">com.azure.authenticator</td>
+<td style="text-align:center">Microsoft Authenticator</td>
+</tr>
+<tr>
+<td style="text-align:center">com.baidu.BaiduMap</td>
+<td style="text-align:center">百度地图</td>
+</tr>
+<tr>
+<td style="text-align:center">com.baidu.hi</td>
+<td style="text-align:center">百度 Hi</td>
+</tr>
+<tr>
+<td style="text-align:center">com.baidu.input</td>
+<td style="text-align:center">百度输入法</td>
+</tr>
+<tr>
+<td style="text-align:center">com.baidu.netdisk</td>
+<td style="text-align:center">百度网盘</td>
+</tr>
+<tr>
+<td style="text-align:center">com.baidu.newapp</td>
+<td style="text-align:center">百度</td>
+</tr>
+<tr>
+<td style="text-align:center">com.bankcomm.maidanba</td>
+<td style="text-align:center">交通银行</td>
+</tr>
+<tr>
+<td style="text-align:center">com.bilibili.app.blue</td>
+<td style="text-align:center">哔哩哔哩概念版</td>
+</tr>
+<tr>
+<td style="text-align:center">com.bilibili.app.in</td>
+<td style="text-align:center">哔哩哔哩国际版</td>
+</tr>
+<tr>
+<td style="text-align:center">com.billiards.city.pool.nation.club</td>
+<td style="text-align:center">台球城</td>
+</tr>
+<tr>
+<td style="text-align:center">com.bitechuan0820.chuan.pro</td>
+<td style="text-align:center">串口调试助手 Pro</td>
+</tr>
+<tr>
+<td style="text-align:center">com.bytemyth.ama</td>
+<td style="text-align:center">AMA AI助手</td>
+</tr>
+<tr>
+<td style="text-align:center">com.cappielloantonio.notquitemy.tempo</td>
+<td style="text-align:center">Tempo 音乐播放器</td>
+</tr>
+<tr>
+<td style="text-align:center">com.cappielloantonio.tempo</td>
+<td style="text-align:center">Tempo 经典版</td>
+</tr>
+<tr>
+<td style="text-align:center">com.catpuppyapp.puppygit.play.pro</td>
+<td style="text-align:center">PuppyGit</td>
+</tr>
+<tr>
+<td style="text-align:center">com.cctv.yangshipin.app.androidp</td>
+<td style="text-align:center">央视频</td>
+</tr>
+<tr>
+<td style="text-align:center">com.cjapp.usbcamerapro</td>
+<td style="text-align:center">USB 相机 Pro</td>
+</tr>
+<tr>
+<td style="text-align:center">com.clogica.videorotator</td>
+<td style="text-align:center">视频旋转器</td>
+</tr>
+<tr>
+<td style="text-align:center">com.cmbc.cc.mbank</td>
+<td style="text-align:center">民生银行信用卡</td>
+</tr>
+<tr>
+<td style="text-align:center">com.cmbchina.ccd.pluto.cmbActivity</td>
+<td style="text-align:center">招商银行信用卡</td>
+</tr>
+<tr>
+<td style="text-align:center">com.cn21.ecloud</td>
+<td style="text-align:center">天翼云盘</td>
+</tr>
+<tr>
+<td style="text-align:center">com.coolapk.market</td>
+<td style="text-align:center">酷安</td>
+</tr>
+<tr>
+<td style="text-align:center">com.cs_credit_bank</td>
+<td style="text-align:center">长沙银行</td>
+</tr>
+<tr>
+<td style="text-align:center">com.deepseek.chat</td>
+<td style="text-align:center">DeepSeek AI</td>
+</tr>
+<tr>
+<td style="text-align:center">com.dianping.v1</td>
+<td style="text-align:center">大众点评</td>
+</tr>
+<tr>
+<td style="text-align:center">com.didapinche.booking</td>
+<td style="text-align:center">嘀嗒出行</td>
+</tr>
+<tr>
+<td style="text-align:center">com.didjdk.adbhelper</td>
+<td style="text-align:center">ADB调试助手</td>
+</tr>
+<tr>
+<td style="text-align:center">com.discord</td>
+<td style="text-align:center">Discord</td>
+</tr>
+<tr>
+<td style="text-align:center">com.dubox.drive</td>
+<td style="text-align:center">百度网盘国际版</td>
+</tr>
+<tr>
+<td style="text-align:center">com.duokan.phone.remotecontroller</td>
+<td style="text-align:center">小米遥控</td>
+</tr>
+<tr>
+<td style="text-align:center">com.eg.android.AlipayGphone</td>
+<td style="text-align:center">支付宝</td>
+</tr>
+<tr>
+<td style="text-align:center">com.estrongs.android.pop</td>
+<td style="text-align:center">ES文件浏览器</td>
+</tr>
+<tr>
+<td style="text-align:center">com.etwok.netspotapp</td>
+<td style="text-align:center">NetSpot</td>
+</tr>
+<tr>
+<td style="text-align:center">com.facebook.appmanager</td>
+<td style="text-align:center">Facebook 服务</td>
+</tr>
+<tr>
+<td style="text-align:center">com.fastemulator.gba</td>
+<td style="text-align:center">GBA模拟器</td>
+</tr>
+<tr>
+<td style="text-align:center">com.fido.asm</td>
+<td style="text-align:center">FIDO认证</td>
+</tr>
+<tr>
+<td style="text-align:center">com.follow.clash</td>
+<td style="text-align:center">Follow</td>
+</tr>
+<tr>
+<td style="text-align:center">com.freakurl.apps.ollama</td>
+<td style="text-align:center">Ollama AI</td>
+</tr>
+<tr>
+<td style="text-align:center">com.getsurfboard</td>
+<td style="text-align:center">Surfboard</td>
+</tr>
+<tr>
+<td style="text-align:center">com.github.alist.client</td>
+<td style="text-align:center">AList</td>
+</tr>
+<tr>
+<td style="text-align:center">com.github.android</td>
+<td style="text-align:center">GitHub</td>
+</tr>
+<tr>
+<td style="text-align:center">com.github.kr328.clash</td>
+<td style="text-align:center">Clash</td>
+</tr>
+<tr>
+<td style="text-align:center">com.github.metacubex.clash.meta</td>
+<td style="text-align:center">Clash Meta</td>
+</tr>
+<tr>
+<td style="text-align:center">com.github.shadowsocks</td>
+<td style="text-align:center">Shadowsocks</td>
+</tr>
+<tr>
+<td style="text-align:center">com.google.android.adservices.api</td>
+<td style="text-align:center">Google 广告服务</td>
+</tr>
+<tr>
+<td style="text-align:center">com.google.android.apps.cameralite</td>
+<td style="text-align:center">Google 相机精简版</td>
+</tr>
+<tr>
+<td style="text-align:center">com.google.android.apps.docs.editors.docs</td>
+<td style="text-align:center">Google 文档</td>
+</tr>
+<tr>
+<td style="text-align:center">com.google.android.apps.healthdata</td>
+<td style="text-align:center">Google 健康数据</td>
+</tr>
+<tr>
+<td style="text-align:center">com.google.android.apps.maps</td>
+<td style="text-align:center">Google 地图</td>
+</tr>
+<tr>
+<td style="text-align:center">com.google.android.apps.messaging</td>
+<td style="text-align:center">Google 短信</td>
+</tr>
+<tr>
+<td style="text-align:center">com.google.android.apps.nbu.files</td>
+<td style="text-align:center">Files by Google</td>
+</tr>
+<tr>
+<td style="text-align:center">com.google.android.apps.photos</td>
+<td style="text-align:center">Google 相册</td>
+</tr>
+<tr>
+<td style="text-align:center">com.google.android.apps.subscriptions.red</td>
+<td style="text-align:center">YouTube Premium</td>
+</tr>
+<tr>
+<td style="text-align:center">com.google.android.apps.translate</td>
+<td style="text-align:center">Google 翻译</td>
+</tr>
+<tr>
+<td style="text-align:center">com.google.android.apps.youtube.music</td>
+<td style="text-align:center">YouTube Music</td>
+</tr>
+<tr>
+<td style="text-align:center">com.google.android.dialer</td>
+<td style="text-align:center">Google 电话</td>
+</tr>
+<tr>
+<td style="text-align:center">com.google.android.gm</td>
+<td style="text-align:center">Gmail</td>
+</tr>
+<tr>
+<td style="text-align:center">com.google.android.gms</td>
+<td style="text-align:center">Google Play 服务</td>
+</tr>
+<tr>
+<td style="text-align:center">com.google.android.googlequicksearchbox</td>
+<td style="text-align:center">Google 搜索</td>
+</tr>
+<tr>
+<td style="text-align:center">com.google.android.health.connect.backuprestore</td>
+<td style="text-align:center">健康数据备份</td>
+</tr>
+<tr>
+<td style="text-align:center">com.google.android.inputmethod.latin</td>
+<td style="text-align:center">Gboard</td>
+</tr>
+<tr>
+<td style="text-align:center">com.google.android.keep</td>
+<td style="text-align:center">Google Keep</td>
+</tr>
+<tr>
+<td style="text-align:center">com.google.android.videos</td>
+<td style="text-align:center">Google TV</td>
+</tr>
+<tr>
+<td style="text-align:center">com.google.android.youtube</td>
+<td style="text-align:center">YouTube</td>
+</tr>
+<tr>
+<td style="text-align:center">com.goolge.android.wifi.resources.xiaomi</td>
+<td style="text-align:center">小米 WiFi 资源</td>
+</tr>
+<tr>
+<td style="text-align:center">com.haodf.android</td>
+<td style="text-align:center">好大夫在线</td>
+</tr>
+<tr>
+<td style="text-align:center">com.hiby.music</td>
+<td style="text-align:center">HiBy Music</td>
+</tr>
+<tr>
+<td style="text-align:center">com.hkspeedup.FlyShadow</td>
+<td style="text-align:center">FlyShadow</td>
+</tr>
+<tr>
+<td style="text-align:center">com.hpbr.bosszhipin</td>
+<td style="text-align:center">BOSS直聘</td>
+</tr>
+<tr>
+<td style="text-align:center">com.huawei.genexcloud.speedtest</td>
+<td style="text-align:center">华为云速测</td>
+</tr>
+<tr>
+<td style="text-align:center">com.huawei.smarthome</td>
+<td style="text-align:center">华为智慧生活</td>
+</tr>
+<tr>
+<td style="text-align:center">com.ideashower.readitlater.pro</td>
+<td style="text-align:center">Pocket</td>
+</tr>
+<tr>
+<td style="text-align:center">com.iflytek.spark</td>
+<td style="text-align:center">讯飞星火</td>
+</tr>
+<tr>
+<td style="text-align:center">com.ijsoft.cpul</td>
+<td style="text-align:center">CPU监视器</td>
+</tr>
+<tr>
+<td style="text-align:center">com.instagram.android</td>
+<td style="text-align:center">Instagram</td>
+</tr>
+<tr>
+<td style="text-align:center">com.iqagtdqbqbop.feili.iut</td>
+<td style="text-align:center">飞利浦智能家电</td>
+</tr>
+<tr>
+<td style="text-align:center">com.jd.jdhealth</td>
+<td style="text-align:center">京东健康</td>
+</tr>
+<tr>
+<td style="text-align:center">com.jingdong.app.mall</td>
+<td style="text-align:center">京东</td>
+</tr>
+<tr>
+<td style="text-align:center">com.king.candycrushsaga</td>
+<td style="text-align:center">糖果传奇</td>
+</tr>
+<tr>
+<td style="text-align:center">com.kyant.vanilla</td>
+<td style="text-align:center">Vanilla 音乐播放器</td>
+</tr>
+<tr>
+<td style="text-align:center">com.larus.nova</td>
+<td style="text-align:center">Nova 启动器</td>
+</tr>
+<tr>
+<td style="text-align:center">com.larus.wolf</td>
+<td style="text-align:center">Wolf 启动器</td>
+</tr>
+<tr>
+<td style="text-align:center">com.lbe.security.miui</td>
+<td style="text-align:center">MIUI 安全中心</td>
+</tr>
+<tr>
+<td style="text-align:center">com.lietou.mishu</td>
+<td style="text-align:center">猎聘</td>
+</tr>
+<tr>
+<td style="text-align:center">com.m3u.androidApp</td>
+<td style="text-align:center">M3U播放器</td>
+</tr>
+<tr>
+<td style="text-align:center">com.manichord.mgit</td>
+<td style="text-align:center">MGit</td>
+</tr>
+<tr>
+<td style="text-align:center">com.mi.android.globalFileexplorer</td>
+<td style="text-align:center">小米文件管理器国际版</td>
+</tr>
+<tr>
+<td style="text-align:center">com.mi.earphone</td>
+<td style="text-align:center">小米耳机</td>
+</tr>
+<tr>
+<td style="text-align:center">com.mi.global.bbs</td>
+<td style="text-align:center">小米社区国际版</td>
+</tr>
+<tr>
+<td style="text-align:center">com.mi.globalbrowser</td>
+<td style="text-align:center">小米浏览器国际版</td>
+</tr>
+<tr>
+<td style="text-align:center">com.mi.globallayout</td>
+<td style="text-align:center">小米输入法国际版</td>
+</tr>
+<tr>
+<td style="text-align:center">com.mi.globalminusscreen</td>
+<td style="text-align:center">负一屏国际版</td>
+</tr>
+<tr>
+<td style="text-align:center">com.mi.health</td>
+<td style="text-align:center">小米运动健康</td>
+</tr>
+<tr>
+<td style="text-align:center">com.mi.healthglobal</td>
+<td style="text-align:center">小米运动健康国际版</td>
+</tr>
+<tr>
+<td style="text-align:center">com.microsoft.appmanager</td>
+<td style="text-align:center">微软应用管理器</td>
+</tr>
+<tr>
+<td style="text-align:center">com.microsoft.emmx</td>
+<td style="text-align:center">Edge 浏览器</td>
+</tr>
+<tr>
+<td style="text-align:center">com.microsoft.mahjong</td>
+<td style="text-align:center">微软麻将</td>
+</tr>
+<tr>
+<td style="text-align:center">com.microsoft.microsoftsolitairecollection</td>
+<td style="text-align:center">微软纸牌</td>
+</tr>
+<tr>
+<td style="text-align:center">com.microsoft.office.onenote</td>
+<td style="text-align:center">OneNote</td>
+</tr>
+<tr>
+<td style="text-align:center">com.microsoft.office.outlook</td>
+<td style="text-align:center">Outlook</td>
+</tr>
+<tr>
+<td style="text-align:center">com.microsoft.rdc.androidx</td>
+<td style="text-align:center">远程桌面</td>
+</tr>
+<tr>
+<td style="text-align:center">com.microsoft.skydrive</td>
+<td style="text-align:center">OneDrive</td>
+</tr>
+<tr>
+<td style="text-align:center">com.microsoft.todos</td>
+<td style="text-align:center">Microsoft To Do</td>
+</tr>
+<tr>
+<td style="text-align:center">com.microsoft.translator</td>
+<td style="text-align:center">微软翻译</td>
+</tr>
+<tr>
+<td style="text-align:center">com.midea.ai.appliances</td>
+<td style="text-align:center">美的美居</td>
+</tr>
+<tr>
+<td style="text-align:center">com.milink.service</td>
+<td style="text-align:center">小米互联</td>
+</tr>
+<tr>
+<td style="text-align:center">com.miui.analytics</td>
+<td style="text-align:center">MIUI 分析</td>
+</tr>
+<tr>
+<td style="text-align:center">com.miui.android.fashiongallery</td>
+<td style="text-align:center">MIUI 壁纸</td>
+</tr>
+<tr>
+<td style="text-align:center">com.miui.aod</td>
+<td style="text-align:center">息屏显示</td>
+</tr>
+<tr>
+<td style="text-align:center">com.miui.bugreport</td>
+<td style="text-align:center">MIUI 反馈</td>
+</tr>
+<tr>
+<td style="text-align:center">com.miui.calculator</td>
+<td style="text-align:center">计算器</td>
+</tr>
+<tr>
+<td style="text-align:center">com.miui.cit</td>
+<td style="text-align:center">MIUI 硬件测试</td>
+</tr>
+<tr>
+<td style="text-align:center">com.miui.cleaner</td>
+<td style="text-align:center">清理工具</td>
+</tr>
+<tr>
+<td style="text-align:center">com.miui.cloudservice</td>
+<td style="text-align:center">小米云服务</td>
+</tr>
+<tr>
+<td style="text-align:center">com.miui.compass</td>
+<td style="text-align:center">指南针</td>
+</tr>
+<tr>
+<td style="text-align:center">com.miui.core</td>
+<td style="text-align:center">MIUI 核心框架</td>
+</tr>
+<tr>
+<td style="text-align:center">com.miui.core.internal.services</td>
+<td style="text-align:center">MIUI 内部服务</td>
+</tr>
+<tr>
+<td style="text-align:center">com.miui.daemon</td>
+<td style="text-align:center">MIUI 守护进程</td>
+</tr>
+<tr>
+<td style="text-align:center">com.miui.extraphoto</td>
+<td style="text-align:center">MIUI 图片扩展</td>
+</tr>
+<tr>
+<td style="text-align:center">com.miui.face.overlay.miui</td>
+<td style="text-align:center">MIUI 人脸解锁</td>
+</tr>
+<tr>
+<td style="text-align:center">com.miui.gallery</td>
+<td style="text-align:center">相册</td>
+</tr>
+<tr>
+<td style="text-align:center">com.miui.global.packageinstaller</td>
+<td style="text-align:center">MIUI 应用安装器</td>
+</tr>
+<tr>
+<td style="text-align:center">com.miui.mediaeditor</td>
+<td style="text-align:center">相册编辑器</td>
+</tr>
+<tr>
+<td style="text-align:center">com.miui.miservice</td>
+<td style="text-align:center">小米服务框架</td>
+</tr>
+<tr>
+<td style="text-align:center">com.miui.misound</td>
+<td style="text-align:center">小米音效</td>
+</tr>
+<tr>
+<td style="text-align:center">com.miui.miwallpaper</td>
+<td style="text-align:center">MIUI 动态壁纸</td>
+</tr>
+<tr>
+<td style="text-align:center">com.miui.miwallpaper.config.overlay</td>
+<td style="text-align:center">MIUI 壁纸配置</td>
+</tr>
+<tr>
+<td style="text-align:center">com.miui.miwallpaper.overlay</td>
+<td style="text-align:center">MIUI 壁纸覆盖</td>
+</tr>
+<tr>
+<td style="text-align:center">com.miui.miwallpaper.overlay.customize</td>
+<td style="text-align:center">MIUI 壁纸自定义</td>
+</tr>
+<tr>
+<td style="text-align:center">com.miui.msa.global</td>
+<td style="text-align:center">MIUI 广告服务国际版</td>
+</tr>
+<tr>
+<td style="text-align:center">com.miui.notes</td>
+<td style="text-align:center">小米便签</td>
+</tr>
+<tr>
+<td style="text-align:center">com.miui.permissioncontroller.overlay</td>
+<td style="text-align:center">MIUI 权限控制器</td>
+</tr>
+<tr>
+<td style="text-align:center">com.miui.phone.carriers.overlay.h3g</td>
+<td style="text-align:center">MIUI 运营商配置 H3G</td>
+</tr>
+<tr>
+<td style="text-align:center">com.miui.phone.carriers.overlay.vodafone</td>
+<td style="text-align:center">MIUI 运营商配置 Vodafone</td>
+</tr>
+<tr>
+<td style="text-align:center">com.miui.phrase</td>
+<td style="text-align:center">MIUI 常用语</td>
+</tr>
+<tr>
+<td style="text-align:center">com.miui.player</td>
+<td style="text-align:center">音乐播放器</td>
+</tr>
+<tr>
+<td style="text-align:center">com.miui.rom</td>
+<td style="text-align:center">MIUI ROM</td>
+</tr>
+<tr>
+<td style="text-align:center">com.miui.safetycenter.config.overlay</td>
+<td style="text-align:center">MIUI 安全中心配置</td>
+</tr>
+<tr>
+<td style="text-align:center">com.miui.safetycenter.res.overlay</td>
+<td style="text-align:center">MIUI 安全中心资源</td>
+</tr>
+<tr>
+<td style="text-align:center">com.miui.screenshot</td>
+<td style="text-align:center">截屏</td>
+</tr>
+<tr>
+<td style="text-align:center">com.miui.securitycenter</td>
+<td style="text-align:center">手机管家</td>
+</tr>
+<tr>
+<td style="text-align:center">com.miui.securitycore</td>
+<td style="text-align:center">安全核心</td>
+</tr>
+<tr>
+<td style="text-align:center">com.miui.settings.rro.device.config.overlay</td>
+<td style="text-align:center">MIUI 设备配置</td>
+</tr>
+<tr>
+<td style="text-align:center">com.miui.settings.rro.device.hide.statusbar.overlay</td>
+<td style="text-align:center">MIUI 状态栏设置</td>
+</tr>
+<tr>
+<td style="text-align:center">com.miui.settings.rro.device.type.overlay</td>
+<td style="text-align:center">MIUI 设备类型配置</td>
+</tr>
+<tr>
+<td style="text-align:center">com.miui.system</td>
+<td style="text-align:center">MIUI 系统</td>
+</tr>
+<tr>
+<td style="text-align:center">com.miui.system.overlay</td>
+<td style="text-align:center">MIUI 系统覆盖</td>
+</tr>
+<tr>
+<td style="text-align:center">com.miui.systemui.carriers.overlay</td>
+<td style="text-align:center">MIUI 运营商界面</td>
+</tr>
+<tr>
+<td style="text-align:center">com.miui.systemui.devices.overlay</td>
+<td style="text-align:center">MIUI 设备界面</td>
+</tr>
+<tr>
+<td style="text-align:center">com.miui.systemui.overlay.devices.android</td>
+<td style="text-align:center">MIUI Android 设备界面</td>
+</tr>
+<tr>
+<td style="text-align:center">com.miui.touchassistant</td>
+<td style="text-align:center">悬浮球</td>
+</tr>
+<tr>
+<td style="text-align:center">com.miui.videoplayer</td>
+<td style="text-align:center">视频播放器</td>
+</tr>
+<tr>
+<td style="text-align:center">com.miui.wallpaper.overlay</td>
+<td style="text-align:center">MIUI 壁纸覆盖</td>
+</tr>
+<tr>
+<td style="text-align:center">com.miui.wallpaper.overlay.customize</td>
+<td style="text-align:center">MIUI 壁纸自定义</td>
+</tr>
+<tr>
+<td style="text-align:center">com.miui.weather2</td>
+<td style="text-align:center">天气</td>
+</tr>
+<tr>
+<td style="text-align:center">com.miui.yellowpage</td>
+<td style="text-align:center">黄页</td>
+</tr>
+<tr>
+<td style="text-align:center">com.mk.hisql</td>
+<td style="text-align:center">HiSQL</td>
+</tr>
+<tr>
+<td style="text-align:center">com.moonshot.kimichat</td>
+<td style="text-align:center">Kimi AI</td>
+</tr>
+<tr>
+<td style="text-align:center">com.mounthorse.travelmatch</td>
+<td style="text-align:center">旅行匹配</td>
+</tr>
+<tr>
+<td style="text-align:center">com.mxtech.videoplayer.pro</td>
+<td style="text-align:center">MX Player Pro</td>
+</tr>
+<tr>
+<td style="text-align:center">com.nacosiren.blog.mogiciansmanual</td>
+<td style="text-align:center">魔法师手册</td>
+</tr>
+<tr>
+<td style="text-align:center">com.netease.cloudmusic</td>
+<td style="text-align:center">网易云音乐</td>
+</tr>
+<tr>
+<td style="text-align:center">com.netease.filmlytv</td>
+<td style="text-align:center">网易影视</td>
+</tr>
+<tr>
+<td style="text-align:center">com.netvor.hiddensettings</td>
+<td style="text-align:center">隐藏设置</td>
+</tr>
+<tr>
+<td style="text-align:center">com.paypal.android.p2pmobile</td>
+<td style="text-align:center">PayPal</td>
+</tr>
+<tr>
+<td style="text-align:center">com.pikcloud.pikpak</td>
+<td style="text-align:center">PikPak</td>
+</tr>
+<tr>
+<td style="text-align:center">com.piwigo.piwigo_ng</td>
+<td style="text-align:center">Piwigo</td>
+</tr>
+<tr>
+<td style="text-align:center">com.pocketpalai</td>
+<td style="text-align:center">PocketPal AI</td>
+</tr>
+<tr>
+<td style="text-align:center">com.project.aimotech.printmaster</td>
+<td style="text-align:center">打印大师</td>
+</tr>
+<tr>
+<td style="text-align:center">com.qti.phone</td>
+<td style="text-align:center">高通电话服务</td>
+</tr>
+<tr>
+<td style="text-align:center">com.qti.service.colorservice</td>
+<td style="text-align:center">高通色彩服务</td>
+</tr>
+<tr>
+<td style="text-align:center">com.qti.xdivert</td>
+<td style="text-align:center">高通通话转移</td>
+</tr>
+<tr>
+<td style="text-align:center">com.qualcomm.qcrilmsgtunnel</td>
+<td style="text-align:center">高通无线电接口</td>
+</tr>
+<tr>
+<td style="text-align:center">com.qualcomm.qti.confdialer</td>
+<td style="text-align:center">高通会议拨号器</td>
+</tr>
+<tr>
+<td style="text-align:center">com.qualcomm.qti.lpa</td>
+<td style="text-align:center">高通 LPA 服务</td>
+</tr>
+<tr>
+<td style="text-align:center">com.qualcomm.qti.poweroffalarm</td>
+<td style="text-align:center">高通关机闹钟</td>
+</tr>
+<tr>
+<td style="text-align:center">com.qualcomm.qti.qcolor</td>
+<td style="text-align:center">高通显示调节</td>
+</tr>
+<tr>
+<td style="text-align:center">com.qualcomm.qti.qms.service.trustzoneaccess</td>
+<td style="text-align:center">高通安全区访问</td>
+</tr>
+<tr>
+<td style="text-align:center">com.qualcomm.qti.remoteSimlockAuth</td>
+<td style="text-align:center">高通远程 SIM 卡锁</td>
+</tr>
+<tr>
+<td style="text-align:center">com.qualcomm.qti.ridemodeaudio</td>
+<td style="text-align:center">高通行车模式音频</td>
+</tr>
+<tr>
+<td style="text-align:center">com.qualcomm.qti.services.systemhelper</td>
+<td style="text-align:center">高通系统助手</td>
+</tr>
+<tr>
+<td style="text-align:center">com.qualcomm.qti.telephonyservice</td>
+<td style="text-align:center">高通电话服务</td>
+</tr>
+<tr>
+<td style="text-align:center">com.qualcomm.qti.uim</td>
+<td style="text-align:center">高通 UIM 服务</td>
+</tr>
+<tr>
+<td style="text-align:center">com.qualcomm.qti.uimGbaApp</td>
+<td style="text-align:center">高通 GBA 应用</td>
+</tr>
+<tr>
+<td style="text-align:center">com.qualcomm.timeservice</td>
+<td style="text-align:center">高通时间服务</td>
+</tr>
+<tr>
+<td style="text-align:center">com.qualcomm.uimremoteclient</td>
+<td style="text-align:center">高通 UIM 远程客户端</td>
+</tr>
+<tr>
+<td style="text-align:center">com.qualcomm.uimremoteserver</td>
+<td style="text-align:center">高通 UIM 远程服务器</td>
+</tr>
+<tr>
+<td style="text-align:center">com.quark.browser</td>
+<td style="text-align:center">夸克浏览器</td>
+</tr>
+<tr>
+<td style="text-align:center">com.realvnc.viewer.android</td>
+<td style="text-align:center">VNC Viewer</td>
+</tr>
+<tr>
+<td style="text-align:center">com.reqable.android</td>
+<td style="text-align:center">ReqablePro</td>
+</tr>
+<tr>
+<td style="text-align:center">com.revanced.net.revancedmanager</td>
+<td style="text-align:center">ReVanced Manager</td>
+</tr>
+<tr>
+<td style="text-align:center">com.rongcard.eid</td>
+<td style="text-align:center">居民身份证</td>
+</tr>
+<tr>
+<td style="text-align:center">com.rytong.hnair</td>
+<td style="text-align:center">海南航空</td>
+</tr>
+<tr>
+<td style="text-align:center">com.sankuai.meituan</td>
+<td style="text-align:center">美团</td>
+</tr>
+<tr>
+<td style="text-align:center">com.sdu.didi.psnger</td>
+<td style="text-align:center">滴滴出行</td>
+</tr>
+<tr>
+<td style="text-align:center">com.sf.activity</td>
+<td style="text-align:center">顺丰速运</td>
+</tr>
+<tr>
+<td style="text-align:center">com.sgcc.wsgw.cn</td>
+<td style="text-align:center">国家电网</td>
+</tr>
+<tr>
+<td style="text-align:center">com.simplemobiletools.camera</td>
+<td style="text-align:center">Simple Camera</td>
+</tr>
+<tr>
+<td style="text-align:center">com.simplemobiletools.filemanager.pro</td>
+<td style="text-align:center">Simple File Manager Pro</td>
+</tr>
+<tr>
+<td style="text-align:center">com.simplemobiletools.gallery.pro</td>
+<td style="text-align:center">Simple Gallery Pro</td>
+</tr>
+<tr>
+<td style="text-align:center">com.simplemobiletools.smsmessenger</td>
+<td style="text-align:center">Simple SMS</td>
+</tr>
+<tr>
+<td style="text-align:center">com.sinovatech.unicom.ui</td>
+<td style="text-align:center">中国联通</td>
+</tr>
+<tr>
+<td style="text-align:center">com.song.woodbox</td>
+<td style="text-align:center">木函</td>
+</tr>
+<tr>
+<td style="text-align:center">com.sony.songpal.mdr</td>
+<td style="text-align:center">Sony Headphones</td>
+</tr>
+<tr>
+<td style="text-align:center">com.soundon</td>
+<td style="text-align:center">SoundOn</td>
+</tr>
+<tr>
+<td style="text-align:center">com.speedsoftware.rootexplorer</td>
+<td style="text-align:center">Root Explorer</td>
+</tr>
+<tr>
+<td style="text-align:center">com.speedsoftware.sqleditor</td>
+<td style="text-align:center">SQLite 编辑器</td>
+</tr>
+<tr>
+<td style="text-align:center">com.ss.android.lark</td>
+<td style="text-align:center">飞书</td>
+</tr>
+<tr>
+<td style="text-align:center">com.ss.android.ugc.aweme.lite</td>
+<td style="text-align:center">抖音极速版</td>
+</tr>
+<tr>
+<td style="text-align:center">com.ss.android.ugc.livelite</td>
+<td style="text-align:center">抖音直播伴侣</td>
+</tr>
+<tr>
+<td style="text-align:center">com.taobao.htao.android</td>
+<td style="text-align:center">淘宝海外版</td>
+</tr>
+<tr>
+<td style="text-align:center">com.taobao.idlefish</td>
+<td style="text-align:center">闲鱼</td>
+</tr>
+<tr>
+<td style="text-align:center">com.taobao.taobao</td>
+<td style="text-align:center">淘宝</td>
+</tr>
+<tr>
+<td style="text-align:center">com.tencent.androidqqmail</td>
+<td style="text-align:center">QQ邮箱</td>
+</tr>
+<tr>
+<td style="text-align:center">com.tencent.hunyuan.app.chat</td>
+<td style="text-align:center">腾讯混元</td>
+</tr>
+<tr>
+<td style="text-align:center">com.tencent.map</td>
+<td style="text-align:center">腾讯地图</td>
+</tr>
+<tr>
+<td style="text-align:center">com.tencent.mm</td>
+<td style="text-align:center">微信</td>
+</tr>
+<tr>
+<td style="text-align:center">com.tencent.mobileqq</td>
+<td style="text-align:center">QQ</td>
+</tr>
+<tr>
+<td style="text-align:center">com.tencent.soter.soterserver</td>
+<td style="text-align:center">腾讯安全组件</td>
+</tr>
+<tr>
+<td style="text-align:center">com.tencent.wemeet.app</td>
+<td style="text-align:center">腾讯会议</td>
+</tr>
+<tr>
+<td style="text-align:center">com.termux</td>
+<td style="text-align:center">Termux</td>
+</tr>
+<tr>
+<td style="text-align:center">com.termux.api</td>
+<td style="text-align:center">Termux API</td>
+</tr>
+<tr>
+<td style="text-align:center">com.termux.tasker</td>
+<td style="text-align:center">Termux:Tasker</td>
+</tr>
+<tr>
+<td style="text-align:center">com.termux.window</td>
+<td style="text-align:center">Termux:Float</td>
+</tr>
+<tr>
+<td style="text-align:center">com.tplink.ipc</td>
+<td style="text-align:center">TP-Link 摄像头</td>
+</tr>
+<tr>
+<td style="text-align:center">com.umetrip.android.msky.app</td>
+<td style="text-align:center">航旅纵横</td>
+</tr>
+<tr>
+<td style="text-align:center">com.unionpay</td>
+<td style="text-align:center">云闪付</td>
+</tr>
+<tr>
+<td style="text-align:center">com.uptodown</td>
+<td style="text-align:center">Uptodown</td>
+</tr>
+<tr>
+<td style="text-align:center">com.v2ray.ang</td>
+<td style="text-align:center">v2rayNG</td>
+</tr>
+<tr>
+<td style="text-align:center">com.valvesoftware.android.steam.community</td>
+<td style="text-align:center">Steam 社区</td>
+</tr>
+<tr>
+<td style="text-align:center">com.valvesoftware.android.steam.friendsui</td>
+<td style="text-align:center">Steam 好友</td>
+</tr>
+<tr>
+<td style="text-align:center">com.vmos.assistant</td>
+<td style="text-align:center">VMOS 助手</td>
+</tr>
+<tr>
+<td style="text-align:center">com.vmos.pro</td>
+<td style="text-align:center">VMOS Pro</td>
+</tr>
+<tr>
+<td style="text-align:center">com.wdstechnology.android.kryten</td>
+<td style="text-align:center">Kryten</td>
+</tr>
+<tr>
+<td style="text-align:center">com.wemod.remote</td>
+<td style="text-align:center">WeMod</td>
+</tr>
+<tr>
+<td style="text-align:center">com.wm.dmall</td>
+<td style="text-align:center">多点</td>
+</tr>
+<tr>
+<td style="text-align:center">com.wudaokou.hippo</td>
+<td style="text-align:center">河马加速器</td>
+</tr>
+<tr>
+<td style="text-align:center">com.xiaomi.bluetooth</td>
+<td style="text-align:center">小米蓝牙</td>
+</tr>
+<tr>
+<td style="text-align:center">com.xiaomi.bluetooth.rro.device.config.overlay</td>
+<td style="text-align:center">小米蓝牙配置</td>
+</tr>
+<tr>
+<td style="text-align:center">com.xiaomi.calendar</td>
+<td style="text-align:center">日历</td>
+</tr>
+<tr>
+<td style="text-align:center">com.xiaomi.discover</td>
+<td style="text-align:center">小爱发现</td>
+</tr>
+<tr>
+<td style="text-align:center">com.xiaomi.glgm</td>
+<td style="text-align:center">游戏中心</td>
+</tr>
+<tr>
+<td style="text-align:center">com.xiaomi.micloud.sdk</td>
+<td style="text-align:center">小米云服务 SDK</td>
+</tr>
+<tr>
+<td style="text-align:center">com.xiaomi.mico</td>
+<td style="text-align:center">小爱同学</td>
+</tr>
+<tr>
+<td style="text-align:center">com.xiaomi.midrop</td>
+<td style="text-align:center">小米快传</td>
+</tr>
+<tr>
+<td style="text-align:center">com.xiaomi.mimobile</td>
+<td style="text-align:center">小米移动</td>
+</tr>
+<tr>
+<td style="text-align:center">com.xiaomi.mirror</td>
+<td style="text-align:center">投屏</td>
+</tr>
+<tr>
+<td style="text-align:center">com.xiaomi.misettings</td>
+<td style="text-align:center">小米设置</td>
+</tr>
+<tr>
+<td style="text-align:center">com.xiaomi.scanner</td>
+<td style="text-align:center">扫一扫</td>
+</tr>
+<tr>
+<td style="text-align:center">com.xiaomi.shop</td>
+<td style="text-align:center">小米商城</td>
+</tr>
+<tr>
+<td style="text-align:center">com.xiaomi.simactivate.service</td>
+<td style="text-align:center">SIM 卡激活服务</td>
+</tr>
+<tr>
+<td style="text-align:center">com.xiaomi.smarthome</td>
+<td style="text-align:center">米家</td>
+</tr>
+<tr>
+<td style="text-align:center">com.xiaomi.xmsf</td>
+<td style="text-align:center">小米服务框架</td>
+</tr>
+<tr>
+<td style="text-align:center">com.xs.pooltd</td>
+<td style="text-align:center">台球</td>
+</tr>
+<tr>
+<td style="text-align:center">com.xunlei.downloadprovider</td>
+<td style="text-align:center">迅雷</td>
+</tr>
+<tr>
+<td style="text-align:center">com.xunmeng.pinduoduo</td>
+<td style="text-align:center">拼多多</td>
+</tr>
+<tr>
+<td style="text-align:center">com.xunxun08.xunxun8.application</td>
+<td style="text-align:center">讯讯影视</td>
+</tr>
+<tr>
+<td style="text-align:center">com.yek.android.kfc.activitys</td>
+<td style="text-align:center">肯德基</td>
+</tr>
+<tr>
+<td style="text-align:center">com.ytheekshana.apkextractor</td>
+<td style="text-align:center">APK 提取器</td>
+</tr>
+<tr>
+<td style="text-align:center">com.zcshou.gogogo</td>
+<td style="text-align:center">GoGoGo</td>
+</tr>
+<tr>
+<td style="text-align:center">com.zhipuai.qingyan</td>
+<td style="text-align:center">智谱清言</td>
+</tr>
+<tr>
+<td style="text-align:center">dev.bartuzen.qbitcontroller</td>
+<td style="text-align:center">qBittorrent 控制器</td>
+</tr>
+<tr>
+<td style="text-align:center">dev.lerist.fakelocation</td>
+<td style="text-align:center">模拟位置</td>
+</tr>
+<tr>
+<td style="text-align:center">dji.mimo</td>
+<td style="text-align:center">大疆 DJI Mimo</td>
+</tr>
+<tr>
+<td style="text-align:center">exa.lnx.a</td>
+<td style="text-align:center">EXA</td>
+</tr>
+<tr>
+<td style="text-align:center">fm.castbox.audiobook.radio.podcast</td>
+<td style="text-align:center">Castbox</td>
+</tr>
+<tr>
+<td style="text-align:center">fm.qingting.qtradio</td>
+<td style="text-align:center">蜻蜓 FM</td>
+</tr>
+<tr>
+<td style="text-align:center">freeplay.crowdrun.com</td>
+<td style="text-align:center">Crowd Run</td>
+</tr>
+<tr>
+<td style="text-align:center">hk.globalcash.mwallet</td>
+<td style="text-align:center">环球钱包</td>
+</tr>
+<tr>
+<td style="text-align:center">info.dvkr.screenstream</td>
+<td style="text-align:center">屏幕流</td>
+</tr>
+<tr>
+<td style="text-align:center">io.github.abdurazaaqmohammed.ApkExtractor</td>
+<td style="text-align:center">APK 提取器</td>
+</tr>
+<tr>
+<td style="text-align:center">io.nekohasekai.sagernet</td>
+<td style="text-align:center">SagerNet</td>
+</tr>
+<tr>
+<td style="text-align:center">io.xlist</td>
+<td style="text-align:center">XList</td>
+</tr>
+<tr>
+<td style="text-align:center">me.ele</td>
+<td style="text-align:center">饿了么</td>
+</tr>
+<tr>
+<td style="text-align:center">me.zhanghai.android.files</td>
+<td style="text-align:center">Material Files</td>
+</tr>
+<tr>
+<td style="text-align:center">mega.privacy.android.app</td>
+<td style="text-align:center">MEGA</td>
+</tr>
+<tr>
+<td style="text-align:center">moe.matsuri.lite</td>
+<td style="text-align:center">Matsuri</td>
+</tr>
+<tr>
+<td style="text-align:center">moe.nb4a</td>
+<td style="text-align:center">NekoBox4Android</td>
+</tr>
+<tr>
+<td style="text-align:center">moe.shizuku.privileged.api</td>
+<td style="text-align:center">Shizuku</td>
+</tr>
+<tr>
+<td style="text-align:center">org.fdroid.fdroid</td>
+<td style="text-align:center">F-Droid</td>
+</tr>
+<tr>
+<td style="text-align:center">org.freedownloadmanager.fdm</td>
+<td style="text-align:center">Free Download Manager</td>
+</tr>
+<tr>
+<td style="text-align:center">org.ifaa.aidl.manager</td>
+<td style="text-align:center">IFAA 管理器</td>
+</tr>
+<tr>
+<td style="text-align:center">org.kde.kasts</td>
+<td style="text-align:center">Kasts</td>
+</tr>
+<tr>
+<td style="text-align:center">org.mozilla.fenix</td>
+<td style="text-align:center">Firefox</td>
+</tr>
+<tr>
+<td style="text-align:center">org.nuclearfog.apollo</td>
+<td style="text-align:center">Apollo 音乐播放器</td>
+</tr>
+<tr>
+<td style="text-align:center">org.outline.android.client</td>
+<td style="text-align:center">Outline</td>
+</tr>
+<tr>
+<td style="text-align:center">org.telegram.messenger</td>
+<td style="text-align:center">Telegram</td>
+</tr>
+<tr>
+<td style="text-align:center">org.thunderdog.challegram</td>
+<td style="text-align:center">Nekogram</td>
+</tr>
+<tr>
+<td style="text-align:center">ph.spacedesk.beta</td>
+<td style="text-align:center">SpaceDesk</td>
+</tr>
+<tr>
+<td style="text-align:center">player.phonograph.plus</td>
+<td style="text-align:center">Phonograph Plus</td>
+</tr>
+<tr>
+<td style="text-align:center">ru.iptvremote.android.iptv</td>
+<td style="text-align:center">IPTV</td>
+</tr>
+<tr>
+<td style="text-align:center">ru.iptvremote.android.iptv.pro</td>
+<td style="text-align:center">IPTV Pro</td>
+</tr>
+<tr>
+<td style="text-align:center">ru.zdevs.zarchiver</td>
+<td style="text-align:center">ZArchiver</td>
+</tr>
+<tr>
+<td style="text-align:center">tech.lolli.toolbox</td>
+<td style="text-align:center">Toolbox</td>
+</tr>
+<tr>
+<td style="text-align:center">top.yogiczy.slcs.tv</td>
+<td style="text-align:center">视聊</td>
+</tr>
+<tr>
+<td style="text-align:center">tv.danmaku.bili</td>
+<td style="text-align:center">哔哩哔哩</td>
+</tr>
+<tr>
+<td style="text-align:center">vip.f360k.app.i2438</td>
+<td style="text-align:center">360 影视大全</td>
+</tr>
+<tr>
+<td style="text-align:center">xxx.pornhub.fuck</td>
+<td style="text-align:center">Pornhub</td>
+</tr>
+<tr>
+<td style="text-align:center">xyz.chatboxapp.chatbox</td>
+<td style="text-align:center">ChatBox</td>
+</tr>
+</tbody>
+</table>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[迁移 docker volume]]></title>
+        <id>https://zhangyiming748.github.io/post/move_docker_volume/</id>
+        <link href="https://zhangyiming748.github.io/post/move_docker_volume/">
+        </link>
+        <updated>2025-02-26T07:06:16.000Z</updated>
+        <content type="html"><![CDATA[<p>下面为你详细介绍将 Mac 电脑 Docker Desktop 中的 volumes 提取为 tar 包，上传到局域网服务器，然后在 Windows 电脑下载该 tar 包并导入到 Docker Desktop volumes 的具体步骤。</p>
+<h3 id="1-在-mac-电脑上提取-docker-volumes-为-tar-包">1. 在 Mac 电脑上提取 Docker volumes 为 tar 包</h3>
+<h4 id="11-确定要导出的-volume-名称">1.1 确定要导出的 volume 名称</h4>
+<p>首先，你得明确要导出的 Docker volume 名称。可以使用以下命令查看所有的 volume：</p>
+<pre><code class="language-bash">docker volume ls
+</code></pre>
+<h4 id="12-创建临时容器挂载-volume-并打包">1.2 创建临时容器挂载 volume 并打包</h4>
+<p>使用下面的命令创建一个临时容器，把要导出的 volume 挂载进去，接着将其内容打包成 tar 包：</p>
+<pre><code class="language-bash">docker run --rm -v &lt;volume_name&gt;:/data -v $(pwd):/backup alpine tar -cvf /backup/&lt;volume_name&gt;.tar /data
+</code></pre>
+<p>请将 <code>&lt;volume_name&gt;</code> 替换成你实际要导出的 volume 名称。执行此命令之后，会在当前目录下生成一个以 volume 名称命名的 tar 包。</p>
+<h3 id="2-将-tar-包上传到局域网服务器">2. 将 tar 包上传到局域网服务器</h3>
+<h4 id="21-确保服务器支持文件上传">2.1 确保服务器支持文件上传</h4>
+<p>要保证局域网服务器开启了相应的服务（像 FTP、SCP 等），以便能够上传文件。这里以使用 SCP 为例，前提是服务器开启了 SSH 服务。</p>
+<h4 id="22-使用-scp-上传-tar-包">2.2 使用 SCP 上传 tar 包</h4>
+<p>使用下面的命令将 tar 包上传到服务器：</p>
+<pre><code class="language-bash">scp &lt;volume_name&gt;.tar &lt;username&gt;@&lt;server_ip&gt;:&lt;destination_path&gt;
+</code></pre>
+<ul>
+<li><code>&lt;username&gt;</code>：服务器的用户名。</li>
+<li><code>&lt;server_ip&gt;</code>：服务器的 IP 地址。</li>
+<li><code>&lt;destination_path&gt;</code>：文件要上传到服务器的目标路径。</li>
+</ul>
+<h3 id="3-在-windows-电脑上下载-tar-包">3. 在 Windows 电脑上下载 tar 包</h3>
+<h4 id="31-安装必要的工具">3.1 安装必要的工具</h4>
+<p>可以使用 WinSCP 或者 PowerShell 自带的 <code>Invoke-WebRequest</code>（如果服务器开启了 HTTP 服务）来下载文件。这里以 WinSCP 为例。</p>
+<h4 id="32-使用-winscp-下载-tar-包">3.2 使用 WinSCP 下载 tar 包</h4>
+<ul>
+<li>打开 WinSCP，新建一个会话，输入服务器的 IP 地址、用户名和密码，然后登录。</li>
+<li>找到上传到服务器的 tar 包所在的目录，将其下载到 Windows 电脑的本地目录。</li>
+</ul>
+<h3 id="4-在-windows-电脑上导入-tar-包到-docker-desktop-volumes">4. 在 Windows 电脑上导入 tar 包到 Docker Desktop volumes</h3>
+<h4 id="41-创建新的-docker-volume">4.1 创建新的 Docker volume</h4>
+<p>使用以下命令创建一个新的 Docker volume：</p>
+<pre><code class="language-powershell">docker volume create &lt;new_volume_name&gt;
+</code></pre>
+<p>将 <code>&lt;new_volume_name&gt;</code> 替换成你想要的新 volume 名称。</p>
+<h4 id="42-创建临时容器挂载-volume-并解压-tar-包">4.2 创建临时容器挂载 volume 并解压 tar 包</h4>
+<p>使用下面的命令创建一个临时容器，把新创建的 volume 挂载进去，然后将下载的 tar 包解压到该 volume 中：</p>
+<pre><code class="language-powershell">docker run --rm -v &lt;new_volume_name&gt;:/data -v &lt;local_path_to_tar_file&gt;:/backup/&lt;volume_name&gt;.tar alpine sh -c &quot;tar -xvf /backup/&lt;volume_name&gt;.tar -C /data --strip-components=1&quot;
+</code></pre>
+<ul>
+<li><code>&lt;local_path_to_tar_file&gt;</code>：下载的 tar 包在 Windows 电脑上的本地路径。</li>
+<li><code>&lt;volume_name&gt;</code>：之前导出的 volume 名称。</li>
+</ul>
+<p>通过以上步骤，你就能够把 Mac 电脑 Docker Desktop 中的 volumes 提取为 tar 包，上传到局域网服务器，再让 Windows 电脑下载该 tar 包并导入到 Docker Desktop volumes 中。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[docker volume 迁移]]></title>
+        <id>https://zhangyiming748.github.io/post/docker_volume_movable/</id>
+        <link href="https://zhangyiming748.github.io/post/docker_volume_movable/">
+        </link>
+        <updated>2025-02-20T09:46:53.000Z</updated>
+        <content type="html"><![CDATA[<p>是的，我明白你的需求。我来详细说明如何在保持 volume 格式的情况下迁移：</p>
+<ol>
+<li>在源机器上将 volume 导出为 tar 包：</li>
+</ol>
+<pre><code class="language-bash">docker run --rm -v mysql_data:/source -v $(pwd):/backup alpine tar -czf /backup/mysql_data.tar /source
+</code></pre>
+<ol start="2">
+<li>将生成的 tar 包传输到目标机器：</li>
+</ol>
+<pre><code class="language-bash">scp mysql_data.tar username@target-machine:/path/to/destination/
+</code></pre>
+<ol start="3">
+<li>在目标机器上创建新的 volume 并导入数据：</li>
+</ol>
+<pre><code class="language-bash"># 创建新的 volume
+docker volume create mysql_data
+
+# 将 tar 包中的数据导入到新建的 volume
+docker run --rm -v mysql_data:/target -v $(pwd):/backup alpine tar -xzf /backup/mysql_data.tar -C /target --strip-components=1
+</code></pre>
+<p>这样操作后：</p>
+<ul>
+<li>目标机器上会创建一个新的 docker volume</li>
+<li>这个 volume 包含了源机器上的所有数据</li>
+<li>可以被多个容器挂载使用</li>
+<li>完全保持了 docker volume 的特性和优势</li>
+</ul>
+<p>你可以直接在 docker-compose.yml 中使用这个导入的 volume，就像现在的配置一样。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[termux关于bilibili的备份]]></title>
+        <id>https://zhangyiming748.github.io/post/termux_use_bilibili/</id>
+        <link href="https://zhangyiming748.github.io/post/termux_use_bilibili/">
+        </link>
+        <updated>2025-02-16T06:13:15.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="获取最新的merge二进制文件">获取最新的merge二进制文件</h1>
+<pre><code class="language-bash">#!/data/data/com.termux/files/usr/bin/bash
+
+# 设置仓库名称
+
+repo=&quot;zhangyiming748/AVmerger&quot;
+
+echo &quot;下载最新的merge文件&quot;
+
+# 获取最新的 Release tag
+
+echo &quot;开始获取最新tag&quot;
+tag=$(gh release list --repo &quot;$repo&quot; --json name,tagName --limit 1 2&gt;/dev/null | jq -r '.[0].tagName')
+echo &quot;获取到的tag是: $tag&quot;
+
+# 检查命令是否成功
+
+if [ $? -ne 0 ]; then
+  echo &quot;Error: Failed to get latest release tag. Please check the repository name and your GitHub CLI configuration.&quot;
+  exit 1
+fi
+
+# 检查 tag 是否为空
+
+if [ -z &quot;$tag&quot; ]; then
+  echo &quot;Error: No releases found for repository $repo.&quot;
+  exit 1
+fi
+
+
+# 下载指定 tag 的文件名为 merge 的文件，使用通配符确保只匹配 merge 文件
+
+echo &quot;开始下载merge文件&quot;
+gh release download &quot;$tag&quot; --repo &quot;$repo&quot; --pattern &quot;merge&quot; 
+echo &quot;下载完成&quot;
+
+# 检查下载是否成功
+
+if [ $? -ne 0 ]; then
+    echo &quot;下载失败，请检查 release 中是否存在名为 merge 的文件喵。&quot;
+    exit 1
+fi
+
+# 覆盖 merge 文件
+
+echo &quot;覆盖merge文件&quot;
+mv merge /data/data/com.termux/files/usr/bin/merge
+
+# 赋予merge可执行权限
+
+echo &quot;赋予merge可执行权限&quot;
+chmod a+x /data/data/com.termux/files/usr/bin/merge
+
+echo &quot;完成喵！&quot;
+</code></pre>
+<h1 id="运行merge脚本">运行merge脚本</h1>
+<pre><code class="language-bash">#!/data/data/com.termux/files/usr/bin/bash
+
+sudo merge 
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[在任何地方引用Github的贡献日历图]]></title>
+        <id>https://zhangyiming748.github.io/post/github_in_everywhere/</id>
+        <link href="https://zhangyiming748.github.io/post/github_in_everywhere/">
+        </link>
+        <updated>2025-02-04T04:51:30.000Z</updated>
+        <content type="html"><![CDATA[<figure data-type="image" tabindex="1"><img src="https://ghchart.rshah.org/zhangyiming748" alt="https://ghchart.rshah.org/zhangyiming748" loading="lazy"></figure>
+<p>代码</p>
+<pre><code class="language-md">![https://ghchart.rshah.org/zhangyiming748](https://ghchart.rshah.org/zhangyiming748)
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[docker的daemon如何设置拉取镜像的时候走代理]]></title>
+        <id>https://zhangyiming748.github.io/post/docker_set_daemon_use_proxy/</id>
+        <link href="https://zhangyiming748.github.io/post/docker_set_daemon_use_proxy/">
+        </link>
+        <updated>2025-01-26T07:23:21.000Z</updated>
+        <content type="html"><![CDATA[<p>要在 Docker Daemon 中设置代理以便在拉取镜像时使用，可以按照以下步骤进行配置：</p>
+<ol>
+<li>
+<p><strong>创建或编辑 Docker Daemon 配置文件</strong>：<br>
+Docker Daemon 的配置文件通常位于 <code>/etc/docker/daemon.json</code>。如果该文件不存在，可以创建一个。</p>
+<p>使用文本编辑器打开或创建该文件，例如使用 <code>nano</code>：</p>
+<pre><code class="language-bash">sudo nano /etc/docker/daemon.json
+</code></pre>
+</li>
+<li>
+<p><strong>添加代理配置</strong>：<br>
+在 <code>daemon.json</code> 文件中，添加代理设置。以下是一个示例配置，假设你的 HTTP 代理地址是 <code>http://proxy.example.com:8080</code>，HTTPS 代理地址是 <code>https://proxy.example.com:8080</code>：</p>
+<pre><code class="language-json">{
+  &quot;proxies&quot;: {
+    &quot;default&quot;: {
+      &quot;httpProxy&quot;: &quot;http://proxy.example.com:8080&quot;,
+      &quot;httpsProxy&quot;: &quot;https://proxy.example.com:8080&quot;,
+      &quot;noProxy&quot;: &quot;localhost,127.0.0.1&quot;
+    }
+  }
+}
+</code></pre>
+<p>这里的 <code>noProxy</code> 字段用于指定不通过代理的地址。</p>
+</li>
+<li>
+<p><strong>重启 Docker 服务</strong>：<br>
+修改完配置文件后，需要重启 Docker 服务以使更改生效。可以使用以下命令重启 Docker：</p>
+<pre><code class="language-bash">sudo systemctl restart docker
+</code></pre>
+</li>
+<li>
+<p><strong>验证配置</strong>：<br>
+你可以通过拉取一个镜像来验证代理设置是否生效。例如，尝试拉取一个公共镜像：</p>
+<pre><code class="language-bash">docker pull hello-world
+</code></pre>
+</li>
+</ol>
+<p>如果一切配置正确，Docker 应该会通过你设置的代理来拉取镜像。</p>
+<h3 id="注意事项">注意事项</h3>
+<ul>
+<li>确保你的代理服务器是可用的，并且 Docker 主机能够访问它。</li>
+<li>如果你在使用 Docker Desktop（例如在 Windows 或 macOS 上），可以在 Docker Desktop 的设置中直接配置代理，而不需要手动编辑 <code>daemon.json</code> 文件。</li>
+</ul>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[转载 : 解决下载文件夹变为`Downloads`]]></title>
+        <id>https://zhangyiming748.github.io/post/rename_Downloads_on_windows/</id>
+        <link href="https://zhangyiming748.github.io/post/rename_Downloads_on_windows/">
+        </link>
+        <updated>2024-12-24T11:24:18.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="解决下载文件夹变为downloads-零神">解决下载文件夹变为“Downloads” | 零神</h1>
+<blockquote>
+<h2 id="excerpt">Excerpt</h2>
+<p>欢迎大家来到由各种共享资源与数据组成的零神=-=</p>
+</blockquote>
+<hr>
+<h3 id=""><a href="https://zerokami.cn/a503e558.html#%E5%89%8D%E8%A8%80" title="前言"></a>前言</h3>
+<p>不知道大家有没有遇到过，打开电脑的“资源管理器”后，突然发现用户文件夹中出现了英文的情况。大家遇没遇到我不知道，但是我遇到了。我的“下载”文件夹的名称从中文转变成了“Downloads”，而且这种情况似乎并不是个例，我的另外一台电脑也出现了这种情况。</p>
+<figure data-type="image" tabindex="1"><img src="%E8%A7%A3%E5%86%B3%E4%B8%8B%E8%BD%BD%E6%96%87%E4%BB%B6%E5%A4%B9%E5%8F%98%E4%B8%BA%E2%80%9CDownloads%E2%80%9D%20%20%E9%9B%B6%E7%A5%9E/XjksrHp4jRl6Rvk1.jpg" alt="“下载”文件夹" loading="lazy"></figure>
+<h3 id="-2"><a href="https://zerokami.cn/a503e558.html#%E8%A7%A3%E5%86%B3" title="解决"></a>解决</h3>
+<p>解决起来十分的简单，我们仅仅需要为“下载”文件夹设置一个单独的“desktop.ini”即可。</p>
+<figure data-type="image" tabindex="2"><img src="%E8%A7%A3%E5%86%B3%E4%B8%8B%E8%BD%BD%E6%96%87%E4%BB%B6%E5%A4%B9%E5%8F%98%E4%B8%BA%E2%80%9CDownloads%E2%80%9D%20%20%E9%9B%B6%E7%A5%9E/~ch6NFdWz1AI+3Qje+1.jpg" alt="" loading="lazy"></figure>
+<ul>
+<li>
+<p>在打开的“记事本”中，我们选择另存为。选择我们的下载文件夹，并进行保存。保存时可能会提示“文件已存在，是否要替换它吗？”，这里选择是进行替换。<br>
+<img src="%E8%A7%A3%E5%86%B3%E4%B8%8B%E8%BD%BD%E6%96%87%E4%BB%B6%E5%A4%B9%E5%8F%98%E4%B8%BA%E2%80%9CDownloads%E2%80%9D%20%20%E9%9B%B6%E7%A5%9E/kJphy7PKMVYTCa_sj1.jpg" alt="img" loading="lazy"><br>
+<img src="%E8%A7%A3%E5%86%B3%E4%B8%8B%E8%BD%BD%E6%96%87%E4%BB%B6%E5%A4%B9%E5%8F%98%E4%B8%BA%E2%80%9CDownloads%E2%80%9D%20%20%E9%9B%B6%E7%A5%9E/u2Da!jlX@o8iqvcN3sZ1.jpg" alt="" loading="lazy"></p>
+</li>
+<li>
+<p>接着，删除文件中的所有信息，并粘贴以下代码，并对文件进行保存。</p>
+<table><tbody><tr><td><pre><span>1</span><br><span>2</span><br><span>3</span><br></pre></td><td><pre><span>[.ShellClassInfo]</span><br><span>LocalizedResourceName=@%SystemRoot%system32shell32.dll,-21798</span><br><span>IconResource=%SystemRoot%system32imageres.dll,-184</span><br></pre></td></tr></tbody></table>
+</li>
+<li>
+<p>最后使用管理员权限打开“命令提示符”或“终端”,按照你的用户文件夹输入以下命令。</p>
+<table><tbody><tr><td><pre><span>1</span><br><span>2</span><br></pre></td><td><pre><span>attrib +R 下载文件夹的位置</span><br><span>attrib +S +H 下载文件夹的位置\desktop.ini</span><br></pre></td></tr></tbody></table>
+<p>其中，下载文件夹的位置可以在“资源管理器”中，左侧“快速访问”“Downloads”，右键选择“属性”中的“位置”找到。<br>
+<img src="%E8%A7%A3%E5%86%B3%E4%B8%8B%E8%BD%BD%E6%96%87%E4%BB%B6%E5%A4%B9%E5%8F%98%E4%B8%BA%E2%80%9CDownloads%E2%80%9D%20%20%E9%9B%B6%E7%A5%9E/TO6Gf9&amp;ASSC@yAY1.jpg" alt="" loading="lazy"><br>
+以我的电脑为例子，在终端中的命令就应该是</p>
+<table><tbody><tr><td><pre><span>1</span><br><span>2</span><br></pre></td><td><pre><span>attrib +R D:\Users\XieYu\Downloads</span><br><span>attrib +S +H D:\Users\XieYu\Downloads\desktop.ini</span><br></pre></td></tr></tbody></table>
+<p>以下就是执行完成后的终端界面。<br>
+<img src="%E8%A7%A3%E5%86%B3%E4%B8%8B%E8%BD%BD%E6%96%87%E4%BB%B6%E5%A4%B9%E5%8F%98%E4%B8%BA%E2%80%9CDownloads%E2%80%9D%20%20%E9%9B%B6%E7%A5%9E/OzOM0jJUPZJ4elkPzv1.jpg" alt="" loading="lazy"></p>
+</li>
+<li>
+<p>执行完成命令后，可以通过“任务管理器”重启“Windows 资源管理器”或者重启电脑后生效。<br>
+<img src="%E8%A7%A3%E5%86%B3%E4%B8%8B%E8%BD%BD%E6%96%87%E4%BB%B6%E5%A4%B9%E5%8F%98%E4%B8%BA%E2%80%9CDownloads%E2%80%9D%20%20%E9%9B%B6%E7%A5%9E/p00qkgnkog2NbbNZJ1.jpg" alt="" loading="lazy"></p>
+</li>
+</ul>
+<blockquote>
+<p>最后，如果喜欢的话，可以收藏站点，以便于后续的观看。当然，如果想要支持一下謝雨的话，也可以关注我的B站（页面低段有哔哩哔哩空间的链接）或者在爱发电中为我打赏。<br>
+编辑：謝雨 邮箱：<a href="mailto:xieyu@zerokami.cn">xieyu@zerokami.cn</a> 爱发电支持：<a href="https://www.afdian.net/@XieYu233">afdian.net/@XieYu233</a></p>
+</blockquote>
+]]></content>
+    </entry>
+</feed>
