@@ -1,0 +1,1616 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>FFMpeg常用命令 | 张益铭的博客</title>
+<meta name="description" content="子非鱼,安知鱼之乐?
+子非我,安知我不知鱼之乐?">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="shortcut icon" href="https://zhangyiming748.github.io/favicon.ico?v=1772252160336">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="stylesheet" href="https://unpkg.com/papercss@1.6.1/dist/paper.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://zhangyiming748.github.io/styles/main.css">
+
+
+  
+
+  
+    <link rel="stylesheet" href="https://unpkg.com/disqusjs@1.1/dist/disqusjs.css" />
+  
+
+<script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-141755803-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-141755803-1');
+</script>
+
+
+  </head>
+  <body>
+  
+    <nav class="navbar border fixed split-nav">
+  <div class="nav-brand">
+    <h3><a href="https://zhangyiming748.github.io">张益铭的博客</a></h3>
+  </div>
+  <div class="collapsible">
+    <input id="collapsible1" type="checkbox" name="collapsible1">
+    <button>
+      <label for="collapsible1">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+      </label>
+    </button>
+    <div class="collapsible-body">
+      <ul class="inline">
+        
+          <li>
+            
+              <a href="/" class="menu">
+                首页
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/archives" class="menu">
+                归档
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/tags" class="menu">
+                标签
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/post/about" class="menu">
+                关于
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/post/test" class="menu">
+                长期测试
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="https://yeasy.gitbook.io/docker_practice/" class="menu" target="_blank">
+                docker
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="https://mirrors.tuna.tsinghua.edu.cn/" class="menu" target="_blank">
+                清华源
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="https://appstorrent.ru/" class="menu" target="_blank">
+                mac软件
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="https://api.lolimi.cn/API/cosplay/api.php?type=image" class="menu" target="_blank">
+                手气不错
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/post/anime" class="menu">
+                下载队列
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="https://linux.do/" class="menu" target="_blank">
+                Linux.do
+              </a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div id="top" class="row site">
+      <div class="sm-12 md-8 col">
+        <div class="paper">
+          <article class="article">
+            <h1>FFMpeg常用命令</h1>
+            <p class="article-meta">
+              2022-09-26
+              
+                <a href="https://zhangyiming748.github.io/tag/bCXMDy8-U/" class="badge success">
+                  ffmpeg
+                </a>
+              
+            </p>
+            
+            <div class="post-content" v-pre>
+              <h1 id="有一个1mp3音频文件-一个和它对应的1srt字幕文件-如何利用ffmpeg-制作为纯黑背景-只有白色字幕和声音的mp4视频文件">有一个1.mp3音频文件 一个和它对应的1.srt字幕文件 如何利用ffmpeg 制作为纯黑背景 只有白色字幕和声音的mp4视频文件</h1>
+<p>您可以使用以下命令来利用ffmpeg制作一个只有白色字幕和声音的mp4视频</p>
+<pre><code class="language-shell">ffmpeg -i 1.mp3 -f lavfi -i color=c=black:s=1920x1080 -vf &quot;subtitles=1.srt:force_style='Fontcolor=&amp;HFFFFFF'&quot; -c:v libx264 -c:a aac -strict experimental -shortest -r 60 1.mp4
+</code></pre>
+<h1 id="查看支持的硬件加速">查看支持的硬件加速</h1>
+<pre><code class="language-shell">ffmpeg -hwaccels
+</code></pre>
+<h1 id="查看支持的编码器">查看支持的编码器</h1>
+<pre><code class="language-shell">ffmpeg -encoders
+</code></pre>
+<h1 id="查看支持的解码器">查看支持的解码器</h1>
+<pre><code class="language-shell">ffmpeg -decoders 
+</code></pre>
+<h1 id="硬件加速举例">硬件加速举例</h1>
+<pre><code class="language-shell">ffmpeg -hwaccel videotoolbox -i xxx.mp4  -vcodec libx265 demo1.mp4
+</code></pre>
+<h1 id="转换avif图片">转换AVIF图片</h1>
+<ul>
+<li>静止图像</li>
+</ul>
+<pre><code class="language-shell">ffmpeg -i image.png -c:v libaom-av1 -still-picture 1 image.avif
+</code></pre>
+<ul>
+<li>动画图像</li>
+</ul>
+<pre><code class="language-shell">ffmpeg -i video.mp4 animated.avif
+</code></pre>
+<h1 id="修改视频码率">修改视频码率</h1>
+<pre><code class="language-shell">ffmpeg -i input.mp4  -b:v 10000k  output4.mp4
+</code></pre>
+<h1 id="压缩视频">压缩视频</h1>
+<pre><code class="language-shell">ffmpeg -i input.mp4 -fs 10MB output.com
+</code></pre>
+<h1 id="遍历指定文件扩展名转换为其他格式">遍历指定文件扩展名转换为其他格式</h1>
+<pre><code class="language-shell">#!/bin/bash
+for file in $(ls ./)
+do
+    if [ &quot;${file##*.}&quot; = &quot;m3u8&quot; ]; then
+        mv ${file} ${file%.*}.c
+        ffmpeg -i ${file} ${file%.*}.mp4
+    fi
+done
+</code></pre>
+<h1 id="截取分段视频">截取分段视频</h1>
+<pre><code class="language-shell">ffmpeg -ss 00:00:00 -t 00:09:00 -i &quot;NieR_Automata 同伴的行踪2.mp4&quot; -vcodec copy -acodec copy &quot;NieR_Automata 同伴的行踪2P1.mp4&quot;`
+
+`ffmpeg -ss 00:09:00 -i &quot;NieR_Automata 同伴的行踪2.mp4&quot; -vcodec copy -acodec copy &quot;NieR_Automata 同伴的行踪2P2.mp4&quot;`
+
+# -ss 启始时间 -t 持续时间 无t参数截取到结束 -to 到第几秒
+</code></pre>
+<h1 id="合成m4s">合成M4S</h1>
+<pre><code class="language-shell">ffmpeg -i video.m4s -i audio.m4s -codec copy multi.mp4
+</code></pre>
+<h1 id="批量转换格式">批量转换格式</h1>
+<pre><code class="language-shell">for %a in (&quot;*.mp4&quot;) do ffmpeg -i &quot;%a&quot; &quot;%~na.gif&quot;
+</code></pre>
+<h1 id="旋转视频">旋转视频</h1>
+<pre><code class="language-shell">ffmpeg -i &lt;inputfile&gt; -vf &quot;transpose=2,transpose=2&quot; &lt;outputfile&gt;
+ffmpeg -i 4.avi -vf &quot;transpose=1&quot; 4done.avi
+其中transpose取值:
+0 = 90CounterCLockwise and Vertical Flip (default)
+1 = 90Clockwise
+2 = 90CounterClockwise
+3 = 90Clockwise and Vertical Flip
+</code></pre>
+<h1 id="音视频合并">音视频合并</h1>
+<pre><code class="language-shell">ffmpeg -i video.mp4 -i audio.wav -c:v copy -c:a aac -strict experimental output.mp4
+</code></pre>
+<h1 id="抽取音频">抽取音频</h1>
+<pre><code class="language-shell">ffmpeg -i 3.mp4 -vn -y -acodec copy 3.m4a
+</code></pre>
+<h1 id="提取视频">提取视频</h1>
+<pre><code class="language-shell">ffmpeg -i Life.of.Pi.has.subtitles.mkv -vcodec copy –an  videoNoAudioSubtitle.mp4
+</code></pre>
+<h1 id="替换音频合并">替换音频合并</h1>
+<pre><code class="language-shell">ffmpeg -i video.mp4 -i audio.wav -c:v copy -c:a aac -strict experimental -map 0:v:0 -map 1:a:0 output.mp4
+</code></pre>
+<h1 id="提取视频的音频">提取视频的音频</h1>
+<pre><code class="language-shell">ffmpeg -i input.mp4 -vn -y -acodec copy output.m4a
+</code></pre>
+<h1 id="去除视频音频">去除视频音频</h1>
+<pre><code class="language-shell">ffmpeg -i input.mp4 -an output.mp4
+</code></pre>
+<h1 id="嵌入字幕">嵌入字幕</h1>
+<pre><code class="language-shell">ffmpeg -i movie.mkv -i sub.srt -map 0:v -map 0:a -map 1:s -c copy output.mkv
+</code></pre>
+<h1 id="抽取音频-2">抽取音频</h1>
+<p><s><code>ffmpeg -i 3.mp4 -vn -y -acodec copy 3.aac</code></s></p>
+<pre><code class="language-shell">ffmpeg -i 3.mp4 -vn -y -acodec copy 3.m4a
+</code></pre>
+<h1 id="拼接avi视频">拼接AVI视频</h1>
+<pre><code class="language-shell">ffmpeg -f concat -safe 0 -i work.txt -c copy /Users/zen/Movies/out.avi
+</code></pre>
+<p>其中<code>work.txt</code>文件格式类似</p>
+<pre><code class="language-shell">file /Users/zen/Downloads/redisLesson/video/001.avi
+file /Users/zen/Downloads/redisLesson/video/002.avi
+file /Users/zen/Downloads/redisLesson/video/003.avi
+file /Users/zen/Downloads/redisLesson/video/004.avi
+file /Users/zen/Downloads/redisLesson/video/005.avi
+file /Users/zen/Downloads/redisLesson/video/006.avi
+file /Users/zen/Downloads/redisLesson/video/007.avi
+file /Users/zen/Downloads/redisLesson/video/008.avi
+file /Users/zen/Downloads/redisLesson/video/009.avi
+file /Users/zen/Downloads/redisLesson/video/010.avi
+</code></pre>
+<p><strong>并且文件名外只能使用单引号</strong></p>
+<h1 id="为视频添加音轨">为视频添加音轨</h1>
+<pre><code class="language-shell">ffmpeg -i input_video_with_audio.avi -i new_audio.ac3 -map 0 -map 1 -codec copy output_video.avi
+</code></pre>
+<h1 id="裁剪视频">裁剪视频</h1>
+<pre><code class="language-shell">ffmpeg -i 40.mp4 -vf crop=1080:1920:1291:2510 1.40.mp4
+# 其中crop=宽:高:x坐标:y坐标
+</code></pre>
+<h1 id="修改视频帧率">修改视频帧率</h1>
+<pre><code class="language-shell">ffmpeg -i 40.mp4 -r 30 1.40.mp4
+</code></pre>
+<h1 id="缩放视频尺寸">缩放视频尺寸</h1>
+<ol>
+<li>完全按照给定尺寸拉伸缩放</li>
+</ol>
+<pre><code class="language-shell">ffmpeg -i 1.mp4 -strict -2 -s 640x480 4.mp4
+</code></pre>
+<ol start="2">
+<li>等比例缩放</li>
+</ol>
+<pre><code class="language-shell">ffmpeg -i 1.mp4 -strict -2 -vf scale=-1:480 4.mp4
+</code></pre>
+<p>#合并m3u8下载的分段视频</p>
+<pre><code class="language-shell">#!/bin/bash
+# ffmpeg -i &quot;concat:0.ts|1.ts|2.ts|3.ts|4.ts|5.ts|6.ts|7.ts|8.ts|9.ts&quot; -c copy -bsf:a aac_adtstoasc -movflags +faststart output.mp4
+ffmpeg -i &quot;concat:0.ts|1.ts|2.ts|3.ts|4.ts|5.ts|6.ts|7.ts|8.ts|9.ts|10.ts|11.ts|12.ts&quot; -c copy -bsf:a aac_adtstoasc -movflags +faststart output.mp4
+</code></pre>
+<h1 id="提取视频中的音频重命名并删除原文件">提取视频中的音频重命名并删除原文件</h1>
+<pre><code class="language-shell">#!/bin/bash
+filename=$(ls *.mp4)
+echo $filename
+ffmpeg -i $filename -vn -y -acodec copy &quot;name.m4a&quot;
+rm $filename
+</code></pre>
+
+            </div>
+          </article>
+        </div>
+        <div class="paper" data-aos="fade-in">
+          
+            <div class="next-post">
+              <div class="next">
+                下一篇
+              </div>
+              <a href="https://zhangyiming748.github.io/post/fake_tips/">
+                <h3 class="post-title">
+                  那些让你深信不疑的伪技巧
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+        
+          
+
+          
+            <div class="paper" data-aos="fade-in">
+              <div id="disqus_thread"></div>
+            </div>
+          
+        
+      </div>
+
+      <div class="sm-12 md-4 col sidebar">
+  <div class="paper info-container">
+    <img src="https://zhangyiming748.github.io/images/avatar.png?v=1772252160336" class="no-responsive avatar">
+    <div class="text-muted">子非鱼,安知鱼之乐?
+子非我,安知我不知鱼之乐?</div>
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      最新文章
+    </div>
+    <div class="row">
+      <ul>
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/zhang_xiao_lin/">不让老人“掉队”：青年志愿者用行动助力老年人融入数字时代</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/Resolving_the_&#34;Installer_hash_mismatch&#34;_issue_when_installing_programs_using_Winget/">解决Winget安装程序时出现“安装程序哈希不匹配”问题</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/daemon/">daemon.json</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/printershare_readme/">PrinterShare 打印共享工具介绍</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/git_commit_errors_faq/">git 报错分析</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/Windows_10_and_11_prevent_IE_redirect_to_Edge/">Windows 10和11中阻止IE跳转Edge</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/tiny_image/">极简镜像</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/go_without_windows_defender/">将 GoLand 运行的 go 进程排除到 Windows Defender 以提高性能</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/MacOS_unable_to_connect_requires_authenticated_Wi-Fi_solution/">macOS无法连接需要通过认证的Wi-Fi解决办法</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/simple_docker_image/">极简docker镜像</a>
+            </li>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </ul>
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      标签列表
+    </div>
+    <div class="row">
+      
+        <a href="https://zhangyiming748.github.io/tag/x0vICjEMlj/" class="badge secondary">
+          志愿者
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/m-fbGUfZt/" class="badge ">
+          Windows
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/OIVRELVRC/" class="badge ">
+          Docker
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/vPlO62KOV8/" class="badge warning">
+          共享打印机
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/CnfRrFASW/" class="badge secondary">
+          Git
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/E2-gGJkDg/" class="badge secondary">
+          Golang
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/wmIzFoEIP/" class="badge ">
+          macOS
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/1QbocojG3/" class="badge secondary">
+          AI
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/KI4qLtXEOu/" class="badge warning">
+          打假卖课
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/tE7JyHymUI/" class="badge ">
+          Android
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/tPncTIGxnb/" class="badge secondary">
+          bash
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/9S2Hbs5aF/" class="badge ">
+          Termux
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/y_Kw8o5PB/" class="badge warning">
+          GitHub
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/A_KFuUKds/" class="badge secondary">
+          Proxy
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/vYkbFqA51/" class="badge secondary">
+          Jetbrains
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/oCK_ZlHhX/" class="badge ">
+          openKylin
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/vdcblAPcj/" class="badge warning">
+          adb
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/whd1tmbG7/" class="badge warning">
+          Linux
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/1CFQNs3S00/" class="badge ">
+          shell
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/bCXMDy8-U/" class="badge secondary">
+          ffmpeg
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/qzc1SQq3q/" class="badge warning">
+          nVidia
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/7Ibnloi-i/" class="badge ">
+          WSL
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/X945mIRqj/" class="badge warning">
+          ssh
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/QrQiV5P0S/" class="badge secondary">
+          python
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/85HirN3QA/" class="badge warning">
+          收费教程
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/SF9usuVqj/" class="badge secondary">
+          fedora
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/Sf_ODGuJI/" class="badge success">
+          Gitea
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/PMvg7E-Fr/" class="badge secondary">
+          双系统
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/yitXMMZ8s/" class="badge warning">
+          xiaomi
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/NOMqGtkmio/" class="badge success">
+          Magisk
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/uSPmjvKQ6/" class="badge secondary">
+          vim
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/O52S4xod7/" class="badge success">
+          nano
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/y2nV8ofCl/" class="badge ">
+          knowledge
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/etvDZTSvp/" class="badge success">
+          nginx
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/svHvfBDw2/" class="badge secondary">
+          UOS
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/Qs-o9CgUP/" class="badge success">
+          五分钟已经很棒了
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/AWiWiIeFs/" class="badge warning">
+          Deepin
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/fGCndQxpp/" class="badge ">
+          Raspberry
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/pHreM0cJf/" class="badge success">
+          欧卡2
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/MqthCZEuF/" class="badge success">
+          HomeBrew
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/9aViM641i/" class="badge warning">
+          MySql
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/rMjOn_-Vr/" class="badge warning">
+          tencent
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/YHDkAytMg/" class="badge success">
+          oracle
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/Oo5pjqygD/" class="badge secondary">
+          VirtualBox
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/XdGtzoLPj/" class="badge success">
+          ChatGPT
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/KWd48Zkke/" class="badge success">
+          npm
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/FrlwPAtkRd/" class="badge success">
+          Nodejs
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/4u1IqSlDf/" class="badge secondary">
+          openWrt
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/Ps_QL1RK-/" class="badge success">
+          Samba
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/auU862seE/" class="badge warning">
+          小米
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/bZrOQ_cvHC/" class="badge success">
+          电视盒子
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/9R2pw-kMi/" class="badge warning">
+          AndroidTV
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/DLTs-6kxd/" class="badge secondary">
+          COD
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/PNLCUL_aG/" class="badge secondary">
+          Game
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/kONTQ9X-u/" class="badge ">
+          黑道圣徒
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/3ge3wV01e/" class="badge warning">
+          Steam
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/GYLNJVSdF/" class="badge ">
+          vmware
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/1O2FuszwC/" class="badge warning">
+          snap
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/mWurRYeSd/" class="badge warning">
+          UWP
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/vU03EjBoU/" class="badge ">
+          跨平台
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/8M3Y_WiPK/" class="badge ">
+          Ubuntu
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/vh0_cV9V9/" class="badge ">
+          RDP
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/RlEfsxIRy/" class="badge secondary">
+          UTM
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/2Li1q3KkK/" class="badge secondary">
+          WineHq
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/akbUFpHWM/" class="badge ">
+          xfce
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/gHhqkzUH9/" class="badge warning">
+          ventoy
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/J2hqqgy1q/" class="badge ">
+          gparted
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/pmLBkvrEV/" class="badge ">
+          openEuler
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/W7ZvoH8Ya/" class="badge warning">
+          华为
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/Lw5WL9LfT/" class="badge secondary">
+          SaintsRowTheThird
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/tOjoRhGkq/" class="badge warning">
+          Gitlab
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/S5LhsRFML/" class="badge success">
+          AppImage
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/eoLpx9JG3/" class="badge warning">
+          NTP
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/gAD6snp8U/" class="badge secondary">
+          NieR
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/7NJFDXwY-/" class="badge secondary">
+          Markdown
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/oOmosMagH/" class="badge ">
+          网络
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/8jNGiW0SY/" class="badge ">
+          GTA
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/HhYYX0R-k/" class="badge secondary">
+          youtube
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/WU7bMNjDy/" class="badge secondary">
+          office
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/HlNHNYrCz/" class="badge secondary">
+          体育
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/9_I_W5FOy/" class="badge success">
+          bat
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/j49MIdPra/" class="badge success">
+          Androidx86
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/cBDrzFROX/" class="badge warning">
+          geek
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/kjzWt_8WM/" class="badge secondary">
+          Gridea
+        </a>
+      
+    </div>
+  </div>
+  <div class="paper">
+    Powered by <a href="https://github.com/zhangyiming748" target="_blank">Gridea</a> | <a class="rss" href="https://zhangyiming748.github.io/atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+
+
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+</script>
+
+
+
+  
+
+  
+    <script src="https://unpkg.com/disqusjs@1.1/dist/disqus.js"></script>
+    <script>
+
+    var options = {
+      shortname: 'zhangyiming748-github-io',
+      apikey: 'nmwRR2QnDaSkyLUKsaGV3rCjyY5HsirUNUQA0YQHN8369jhrR8lFqsVmrPuYeadq',
+    }
+    if ('') {
+      options.api = ''
+    }
+    var dsqjs = new DisqusJS(options)
+
+    </script>
+  
+
+
+
+
+  </body>
+</html>

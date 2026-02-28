@@ -1,0 +1,1660 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>openKylin安装homebrew从而安装更多软件 | 张益铭的博客</title>
+<meta name="description" content="子非鱼,安知鱼之乐?
+子非我,安知我不知鱼之乐?">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="shortcut icon" href="https://zhangyiming748.github.io/favicon.ico?v=1772252160336">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="stylesheet" href="https://unpkg.com/papercss@1.6.1/dist/paper.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://zhangyiming748.github.io/styles/main.css">
+
+
+  
+
+  
+    <link rel="stylesheet" href="https://unpkg.com/disqusjs@1.1/dist/disqusjs.css" />
+  
+
+<script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-141755803-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-141755803-1');
+</script>
+
+
+  </head>
+  <body>
+  
+    <nav class="navbar border fixed split-nav">
+  <div class="nav-brand">
+    <h3><a href="https://zhangyiming748.github.io">张益铭的博客</a></h3>
+  </div>
+  <div class="collapsible">
+    <input id="collapsible1" type="checkbox" name="collapsible1">
+    <button>
+      <label for="collapsible1">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+      </label>
+    </button>
+    <div class="collapsible-body">
+      <ul class="inline">
+        
+          <li>
+            
+              <a href="/" class="menu">
+                首页
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/archives" class="menu">
+                归档
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/tags" class="menu">
+                标签
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/post/about" class="menu">
+                关于
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/post/test" class="menu">
+                长期测试
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="https://yeasy.gitbook.io/docker_practice/" class="menu" target="_blank">
+                docker
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="https://mirrors.tuna.tsinghua.edu.cn/" class="menu" target="_blank">
+                清华源
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="https://appstorrent.ru/" class="menu" target="_blank">
+                mac软件
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="https://api.lolimi.cn/API/cosplay/api.php?type=image" class="menu" target="_blank">
+                手气不错
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/post/anime" class="menu">
+                下载队列
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="https://linux.do/" class="menu" target="_blank">
+                Linux.do
+              </a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div id="top" class="row site">
+      <div class="sm-12 md-8 col">
+        <div class="paper">
+          <article class="article">
+            <h1>openKylin安装homebrew从而安装更多软件</h1>
+            <p class="article-meta">
+              2022-11-04
+              
+                <a href="https://zhangyiming748.github.io/tag/MqthCZEuF/" class="badge warning">
+                  HomeBrew
+                </a>
+              
+                <a href="https://zhangyiming748.github.io/tag/oCK_ZlHhX/" class="badge success">
+                  openKylin
+                </a>
+              
+            </p>
+            
+            <div class="post-content" v-pre>
+              <blockquote>
+<p>由于众所周知的原因,openKylin安装了ubuntu的部分基础软件后删除了密钥环,导致无法再安装其他的基础软件,除了补全ubuntu密钥环,还可以通过brew帮助你安装软件</p>
+</blockquote>
+<!-- more -->
+<h1 id="安装基础软件">安装基础软件</h1>
+<pre><code class="language-shell">$ sudo apt-get install git curl build-essential
+</code></pre>
+<h1 id="配置git">配置git</h1>
+<pre><code class="language-shell">$ git config --global http.sslverify false
+$ git config --global core.compression 0
+$ git config --global http.postBuffer 1048576000
+</code></pre>
+<h1 id="设置环境变量">设置环境变量</h1>
+<pre><code class="language-shell"># 使用homebrew官方源无需做以下设置
+export HOMEBREW_BREW_GIT_REMOTE=&quot;https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git&quot;
+export HOMEBREW_CORE_GIT_REMOTE=&quot;https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git&quot;
+export HOMEBREW_BOTTLE_DOMAIN=&quot;https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles&quot; # 可以不用设置这条 历史遗留问题
+</code></pre>
+<p>应用<code>source ~/.bashrc</code></p>
+<h1 id="安装主程序">安装主程序</h1>
+<pre><code class="language-shell">$ git clone --depth=1 https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/install.git brew-install
+$ /bin/bash brew-install/install.sh
+$ rm -rf brew-install
+# 如果你的网络条件很好 也可以使用如下命令
+$ /bin/bash -c &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)&quot;
+</code></pre>
+<h1 id="设置环境变量-2">设置环境变量</h1>
+<pre><code class="language-shell"># 使用homebrew官方源无需做以下设置
+$ test -d ~/.linuxbrew &amp;&amp; eval &quot;$(~/.linuxbrew/bin/brew shellenv)&quot;
+$ test -d /home/linuxbrew/.linuxbrew &amp;&amp; eval &quot;$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)&quot;
+$ test -r ~/.bash_profile &amp;&amp; echo &quot;eval \&quot;\$($(brew --prefix)/bin/brew shellenv)\&quot;&quot; &gt;&gt; ~/.bash_profile
+$ test -r ~/.profile &amp;&amp; echo &quot;eval \&quot;\$($(brew --prefix)/bin/brew shellenv)\&quot;&quot; &gt;&gt; ~/.profile
+$ test -r ~/.zprofile &amp;&amp; echo &quot;eval \&quot;\$($(brew --prefix)/bin/brew shellenv)\&quot;&quot; &gt;&gt; ~/.zprofile
+</code></pre>
+<h1 id="按照提示执行命令">按照提示执行命令</h1>
+<pre><code class="language-shell">$ echo '# Set PATH, MANPATH, etc., for Homebrew.' &gt;&gt; /home/zen/.bashrc
+$ echo 'eval &quot;$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)&quot;' &gt;&gt; /home/zen/.bashrc
+$ eval &quot;$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)&quot;
+</code></pre>
+<h1 id="debug">Debug</h1>
+<p>如果使用中出现了如下错误</p>
+<pre><code class="language-shell">fatal: Could not resolve HEAD to a revision
+</code></pre>
+<p>执行</p>
+<pre><code class="language-shell">$ brew doctor
+</code></pre>
+<p>按照推荐的方法解决问题即可</p>
+<h1 id="测试">测试</h1>
+<p>安装一个在软件仓库中不存在的软件</p>
+<pre><code class="language-shell">$ sudo apt-get install neofetch
+# 会报错没有这个软件
+# 正在读取软件包列表... 完成
+# 正在分析软件包的依赖关系树       
+# 正在读取状态信息... 完成       
+# E: 无法定位软件包 neofetch
+</code></pre>
+<p>使用brew install命令</p>
+<pre><code class="language-shell">$ brew install neofetch
+</code></pre>
+<p>会自动补全依赖</p>
+<pre><code class="language-shell">Running `brew update --auto-update`...
+==&gt; Downloading https://ghcr.io/v2/homebrew/core/linux-headers/5.15/manifests/5.15.57-1
+######################################################################## 100.0%
+==&gt; Downloading https://ghcr.io/v2/homebrew/core/linux-headers/5.15/blobs/sha256:8692682830cbb1fb74bb61190b644da9de0f4c3a40cf1
+==&gt; Downloading from https://pkg-containers.githubusercontent.com/ghcr1/blobs/sha256:8692682830cbb1fb74bb61190b644da9de0f4c3a4
+######################################################################## 100.0%
+==&gt; Downloading https://ghcr.io/v2/homebrew/core/glibc/manifests/2.35_1
+######################################################################## 100.0%
+==&gt; Downloading https://ghcr.io/v2/homebrew/core/glibc/blobs/sha256:274dd06ae6ecaee3025d6bf21cf4c7641df9a1cc3973e162911a1f4a76
+==&gt; Downloading from https://pkg-containers.githubusercontent.com/ghcr1/blobs/sha256:274dd06ae6ecaee3025d6bf21cf4c7641df9a1cc3
+######################################################################## 100.0%
+==&gt; Downloading https://ghcr.io/v2/homebrew/core/gmp/manifests/6.2.1_1
+######################################################################## 100.0%
+==&gt; Downloading https://ghcr.io/v2/homebrew/core/gmp/blobs/sha256:786ae29f0c0b06ea86e42bd9c6ac2c49bd5757da037dead7053e8bd612c4
+==&gt; Downloading from https://pkg-containers.githubusercontent.com/ghcr1/blobs/sha256:786ae29f0c0b06ea86e42bd9c6ac2c49bd5757da0
+######################################################################## 100.0%
+==&gt; Downloading https://ghcr.io/v2/homebrew/core/isl/manifests/0.25
+######################################################################## 100.0%
+==&gt; Downloading https://ghcr.io/v2/homebrew/core/isl/blobs/sha256:c0244c95ed9cc89b826868de83bec3150fcc120add126501717677015075
+==&gt; Downloading from https://pkg-containers.githubusercontent.com/ghcr1/blobs/sha256:c0244c95ed9cc89b826868de83bec3150fcc120ad
+######################################################################## 100.0%
+==&gt; Downloading https://ghcr.io/v2/homebrew/core/mpfr/manifests/4.1.0-p13
+######################################################################## 100.0%
+==&gt; Downloading https://ghcr.io/v2/homebrew/core/mpfr/blobs/sha256:345a3d99db0f4149f84f0aa16c0ee9c4275f695e4fa0f6d2ae1e8054a0d
+==&gt; Downloading from https://pkg-containers.githubusercontent.com/ghcr1/blobs/sha256:345a3d99db0f4149f84f0aa16c0ee9c4275f695e4
+######################################################################## 100.0%
+==&gt; Downloading https://ghcr.io/v2/homebrew/core/libmpc/manifests/1.2.1
+######################################################################## 100.0%
+==&gt; Downloading https://ghcr.io/v2/homebrew/core/libmpc/blobs/sha256:d74eb5f1377d8fa72fad88baca1bd5f00c29d45ba186fbec89ad690c1
+==&gt; Downloading from https://pkg-containers.githubusercontent.com/ghcr1/blobs/sha256:d74eb5f1377d8fa72fad88baca1bd5f00c29d45ba
+######################################################################## 100.0%
+==&gt; Downloading https://ghcr.io/v2/homebrew/core/lz4/manifests/1.9.4
+######################################################################## 100.0%
+==&gt; Downloading https://ghcr.io/v2/homebrew/core/lz4/blobs/sha256:1757fefc3840e11c4822e4c2a95aa62aca44a4eaccce6f5c414ea51d1e58
+==&gt; Downloading from https://pkg-containers.githubusercontent.com/ghcr1/blobs/sha256:1757fefc3840e11c4822e4c2a95aa62aca44a4eac
+######################################################################## 100.0%
+==&gt; Downloading https://ghcr.io/v2/homebrew/core/xz/manifests/5.2.7
+######################################################################## 100.0%
+==&gt; Downloading https://ghcr.io/v2/homebrew/core/xz/blobs/sha256:dda25f66145c180884d0550a36d68491abd648011b9ac91566773961a1d92
+==&gt; Downloading from https://pkg-containers.githubusercontent.com/ghcr1/blobs/sha256:dda25f66145c180884d0550a36d68491abd648011
+######################################################################## 100.0%
+==&gt; Downloading https://ghcr.io/v2/homebrew/core/zlib/manifests/1.2.13
+######################################################################## 100.0%
+==&gt; Downloading https://ghcr.io/v2/homebrew/core/zlib/blobs/sha256:0082aa29a61507e237389ee4e9fb6a6ed0cbd5d341e3905527c089c88e7
+==&gt; Downloading from https://pkg-containers.githubusercontent.com/ghcr1/blobs/sha256:0082aa29a61507e237389ee4e9fb6a6ed0cbd5d34
+######################################################################## 100.0%
+==&gt; Downloading https://ghcr.io/v2/homebrew/core/zstd/manifests/1.5.2-3
+######################################################################## 100.0%
+==&gt; Downloading https://ghcr.io/v2/homebrew/core/zstd/blobs/sha256:006b5ab6a4616a8b6f59953cb9efb546d312e3ba231c303bb56749e7f66
+==&gt; Downloading from https://pkg-containers.githubusercontent.com/ghcr1/blobs/sha256:006b5ab6a4616a8b6f59953cb9efb546d312e3ba2
+######################################################################## 100.0%
+==&gt; Downloading https://ghcr.io/v2/homebrew/core/binutils/manifests/2.39_1
+######################################################################## 100.0%
+==&gt; Downloading https://ghcr.io/v2/homebrew/core/binutils/blobs/sha256:efa7497e2ea56d9b68ce41363cdc1a41cad032b3ae2fa2cbe819459
+==&gt; Downloading from https://pkg-containers.githubusercontent.com/ghcr1/blobs/sha256:efa7497e2ea56d9b68ce41363cdc1a41cad032b3a
+######################################################################## 100.0%
+==&gt; Downloading https://ghcr.io/v2/homebrew/core/gcc/manifests/12.2.0-1
+######################################################################## 100.0%
+==&gt; Downloading https://ghcr.io/v2/homebrew/core/gcc/blobs/sha256:c7f773f9af560766b2d971d815a8d224c267088c05ed1f2b864bd1d9ebc2
+==&gt; Downloading from https://pkg-containers.githubusercontent.com/ghcr1/blobs/sha256:c7f773f9af560766b2d971d815a8d224c267088c0
+######################################################################## 100.0%
+==&gt; Downloading https://ghcr.io/v2/homebrew/core/neofetch/manifests/7.1.0-2
+######################################################################## 100.0%
+==&gt; Downloading https://ghcr.io/v2/homebrew/core/neofetch/blobs/sha256:78eb3e99dfde7f5fb1c3b192804a6d345f428c9effa6ea6ba54d7e5
+==&gt; Downloading from https://pkg-containers.githubusercontent.com/ghcr1/blobs/sha256:78eb3e99dfde7f5fb1c3b192804a6d345f428c9ef
+######################################################################## 100.0%
+==&gt; Installing dependencies for neofetch: linux-headers@5.15, glibc, gmp, isl, mpfr, libmpc, lz4, xz, zlib, zstd, binutils and gcc
+==&gt; Installing neofetch dependency: linux-headers@5.15
+==&gt; Pouring linux-headers@5.15--5.15.57.x86_64_linux.bottle.1.tar.gz
+🍺  /home/linuxbrew/.linuxbrew/Cellar/linux-headers@5.15/5.15.57: 963 files, 5.7MB
+==&gt; Installing neofetch dependency: glibc
+==&gt; Pouring glibc--2.35_1.x86_64_linux.bottle.tar.gz
+==&gt; /home/linuxbrew/.linuxbrew/Cellar/glibc/2.35_1/sbin/ldconfig
+==&gt; Installing locale data for en_US.UTF-8
+==&gt; /home/linuxbrew/.linuxbrew/Cellar/glibc/2.35_1/bin/localedef -i en_US -f UTF-8 en_US.UTF-8
+🍺  /home/linuxbrew/.linuxbrew/Cellar/glibc/2.35_1: 1,404 files, 47MB
+==&gt; Installing neofetch dependency: gmp
+==&gt; Pouring gmp--6.2.1_1.x86_64_linux.bottle.tar.gz
+🍺  /home/linuxbrew/.linuxbrew/Cellar/gmp/6.2.1_1: 23 files, 3.9MB
+==&gt; Installing neofetch dependency: isl
+==&gt; Pouring isl--0.25.x86_64_linux.bottle.tar.gz
+🍺  /home/linuxbrew/.linuxbrew/Cellar/isl/0.25: 74 files, 9.2MB
+==&gt; Installing neofetch dependency: mpfr
+==&gt; Pouring mpfr--4.1.0-p13.x86_64_linux.bottle.tar.gz
+🍺  /home/linuxbrew/.linuxbrew/Cellar/mpfr/4.1.0-p13: 31 files, 6.0MB
+==&gt; Installing neofetch dependency: libmpc
+==&gt; Pouring libmpc--1.2.1.x86_64_linux.bottle.tar.gz
+🍺  /home/linuxbrew/.linuxbrew/Cellar/libmpc/1.2.1: 13 files, 550.2KB
+==&gt; Installing neofetch dependency: lz4
+==&gt; Pouring lz4--1.9.4.x86_64_linux.bottle.tar.gz
+🍺  /home/linuxbrew/.linuxbrew/Cellar/lz4/1.9.4: 22 files, 695.6KB
+==&gt; Installing neofetch dependency: xz
+==&gt; Pouring xz--5.2.7.x86_64_linux.bottle.tar.gz
+🍺  /home/linuxbrew/.linuxbrew/Cellar/xz/5.2.7: 151 files, 2.5MB
+==&gt; Installing neofetch dependency: zlib
+==&gt; Pouring zlib--1.2.13.x86_64_linux.bottle.tar.gz
+🍺  /home/linuxbrew/.linuxbrew/Cellar/zlib/1.2.13: 13 files, 471.8KB
+==&gt; Installing neofetch dependency: zstd
+==&gt; Pouring zstd--1.5.2.x86_64_linux.bottle.3.tar.gz
+🍺  /home/linuxbrew/.linuxbrew/Cellar/zstd/1.5.2: 31 files, 2.6MB
+==&gt; Installing neofetch dependency: binutils
+==&gt; Pouring binutils--2.39_1.x86_64_linux.bottle.tar.gz
+🍺  /home/linuxbrew/.linuxbrew/Cellar/binutils/2.39_1: 4,687 files, 370.5MB
+==&gt; Installing neofetch dependency: gcc
+==&gt; Pouring gcc--12.2.0.x86_64_linux.bottle.1.tar.gz
+==&gt; Creating the GCC specs file: /home/linuxbrew/.linuxbrew/Cellar/gcc/12.2.0/bin/../lib/gcc/current/gcc/x86_64-pc-linux-gnu/1
+🍺  /home/linuxbrew/.linuxbrew/Cellar/gcc/12.2.0: 1,633 files, 306.4MB
+==&gt; Installing neofetch
+==&gt; Pouring neofetch--7.1.0.all.bottle.2.tar.gz
+🍺  /home/linuxbrew/.linuxbrew/Cellar/neofetch/7.1.0: 6 files, 375KB
+==&gt; Running `brew cleanup neofetch`...
+Disable this behaviour by setting HOMEBREW_NO_INSTALL_CLEANUP.
+Hide these hints with HOMEBREW_NO_ENV_HINTS (see `man brew`).
+</code></pre>
+<p>软件的可执行文件通常在</p>
+<pre><code class="language-shell">/home/linuxbrew/.linuxbrew/bin/neofetch
+</code></pre>
+<h1 id="效果图">效果图</h1>
+<figure data-type="image" tabindex="1"><img src="https://s1.ax1x.com/2022/11/04/xLWZlD.png" alt="效果图" loading="lazy"></figure>
+
+            </div>
+          </article>
+        </div>
+        <div class="paper" data-aos="fade-in">
+          
+            <div class="next-post">
+              <div class="next">
+                下一篇
+              </div>
+              <a href="https://zhangyiming748.github.io/post/brew_not_found/">
+                <h3 class="post-title">
+                  修复homebrew安装软件404问题
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+        
+          
+
+          
+            <div class="paper" data-aos="fade-in">
+              <div id="disqus_thread"></div>
+            </div>
+          
+        
+      </div>
+
+      <div class="sm-12 md-4 col sidebar">
+  <div class="paper info-container">
+    <img src="https://zhangyiming748.github.io/images/avatar.png?v=1772252160336" class="no-responsive avatar">
+    <div class="text-muted">子非鱼,安知鱼之乐?
+子非我,安知我不知鱼之乐?</div>
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      最新文章
+    </div>
+    <div class="row">
+      <ul>
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/zhang_xiao_lin/">不让老人“掉队”：青年志愿者用行动助力老年人融入数字时代</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/Resolving_the_&#34;Installer_hash_mismatch&#34;_issue_when_installing_programs_using_Winget/">解决Winget安装程序时出现“安装程序哈希不匹配”问题</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/daemon/">daemon.json</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/printershare_readme/">PrinterShare 打印共享工具介绍</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/git_commit_errors_faq/">git 报错分析</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/Windows_10_and_11_prevent_IE_redirect_to_Edge/">Windows 10和11中阻止IE跳转Edge</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/tiny_image/">极简镜像</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/go_without_windows_defender/">将 GoLand 运行的 go 进程排除到 Windows Defender 以提高性能</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/MacOS_unable_to_connect_requires_authenticated_Wi-Fi_solution/">macOS无法连接需要通过认证的Wi-Fi解决办法</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/simple_docker_image/">极简docker镜像</a>
+            </li>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </ul>
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      标签列表
+    </div>
+    <div class="row">
+      
+        <a href="https://zhangyiming748.github.io/tag/x0vICjEMlj/" class="badge secondary">
+          志愿者
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/m-fbGUfZt/" class="badge success">
+          Windows
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/OIVRELVRC/" class="badge warning">
+          Docker
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/vPlO62KOV8/" class="badge secondary">
+          共享打印机
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/CnfRrFASW/" class="badge success">
+          Git
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/E2-gGJkDg/" class="badge warning">
+          Golang
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/wmIzFoEIP/" class="badge warning">
+          macOS
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/1QbocojG3/" class="badge secondary">
+          AI
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/KI4qLtXEOu/" class="badge success">
+          打假卖课
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/tE7JyHymUI/" class="badge warning">
+          Android
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/tPncTIGxnb/" class="badge warning">
+          bash
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/9S2Hbs5aF/" class="badge secondary">
+          Termux
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/y_Kw8o5PB/" class="badge ">
+          GitHub
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/A_KFuUKds/" class="badge success">
+          Proxy
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/vYkbFqA51/" class="badge success">
+          Jetbrains
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/oCK_ZlHhX/" class="badge secondary">
+          openKylin
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/vdcblAPcj/" class="badge success">
+          adb
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/whd1tmbG7/" class="badge ">
+          Linux
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/1CFQNs3S00/" class="badge secondary">
+          shell
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/bCXMDy8-U/" class="badge secondary">
+          ffmpeg
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/qzc1SQq3q/" class="badge warning">
+          nVidia
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/7Ibnloi-i/" class="badge warning">
+          WSL
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/X945mIRqj/" class="badge secondary">
+          ssh
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/QrQiV5P0S/" class="badge secondary">
+          python
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/85HirN3QA/" class="badge warning">
+          收费教程
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/SF9usuVqj/" class="badge secondary">
+          fedora
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/Sf_ODGuJI/" class="badge secondary">
+          Gitea
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/PMvg7E-Fr/" class="badge success">
+          双系统
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/yitXMMZ8s/" class="badge success">
+          xiaomi
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/NOMqGtkmio/" class="badge ">
+          Magisk
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/uSPmjvKQ6/" class="badge ">
+          vim
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/O52S4xod7/" class="badge success">
+          nano
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/y2nV8ofCl/" class="badge secondary">
+          knowledge
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/etvDZTSvp/" class="badge ">
+          nginx
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/svHvfBDw2/" class="badge warning">
+          UOS
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/Qs-o9CgUP/" class="badge secondary">
+          五分钟已经很棒了
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/AWiWiIeFs/" class="badge warning">
+          Deepin
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/fGCndQxpp/" class="badge success">
+          Raspberry
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/pHreM0cJf/" class="badge success">
+          欧卡2
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/MqthCZEuF/" class="badge secondary">
+          HomeBrew
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/9aViM641i/" class="badge success">
+          MySql
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/rMjOn_-Vr/" class="badge success">
+          tencent
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/YHDkAytMg/" class="badge ">
+          oracle
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/Oo5pjqygD/" class="badge secondary">
+          VirtualBox
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/XdGtzoLPj/" class="badge secondary">
+          ChatGPT
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/KWd48Zkke/" class="badge ">
+          npm
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/FrlwPAtkRd/" class="badge secondary">
+          Nodejs
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/4u1IqSlDf/" class="badge secondary">
+          openWrt
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/Ps_QL1RK-/" class="badge warning">
+          Samba
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/auU862seE/" class="badge secondary">
+          小米
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/bZrOQ_cvHC/" class="badge secondary">
+          电视盒子
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/9R2pw-kMi/" class="badge success">
+          AndroidTV
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/DLTs-6kxd/" class="badge warning">
+          COD
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/PNLCUL_aG/" class="badge secondary">
+          Game
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/kONTQ9X-u/" class="badge warning">
+          黑道圣徒
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/3ge3wV01e/" class="badge warning">
+          Steam
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/GYLNJVSdF/" class="badge warning">
+          vmware
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/1O2FuszwC/" class="badge warning">
+          snap
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/mWurRYeSd/" class="badge warning">
+          UWP
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/vU03EjBoU/" class="badge warning">
+          跨平台
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/8M3Y_WiPK/" class="badge secondary">
+          Ubuntu
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/vh0_cV9V9/" class="badge success">
+          RDP
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/RlEfsxIRy/" class="badge secondary">
+          UTM
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/2Li1q3KkK/" class="badge ">
+          WineHq
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/akbUFpHWM/" class="badge warning">
+          xfce
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/gHhqkzUH9/" class="badge ">
+          ventoy
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/J2hqqgy1q/" class="badge ">
+          gparted
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/pmLBkvrEV/" class="badge warning">
+          openEuler
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/W7ZvoH8Ya/" class="badge ">
+          华为
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/Lw5WL9LfT/" class="badge success">
+          SaintsRowTheThird
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/tOjoRhGkq/" class="badge ">
+          Gitlab
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/S5LhsRFML/" class="badge warning">
+          AppImage
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/eoLpx9JG3/" class="badge ">
+          NTP
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/gAD6snp8U/" class="badge secondary">
+          NieR
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/7NJFDXwY-/" class="badge success">
+          Markdown
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/oOmosMagH/" class="badge ">
+          网络
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/8jNGiW0SY/" class="badge success">
+          GTA
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/HhYYX0R-k/" class="badge secondary">
+          youtube
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/WU7bMNjDy/" class="badge secondary">
+          office
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/HlNHNYrCz/" class="badge secondary">
+          体育
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/9_I_W5FOy/" class="badge ">
+          bat
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/j49MIdPra/" class="badge warning">
+          Androidx86
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/cBDrzFROX/" class="badge warning">
+          geek
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/kjzWt_8WM/" class="badge ">
+          Gridea
+        </a>
+      
+    </div>
+  </div>
+  <div class="paper">
+    Powered by <a href="https://github.com/zhangyiming748" target="_blank">Gridea</a> | <a class="rss" href="https://zhangyiming748.github.io/atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+
+
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+</script>
+
+
+
+  
+
+  
+    <script src="https://unpkg.com/disqusjs@1.1/dist/disqus.js"></script>
+    <script>
+
+    var options = {
+      shortname: 'zhangyiming748-github-io',
+      apikey: 'nmwRR2QnDaSkyLUKsaGV3rCjyY5HsirUNUQA0YQHN8369jhrR8lFqsVmrPuYeadq',
+    }
+    if ('') {
+      options.api = ''
+    }
+    var dsqjs = new DisqusJS(options)
+
+    </script>
+  
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,1729 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>ffmpeg嵌入字幕 | 张益铭的博客</title>
+<meta name="description" content="子非鱼,安知鱼之乐?
+子非我,安知我不知鱼之乐?">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="shortcut icon" href="https://zhangyiming748.github.io/favicon.ico?v=1772252160336">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="stylesheet" href="https://unpkg.com/papercss@1.6.1/dist/paper.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://zhangyiming748.github.io/styles/main.css">
+
+
+  
+
+  
+    <link rel="stylesheet" href="https://unpkg.com/disqusjs@1.1/dist/disqusjs.css" />
+  
+
+<script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-141755803-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-141755803-1');
+</script>
+
+
+  </head>
+  <body>
+  
+    <nav class="navbar border fixed split-nav">
+  <div class="nav-brand">
+    <h3><a href="https://zhangyiming748.github.io">张益铭的博客</a></h3>
+  </div>
+  <div class="collapsible">
+    <input id="collapsible1" type="checkbox" name="collapsible1">
+    <button>
+      <label for="collapsible1">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+      </label>
+    </button>
+    <div class="collapsible-body">
+      <ul class="inline">
+        
+          <li>
+            
+              <a href="/" class="menu">
+                首页
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/archives" class="menu">
+                归档
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/tags" class="menu">
+                标签
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/post/about" class="menu">
+                关于
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/post/test" class="menu">
+                长期测试
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="https://yeasy.gitbook.io/docker_practice/" class="menu" target="_blank">
+                docker
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="https://mirrors.tuna.tsinghua.edu.cn/" class="menu" target="_blank">
+                清华源
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="https://appstorrent.ru/" class="menu" target="_blank">
+                mac软件
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="https://api.lolimi.cn/API/cosplay/api.php?type=image" class="menu" target="_blank">
+                手气不错
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/post/anime" class="menu">
+                下载队列
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="https://linux.do/" class="menu" target="_blank">
+                Linux.do
+              </a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div id="top" class="row site">
+      <div class="sm-12 md-8 col">
+        <div class="paper">
+          <article class="article">
+            <h1>ffmpeg嵌入字幕</h1>
+            <p class="article-meta">
+              2022-11-15
+              
+                <a href="https://zhangyiming748.github.io/tag/bCXMDy8-U/" class="badge ">
+                  ffmpeg
+                </a>
+              
+            </p>
+            
+            <div class="post-content" v-pre>
+              <h1 id="mkvass软字幕">mkv+ass软字幕</h1>
+<pre><code class="language-bash">ffmpeg -i input.mkv -i input.ass -c copy -c:s ass output.mkv
+</code></pre>
+<h1 id="嵌入字幕">嵌入字幕</h1>
+<p>用ffmpeg去<code>嵌入字幕</code>=<code>写入字幕</code>=<code>合并字幕</code>=<code>烧录字幕</code></p>
+<p>分2类:</p>
+<h2 id="软字幕内挂字幕">软字幕=内挂字幕</h2>
+<ul>
+<li>别称:<code>软字幕</code>=<code>soft subs</code>=<code>soft subtitles</code></li>
+<li>ffmpeg处理逻辑:<code>stream copy</code><strong>流拷贝</strong>模式</li>
+<li>举例:<pre><code class="language-bash">ffmpeg -i input.mkv -i subtitles.ass -codec copy -map 0 -map 1 output.mkv
+
+ffmpeg -i infile.mp4 -f srt -i infile.srt -c:v copy -c:a copy -c:s mov_text outfile.mp4
+</code></pre>
+</li>
+</ul>
+<h2 id="硬字幕内嵌字幕">硬字幕=内嵌字幕</h2>
+<ul>
+<li>别称:<code>硬字幕</code>=<code>hardsubs</code>=<code>hard subs</code>=<code>hard subtitles</code>=<code>burn in subtitles</code></li>
+<li>ffmpeg处理逻辑:用<code>-vf</code>加上<strong>字幕文件</strong></li>
+<li>前提:ffmpeg支持ass
+<ul>
+<li>即:ffmpeg编译参数中包含:<code>--enable-libass</code>
+<ul>
+<li>举例<pre><code class="language-bash"># ffmpeg -version
+ffmpeg version 4.2-tessus  https://evermeet.cx/ffmpeg/  Copyright (c) 2000-2019 the FFmpeg developers
+built with Apple LLVM version 10.0.1 (clang-1001.0.46.4)
+configuration: --cc=/usr/bin/clang --prefix=/opt/ffmpeg ... --enable-libass  ...
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>举例
+<ol>
+<li>嵌入srt字幕</li>
+</ol>
+<pre><code class="language-bash">ffmpeg -i input.mp4 -vf &quot;subtitles=subtitle.srt&quot; output.mp4
+</code></pre>
+<ul>
+<li>注
+<ul>
+<li>(1)-vf后面参数,可以不加双引号:<pre><code class="language-bash">ffmpeg -i input.mp4 -vf subtitles=subtitle.srt output.mp4
+</code></pre>
+<ul>
+<li>不过为了区别后续其他参数,最好像上面一样加上双引号,比较容易和其他参数区别开</li>
+</ul>
+</li>
+<li>(2)如果srt字幕内在在视频文件中
+<ul>
+<li>比如视频是mkv的容器,内挂有srt字幕,则可以:<pre><code class="language-bash">ffmpeg -i input.mkv -vf subtitles=input.mkv output.mp4
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ol start="2">
+<li>嵌入ass字幕</li>
+</ol>
+<pre><code class="language-bash">ffmpeg -i input.mp4 -vf &quot;ass=subtitle.ass&quot; output.mp4
+</code></pre>
+<ul>
+<li>举例<pre><code class="language-bash">ffmpeg -i CTT_Folge_01_CH_Subs_DefaultZhcnButNotShow.mp4 -vf ass=subtitle_fontLarggerBackgroundAlpha-4.ass fontPingFangSC20HalfTransparent.mp4
+</code></pre>
+</li>
+<li>特殊
+<ul>
+<li>另外ffmpeg也支持:<code>Picture-based subtitles</code>=基于图片的字幕
+<ul>
+<li>命令举例:<pre><code class="language-bash">ffmpeg -i input.mkv -filter_complex &quot;[0:v][0:s]overlay[v]&quot; -map &quot;[v]&quot; -map 0:a &lt;output options&gt; output.mkv
+</code></pre>
+</li>
+<li>参数说明:
+<ul>
+<li>如果是多个stream流,可以把<code>[0:s]</code>换成对应的<code>[0:s:0]</code>或<code>[0:s:1]</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>注意:
+<ul>
+<li>(1)当视频有多个音频流,此种方式可能会破坏编码,则用下面方式去修复:<pre><code class="language-bash">ffmpeg -i input.ts -filter_complex &quot;[0:v][0:s]overlay[v]&quot; -map &quot;[v]&quot; -map 0:a:0 &lt;output options&gt; output.mkv
+</code></pre>
+</li>
+<li>(2)Windows环境:注意设置字体的路径</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="高级用法">高级用法</h1>
+<h1 id="指定字幕文字属性">指定字幕文字属性</h1>
+<p>此处介绍嵌入字幕时,指定字幕文字的各种属性,比如<code>字体大小</code>`字体类型<code>\</code>颜色<code>\</code>透明度`等</p>
+<ul>
+<li>srt字幕:加force_style参数<pre><code class="language-bash">ffmpeg -i video.mp4 -vf &quot;subtitles=subs.srt:force_style='Fontsize=24,PrimaryColour=&amp;H0000ff&amp;'&quot; -c:a copy output.mp4
+</code></pre>
+</li>
+<li>ass字幕:在ass字幕中设置参数<pre><code class="language-bash">Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow
+</code></pre>
+</li>
+</ul>
+<p>具体设置成什么值,以及效果如何,可借助于软件Aegisub去设置和预览</p>
+<h3 id="举例1">举例1</h3>
+<pre><code class="language-bash">Style: Transparent,PingFang SC,20,&amp;H00FFFFFF,&amp;H000000FF,&amp;HBC5E5E5E,&amp;H8B000000,0,0,0,0,100,100,0,0,3,0,1,2,10,10,10,134
+</code></pre>
+<p>实现了字幕效果:</p>
+<ul>
+<li>字体:PingFang SC</li>
+<li>字体大小:20</li>
+<li>字幕的背景半透明效果:后面很多参数组合的效果</li>
+</ul>
+<p>如图:</p>
+<figure data-type="image" tabindex="1"><img src="../../assets/img/subtitle_set_attribute_effect.png" alt="subtitle_set_attribute_effect" loading="lazy"></figure>
+<h3 id="举例2ass设置半透明的背景">举例2:ass设置半透明的背景</h3>
+<pre><code class="language-bash">Style: Default,Arial,16,&amp;H00FFFFFF,&amp;H000000FF,&amp;H80000000,&amp;H80000000,-1,0,0,0,100,100,0,0,4,0,0,2,10,10,10,1
+</code></pre>
+<p>即可达到要的字幕有个半透明的背景色了.</p>
+<p>其中<code>16</code>指的是<code>字体大小</code>,可以根据需要更改为自己要的值.</p>
+<h1 id="指定字幕位置">指定字幕位置</h1>
+<ul>
+<li>最简单但常见的需求:无需操心字幕的具体位置,只需要保证字幕在视频底部
+<ul>
+<li>则可以直接嵌入字幕,其中字幕文件是srt或ass均可<pre><code class="language-bash">ffmpeg -i input.mp4 -vf subtitles=input.srt output.mp4
+ffmpeg -i input.mp4 -vf ass=subtitle.ass output.mp4
+</code></pre>
+</li>
+</ul>
+</li>
+<li>高级需求:指定字幕的具体的位置(不同区域,具体边距等)
+<ul>
+<li>前提:必须是ass文件(才能用参数指定字幕位置),srt无法指定字幕位置
+<ul>
+<li>如果是srt文件,则需要先去转换成ass文件<pre><code class="language-bash">ffmpeg -i input.srt output.ass
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="嵌入ass字幕到视频中">嵌入ass字幕到视频中</h2>
+<pre><code class="language-bash">ffmpeg -i input.mp4 -vf &quot;ass=input.ass&quot; output.mp4
+</code></pre>
+<ul>
+<li>其中:
+<ul>
+<li>ass字幕文件input.ass中,有对应的位置的参数配置<pre><code class="language-ini">[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+
+Style: Default,Arial,16,&amp;Hffffff,&amp;Hffffff,&amp;H0,&amp;H0,0,0,0,0,100,100,0,0,1,1,0,2,10,10,10,0
+</code></pre>
+<ul>
+<li>其中:
+<ul>
+<li><code>Alignment</code>:默认为<code>2</code> = 底部居中
+<ul>
+<li>就满足了我们希望的:字幕在底部居中的位置</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="微调左右间距和底部间距">微调左右间距和底部间距</h3>
+<ul>
+<li>再去微调左右间距和底部间距时
+<ul>
+<li>再去改动:
+<ul>
+<li><code>MarginL, MarginR, MarginV</code></li>
+</ul>
+</li>
+<li>比如:<pre><code class="language-ini">MarginL, MarginR, MarginV
+20,20,10
+</code></pre>
+</li>
+<li>即可实现:
+<ul>
+<li><code>MarginL</code>=<code>MarginR</code>:左右间距<code>20</code></li>
+<li><code>MarginV</code>:底部向上间距<code>10</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="嵌入ass字幕举例">嵌入ass字幕举例</h2>
+<ul>
+<li>字幕文件:<code>input/5d41d82f52247ce73d40475b_cfgPosition.ass</code>
+<ul>
+<li>ass文件中相关参数<pre><code class="language-ini">Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+
+Style: Default,Arial,16,&amp;Hffffff,&amp;Hffffff,&amp;H0,&amp;H0,0,0,0,0,100,100,0,0,1,1,0,2,20,20,10,0
+</code></pre>
+<ul>
+<li>参数说明
+<ul>
+<li>字幕位置主要影响因素
+<ul>
+<li>字幕主体所在区域
+<ul>
+<li><code>Alignment</code>
+<ul>
+<li>默认为<code>2</code> = 底部居中</li>
+<li>其中值: <code>1-9</code>
+<ul>
+<li>逻辑:和键盘中数字的排布一致</li>
+<li>见图:
+<ul>
+<li><img src="../../assets/img/subtitle_ass_aligment.png" alt="subtitle_ass_aligment" loading="lazy"></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>字幕位置次要影响因素
+<ul>
+<li>字幕的边距
+<ul>
+<li>(字幕距离)左右的边距:<code>MarginL</code>和<code>MarginR</code>:<code>20</code></li>
+<li>(字幕距离)底部的边距:<code>10</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>命令<pre><code class="language-bash">ffmpeg -i input/5d41d82f52247ce73d40475b_extendedAll.mp4 -vf &quot;ass=input/5d41d82f52247ce73d40475b_cfgPosition.ass&quot; output/5d41d82f52247ce73d40475b_addedAss_marginV10LR20.mp4
+</code></pre>
+</li>
+<li>效果
+<ul>
+<li><img src="../../assets/img/embed_ass_effect_demo.png" alt="embed_ass_effect_demo" loading="lazy"></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+          </article>
+        </div>
+        <div class="paper" data-aos="fade-in">
+          
+            <div class="next-post">
+              <div class="next">
+                下一篇
+              </div>
+              <a href="https://zhangyiming748.github.io/post/go_get_set_proxy/">
+                <h3 class="post-title">
+                  go get 设置临时代理
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+        
+          
+
+          
+            <div class="paper" data-aos="fade-in">
+              <div id="disqus_thread"></div>
+            </div>
+          
+        
+      </div>
+
+      <div class="sm-12 md-4 col sidebar">
+  <div class="paper info-container">
+    <img src="https://zhangyiming748.github.io/images/avatar.png?v=1772252160336" class="no-responsive avatar">
+    <div class="text-muted">子非鱼,安知鱼之乐?
+子非我,安知我不知鱼之乐?</div>
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      最新文章
+    </div>
+    <div class="row">
+      <ul>
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/zhang_xiao_lin/">不让老人“掉队”：青年志愿者用行动助力老年人融入数字时代</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/Resolving_the_&#34;Installer_hash_mismatch&#34;_issue_when_installing_programs_using_Winget/">解决Winget安装程序时出现“安装程序哈希不匹配”问题</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/daemon/">daemon.json</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/printershare_readme/">PrinterShare 打印共享工具介绍</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/git_commit_errors_faq/">git 报错分析</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/Windows_10_and_11_prevent_IE_redirect_to_Edge/">Windows 10和11中阻止IE跳转Edge</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/tiny_image/">极简镜像</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/go_without_windows_defender/">将 GoLand 运行的 go 进程排除到 Windows Defender 以提高性能</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/MacOS_unable_to_connect_requires_authenticated_Wi-Fi_solution/">macOS无法连接需要通过认证的Wi-Fi解决办法</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/simple_docker_image/">极简docker镜像</a>
+            </li>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </ul>
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      标签列表
+    </div>
+    <div class="row">
+      
+        <a href="https://zhangyiming748.github.io/tag/x0vICjEMlj/" class="badge success">
+          志愿者
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/m-fbGUfZt/" class="badge ">
+          Windows
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/OIVRELVRC/" class="badge ">
+          Docker
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/vPlO62KOV8/" class="badge success">
+          共享打印机
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/CnfRrFASW/" class="badge secondary">
+          Git
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/E2-gGJkDg/" class="badge ">
+          Golang
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/wmIzFoEIP/" class="badge secondary">
+          macOS
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/1QbocojG3/" class="badge ">
+          AI
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/KI4qLtXEOu/" class="badge success">
+          打假卖课
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/tE7JyHymUI/" class="badge ">
+          Android
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/tPncTIGxnb/" class="badge ">
+          bash
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/9S2Hbs5aF/" class="badge success">
+          Termux
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/y_Kw8o5PB/" class="badge secondary">
+          GitHub
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/A_KFuUKds/" class="badge secondary">
+          Proxy
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/vYkbFqA51/" class="badge ">
+          Jetbrains
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/oCK_ZlHhX/" class="badge ">
+          openKylin
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/vdcblAPcj/" class="badge secondary">
+          adb
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/whd1tmbG7/" class="badge success">
+          Linux
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/1CFQNs3S00/" class="badge success">
+          shell
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/bCXMDy8-U/" class="badge ">
+          ffmpeg
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/qzc1SQq3q/" class="badge secondary">
+          nVidia
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/7Ibnloi-i/" class="badge success">
+          WSL
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/X945mIRqj/" class="badge secondary">
+          ssh
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/QrQiV5P0S/" class="badge secondary">
+          python
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/85HirN3QA/" class="badge secondary">
+          收费教程
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/SF9usuVqj/" class="badge secondary">
+          fedora
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/Sf_ODGuJI/" class="badge secondary">
+          Gitea
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/PMvg7E-Fr/" class="badge success">
+          双系统
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/yitXMMZ8s/" class="badge success">
+          xiaomi
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/NOMqGtkmio/" class="badge ">
+          Magisk
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/uSPmjvKQ6/" class="badge success">
+          vim
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/O52S4xod7/" class="badge secondary">
+          nano
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/y2nV8ofCl/" class="badge ">
+          knowledge
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/etvDZTSvp/" class="badge ">
+          nginx
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/svHvfBDw2/" class="badge warning">
+          UOS
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/Qs-o9CgUP/" class="badge warning">
+          五分钟已经很棒了
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/AWiWiIeFs/" class="badge secondary">
+          Deepin
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/fGCndQxpp/" class="badge success">
+          Raspberry
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/pHreM0cJf/" class="badge success">
+          欧卡2
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/MqthCZEuF/" class="badge secondary">
+          HomeBrew
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/9aViM641i/" class="badge ">
+          MySql
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/rMjOn_-Vr/" class="badge warning">
+          tencent
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/YHDkAytMg/" class="badge ">
+          oracle
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/Oo5pjqygD/" class="badge ">
+          VirtualBox
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/XdGtzoLPj/" class="badge ">
+          ChatGPT
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/KWd48Zkke/" class="badge ">
+          npm
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/FrlwPAtkRd/" class="badge secondary">
+          Nodejs
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/4u1IqSlDf/" class="badge secondary">
+          openWrt
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/Ps_QL1RK-/" class="badge ">
+          Samba
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/auU862seE/" class="badge success">
+          小米
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/bZrOQ_cvHC/" class="badge success">
+          电视盒子
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/9R2pw-kMi/" class="badge warning">
+          AndroidTV
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/DLTs-6kxd/" class="badge warning">
+          COD
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/PNLCUL_aG/" class="badge secondary">
+          Game
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/kONTQ9X-u/" class="badge ">
+          黑道圣徒
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/3ge3wV01e/" class="badge warning">
+          Steam
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/GYLNJVSdF/" class="badge success">
+          vmware
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/1O2FuszwC/" class="badge warning">
+          snap
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/mWurRYeSd/" class="badge secondary">
+          UWP
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/vU03EjBoU/" class="badge secondary">
+          跨平台
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/8M3Y_WiPK/" class="badge secondary">
+          Ubuntu
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/vh0_cV9V9/" class="badge ">
+          RDP
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/RlEfsxIRy/" class="badge warning">
+          UTM
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/2Li1q3KkK/" class="badge success">
+          WineHq
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/akbUFpHWM/" class="badge secondary">
+          xfce
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/gHhqkzUH9/" class="badge warning">
+          ventoy
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/J2hqqgy1q/" class="badge warning">
+          gparted
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/pmLBkvrEV/" class="badge ">
+          openEuler
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/W7ZvoH8Ya/" class="badge success">
+          华为
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/Lw5WL9LfT/" class="badge warning">
+          SaintsRowTheThird
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/tOjoRhGkq/" class="badge success">
+          Gitlab
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/S5LhsRFML/" class="badge success">
+          AppImage
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/eoLpx9JG3/" class="badge success">
+          NTP
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/gAD6snp8U/" class="badge success">
+          NieR
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/7NJFDXwY-/" class="badge ">
+          Markdown
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/oOmosMagH/" class="badge success">
+          网络
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/8jNGiW0SY/" class="badge secondary">
+          GTA
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/HhYYX0R-k/" class="badge warning">
+          youtube
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/WU7bMNjDy/" class="badge warning">
+          office
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/HlNHNYrCz/" class="badge ">
+          体育
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/9_I_W5FOy/" class="badge secondary">
+          bat
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/j49MIdPra/" class="badge secondary">
+          Androidx86
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/cBDrzFROX/" class="badge warning">
+          geek
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/kjzWt_8WM/" class="badge secondary">
+          Gridea
+        </a>
+      
+    </div>
+  </div>
+  <div class="paper">
+    Powered by <a href="https://github.com/zhangyiming748" target="_blank">Gridea</a> | <a class="rss" href="https://zhangyiming748.github.io/atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+
+
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+</script>
+
+
+
+  
+
+  
+    <script src="https://unpkg.com/disqusjs@1.1/dist/disqus.js"></script>
+    <script>
+
+    var options = {
+      shortname: 'zhangyiming748-github-io',
+      apikey: 'nmwRR2QnDaSkyLUKsaGV3rCjyY5HsirUNUQA0YQHN8369jhrR8lFqsVmrPuYeadq',
+    }
+    if ('') {
+      options.api = ''
+    }
+    var dsqjs = new DisqusJS(options)
+
+    </script>
+  
+
+
+
+
+  </body>
+</html>

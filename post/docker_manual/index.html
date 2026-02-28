@@ -1,0 +1,1843 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>docker从入门到删库跑路 | 张益铭的博客</title>
+<meta name="description" content="子非鱼,安知鱼之乐?
+子非我,安知我不知鱼之乐?">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="shortcut icon" href="https://zhangyiming748.github.io/favicon.ico?v=1772252160336">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="stylesheet" href="https://unpkg.com/papercss@1.6.1/dist/paper.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://zhangyiming748.github.io/styles/main.css">
+
+
+  
+
+  
+    <link rel="stylesheet" href="https://unpkg.com/disqusjs@1.1/dist/disqusjs.css" />
+  
+
+<script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-141755803-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-141755803-1');
+</script>
+
+
+  </head>
+  <body>
+  
+    <nav class="navbar border fixed split-nav">
+  <div class="nav-brand">
+    <h3><a href="https://zhangyiming748.github.io">张益铭的博客</a></h3>
+  </div>
+  <div class="collapsible">
+    <input id="collapsible1" type="checkbox" name="collapsible1">
+    <button>
+      <label for="collapsible1">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+      </label>
+    </button>
+    <div class="collapsible-body">
+      <ul class="inline">
+        
+          <li>
+            
+              <a href="/" class="menu">
+                首页
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/archives" class="menu">
+                归档
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/tags" class="menu">
+                标签
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/post/about" class="menu">
+                关于
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/post/test" class="menu">
+                长期测试
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="https://yeasy.gitbook.io/docker_practice/" class="menu" target="_blank">
+                docker
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="https://mirrors.tuna.tsinghua.edu.cn/" class="menu" target="_blank">
+                清华源
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="https://appstorrent.ru/" class="menu" target="_blank">
+                mac软件
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="https://api.lolimi.cn/API/cosplay/api.php?type=image" class="menu" target="_blank">
+                手气不错
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/post/anime" class="menu">
+                下载队列
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="https://linux.do/" class="menu" target="_blank">
+                Linux.do
+              </a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div id="top" class="row site">
+      <div class="sm-12 md-8 col">
+        <div class="paper">
+          <article class="article">
+            <h1>docker从入门到删库跑路</h1>
+            <p class="article-meta">
+              2024-04-30
+              
+                <a href="https://zhangyiming748.github.io/tag/85HirN3QA/" class="badge warning">
+                  收费教程
+                </a>
+              
+                <a href="https://zhangyiming748.github.io/tag/OIVRELVRC/" class="badge warning">
+                  Docker
+                </a>
+              
+            </p>
+            
+            <div class="post-content" v-pre>
+              <h1 id="1docker-概念介绍">1.docker 概念介绍</h1>
+<h2 id="为什么使用docker">为什么使用docker</h2>
+<p>使用docker，可以帮助我们快速在一台全新的机器上部署我们的应用。</p>
+<h3 id="没有使用docker之前">没有使用docker之前</h3>
+<p>如果需要部署一个web项目，则需要在目标机器上面安装redis，mysql，rabbitmq,memcahe等组件，而且安装过程并不会很顺利，因为不是缺这个库就是缺那个依赖，所以部署一个应用是非常麻烦的；而且如果你需要再部署一套新的环境，又得重新做这些操作...这让开发和运维就会一直抱怨。</p>
+<h3 id="使用docker后">使用docker后</h3>
+<p>需要什么环境，只需要做出一份镜像，然后这个镜像里面会包含你所需要的环境，如果需要重新部署一套，则只用基于这个镜像，启动容器，然后把自己的项目丢进去，就可以了，不需要经历以前那种重复且无聊的工作。</p>
+<h2 id="镜像">镜像</h2>
+<p>镜像类似于咱们装操作系统使用的镜像，就像win10.iso、win8.iso、win7.iso...<br>
+这些镜像都是只读的，但是我们可以基于这些镜像制作出新的镜像。</p>
+<h2 id="容器">容器</h2>
+<p>容器就相当于我们使用的操作系统，我们根据指定的镜像，然后安装了对应的操作系统，也就是我们的容器</p>
+<h2 id="仓库">仓库</h2>
+<p>仓库是用来集中存放镜像的地方，可以比作咱们的Maven仓库，这里会对所有镜像进行统一的管理</p>
+<h2 id="一图搞懂关系">一图搞懂关系</h2>
+<p><a href="https://imgse.com/i/pkFOgG8"><img src="https://s21.ax1x.com/2024/05/01/pkFOgG8.png" alt="pkFOgG8.png" loading="lazy"></a><br>
+<a href="https://imgse.com/i/pkFOcPf"><img src="https://s21.ax1x.com/2024/05/01/pkFOcPf.png" alt="pkFOcPf.png" loading="lazy"></a></p>
+<h1 id="2docker-安装及配置">2.docker 安装及配置</h1>
+<p><strong>以下内容(第二节)都当做放屁好了,安装就乖乖使用官方的方法,别把时间浪费在这里</strong></p>
+<h2 id="环境">环境</h2>
+<p>操作系统：Ubuntu20</p>
+<h2 id="安装docker">安装docker</h2>
+<h3 id="更新apt仓库">更新apt仓库</h3>
+<pre><code>apt-get update
+</code></pre>
+<h3 id="安装docker-2">安装docker</h3>
+<pre><code>apt install -y docker.io
+</code></pre>
+<h3 id="验证docker是否安装成功">验证docker是否安装成功</h3>
+<pre><code>docker version
+</code></pre>
+<figure data-type="image" tabindex="1"><a href="https://imgse.com/i/pkFOIZn"><img src="https://s21.ax1x.com/2024/05/01/pkFOIZn.md.png" alt="pkFOIZn.md.png" loading="lazy"></a></figure>
+<h2 id="安装docker-compose可选">安装docker-compose（可选）</h2>
+<h3 id="安装docker-compose">安装docker-compose</h3>
+<pre><code>apt install -y docker-compose
+</code></pre>
+<h3 id="验证是否安装成功">验证是否安装成功</h3>
+<pre><code>docker-compose version
+</code></pre>
+<figure data-type="image" tabindex="2"><a href="https://imgse.com/i/pkFO4qs"><img src="https://s21.ax1x.com/2024/05/01/pkFO4qs.md.png" alt="pkFO4qs.md.png" loading="lazy"></a></figure>
+<h2 id="配置镜像加速">配置镜像加速</h2>
+<h3 id="编辑配置文件">编辑配置文件</h3>
+<pre><code>vim /etc/docker/daemon.json
+
+
+{
+&quot;registry-mirrors&quot;: [
+&quot;https://docker.mirrors.ustc.edu.cn&quot;,
+&quot;https://hub-mirror.c.163.com/&quot;]
+}
+</code></pre>
+<h3 id="重启docker服务">重启docker服务</h3>
+<pre><code>systemctl reload docker
+systemctl restart docker
+</code></pre>
+<h3 id="查看docker-镜像仓库地址是否更新">查看docker 镜像仓库地址是否更新</h3>
+<pre><code>docker info
+</code></pre>
+<figure data-type="image" tabindex="3"><a href="https://imgse.com/i/pkFOoaq"><img src="https://s21.ax1x.com/2024/05/01/pkFOoaq.md.png" alt="pkFOoaq.md.png" loading="lazy"></a></figure>
+<h1 id="3docker-镜像操作">3.docker 镜像操作</h1>
+<h2 id="拉取镜像">拉取镜像</h2>
+<h3 id="命令">命令</h3>
+<pre><code>docker pull 镜像名称:Tag
+</code></pre>
+<h3 id="样例">样例</h3>
+<pre><code>docker pull ubuntu
+docker run ubuntu /bin/echo &quot;Hello world,My name is &quot;
+</code></pre>
+<h2 id="查看镜像信息">查看镜像信息</h2>
+<h3 id="列出所有镜像">列出所有镜像</h3>
+<h4 id="命令-2">命令</h4>
+<pre><code>docker images
+</code></pre>
+<figure data-type="image" tabindex="4"><a href="https://imgse.com/i/pkFObGT"><img src="https://s21.ax1x.com/2024/05/01/pkFObGT.md.png" alt="pkFObGT.md.png" loading="lazy"></a></figure>
+<h4 id="字段解释">字段解释</h4>
+<ul>
+<li>REPOSITORY：来自于哪个仓库</li>
+<li>TAG：镜像的标签信息，类似于Maven的打tag</li>
+<li>IMAGE ID：代表镜像的唯一标识，如果两个镜像id相同，则有可能他们指向同一个镜像，只是标签不同</li>
+<li>CREATED：镜像最后的更新时间</li>
+<li>SIZE：镜像大小</li>
+</ul>
+<h4 id="子命令">子命令</h4>
+<pre><code># 列出所有镜像，包括临时文件	
+docker images -a
+# 列出镜像摘要
+docker images --digests=true
+# 查看更多子命令
+man docker-images
+</code></pre>
+<h3 id="打标签">打标签</h3>
+<h4 id="命令-3">命令</h4>
+<pre><code>docker tag 镜像名称:tag 自定义的标签
+</code></pre>
+<h4 id="样例-2">样例</h4>
+<pre><code>docker tag ubuntu:latest myubuntu:1.0.0
+</code></pre>
+<h3 id="查看详细信息">查看详细信息</h3>
+<pre><code>docker inspect ubuntu:latest
+</code></pre>
+<h2 id="搜索镜像">搜索镜像</h2>
+<pre><code>docker search ubuntu
+</code></pre>
+<h3 id="搜索官方镜像">搜索官方镜像</h3>
+<pre><code>docker search --filter=is-official=true ubuntu
+</code></pre>
+<h3 id="搜索start4的镜像">搜索start&gt;4的镜像</h3>
+<pre><code>docker search --filter=stars=4 ubuntu
+</code></pre>
+<h2 id="清除删除-镜像">清除/删除 镜像</h2>
+<h3 id="按标签删除">按标签删除</h3>
+<pre><code>docker rmi ubuntu:latest
+</code></pre>
+<h3 id="按镜像id删除">按镜像ID删除</h3>
+<pre><code>docker images
+docker rmi ba6acccedd29
+</code></pre>
+<h3 id="清理镜像">清理镜像</h3>
+<pre><code>docker image prune
+</code></pre>
+<h2 id="创建镜像">创建镜像</h2>
+<h3 id="基于已有容器创建">基于已有容器创建</h3>
+<pre><code>docker commit -m '提交日志' -a '作者信息' 容器ID 自定义的镜像名称
+</code></pre>
+<h4 id="样例-3">样例</h4>
+<pre><code># 进入容器
+docker run -it ubuntu:latest /bin/bash
+# 创建新文件 并追加内容
+echo 'test commit' &gt; lglbc.txt
+exit
+# 下载
+# 创建镜像
+docker commit -m '第一次提交' -a '乐哥聊编程' 6918e5c0e454 lglbc:1.0.0
+</code></pre>
+<h3 id="基于本地模版导入">基于本地模版导入</h3>
+<pre><code>docker [image] i mport [OPTIONS] filelURLl -[REPOSITORY
+[:TAG] ]
+</code></pre>
+<h4 id="样例-4">样例</h4>
+<pre><code># 下载ubuntu模版
+wget https://download.openvz.org/template/precreated/contrib/ubuntu-6.06-i386-minimal.tar.gz
+# 导入镜像
+cat ubuntu-6.06-i386-minimal.tar.gz | docker import - ubuntu:6.06
+</code></pre>
+<h3 id="基于docker-file创建">基于docker file创建</h3>
+<pre><code>FROM ubuntu:latest
+LABEL version='1.0.0' maintainer= 'docker user lglbc@https://gitee.com/lglbc'
+RUN echo 'test docker file' &gt; docker.txt
+</code></pre>
+<pre><code>docker build . -t lglbc:dockerfile
+docker exec -it lglbc:dockerfile /bin/bash
+cat docker.txt
+</code></pre>
+<h2 id="导入导出镜像">导入/导出镜像</h2>
+<h3 id="导出">导出</h3>
+<pre><code>docker save -o ubuntu.latest.tar ubuntu:latest
+</code></pre>
+<h3 id="导入">导入</h3>
+<pre><code>docker load -i[&lt;] ubuntu.latest.tar
+</code></pre>
+<h1 id="4docker-容器操作">4.docker 容器操作</h1>
+<h2 id="创建容器">创建容器</h2>
+<h3 id="新建容器">新建容器</h3>
+<pre><code>docker create -it 镜像名称
+</code></pre>
+<h3 id="启动容器">启动容器</h3>
+<pre><code>docker start 容器ID
+</code></pre>
+<h3 id="新建并启动容器">新建并启动容器</h3>
+<pre><code>docker run [-it] 镜像名称
+</code></pre>
+<h3 id="后台运行">后台运行</h3>
+<pre><code>docker run -d 镜像名称
+</code></pre>
+<h3 id="查看容器控制台日志">查看容器控制台日志</h3>
+<pre><code>docker logs [-f] 容器id
+</code></pre>
+<h2 id="停止容器">停止容器</h2>
+<h3 id="暂停容器">暂停容器</h3>
+<pre><code>docker pause 容器id
+</code></pre>
+<h3 id="终止容器">终止容器</h3>
+<pre><code>docker stop 容器id
+</code></pre>
+<h2 id="进入容器">进入容器</h2>
+<h3 id="attach">attach</h3>
+<pre><code>docker attach 容器ID
+# 多个窗口attach 同一个容器，所有窗口同步显示
+</code></pre>
+<h3 id="exec">exec</h3>
+<pre><code>docker exec -it 容器ID /bin/bash
+</code></pre>
+<h2 id="删除容器">删除容器</h2>
+<pre><code>docker rm 删除不在运行的容器
+docker rm -f 容器ID（发送一个sigkill信号给容器，后强行删除）
+</code></pre>
+<h2 id="查看容器">查看容器</h2>
+<pre><code># 查看容器信息
+docker inspect 容器ID
+# 查看容器内进程
+docker top 容器ID
+# 查看统计信息
+docker stats 容器ID
+
+</code></pre>
+<h2 id="高级命令">高级命令</h2>
+<h3 id="复制本地文件到容器">复制本地文件到容器</h3>
+<pre><code>docker cp 本地目录 容器ID:/容器目录
+</code></pre>
+<h3 id="查看容器内数据的变更">查看容器内数据的变更</h3>
+<pre><code>docker diff 容器ID
+</code></pre>
+<h3 id="查看端口映射">查看端口映射</h3>
+<pre><code>docker port 容器ID	
+</code></pre>
+<h3 id="更新配置">更新配置</h3>
+<pre><code>docker update --restart=always/no 容器ID
+</code></pre>
+<h2 id="5搭建私有仓库">5.搭建私有仓库</h2>
+<h2 id="安装私有仓库">安装私有仓库</h2>
+<pre><code>docker run -d -p 5000:5000 registry:2
+</code></pre>
+<h2 id="打标签-2">打标签</h2>
+<pre><code>docker tag 镜像名称:标签 仓库地址:仓库端口/镜像名称[:标签]
+</code></pre>
+<h2 id="推送镜像到仓库">推送镜像到仓库</h2>
+<pre><code>docker push 仓库地址:仓库端口/镜像名称[:标签]
+</code></pre>
+<h2 id="查看仓库包含的镜像">查看仓库包含的镜像</h2>
+<pre><code>curl http://仓库地址:仓库端口/v2/_catalog
+</code></pre>
+<h2 id="从私有仓库拉取镜像">从私有仓库拉取镜像</h2>
+<pre><code>docker pull 仓库地址:仓库端口/镜像名称[:标签]
+</code></pre>
+<h2 id="从其他机器拉取">从其他机器拉取</h2>
+<h3 id="修改配置允许http响应">修改配置，允许http响应</h3>
+<p>在客户端机器执行</p>
+<pre><code>vim /etc/docker/daemon.json
+
+{
+&quot;insecure-registries&quot;: [&quot;192.168.64.3:5000&quot;]
+}
+
+systemctl daemon-reload &amp;&amp; systemctl restart docker
+</code></pre>
+<h3 id="拉取镜像-2">拉取镜像</h3>
+<pre><code>docker pull 192.168.64.3:5000/test
+</code></pre>
+<h1 id="6docker数据持久化">6.docker数据持久化</h1>
+<h2 id="为什么要做持久化">为什么要做持久化</h2>
+<p>因为在每个容器在运行过程中的数据，默认都会存储在容器内部，如果将容器删除，重新跑一个新的容器，数据就会丢失，如果是一些无关紧要的日志类数据丢失，那倒无所谓，如果是一些产生的业务数据，那么我就务必需要保存这些数据。</p>
+<h2 id="怎么去做持久话呢">怎么去做持久话呢？</h2>
+<p>其实很简单 ，只需要一个命令即可</p>
+<h3 id="命令-4">命令</h3>
+<pre><code>docker run -d  -v 本机绝对路径:容器内部路径 镜像名称
+</code></pre>
+<h3 id="示例">示例</h3>
+<pre><code>docker run -d --name nginx -v /root/app/html:/usr/share/nginx/html -p 80:80 nginx
+</code></pre>
+<h1 id="7端口映射及容器互联">7.端口映射及容器互联</h1>
+<p>默认情况下，容器是不能被外部或其他容器访问的。<br>
+那么我们应该怎么配置能够实现容器能够被外部访问呢？</p>
+<h2 id="端口映射">端口映射</h2>
+<h3 id="随机端口映射">随机端口映射</h3>
+<pre><code>docker run -d -P
+</code></pre>
+<h3 id="映射指定端口">映射指定端口</h3>
+<pre><code>docker run -d -p 5000:5000
+</code></pre>
+<h3 id="映射到指定地址端口">映射到指定地址端口</h3>
+<pre><code>docker run -d -p 127.0.0.1:5000:5000
+</code></pre>
+<h3 id="映射到指定地址的任意端口">映射到指定地址的任意端口</h3>
+<pre><code>docker run -d -p 127.0.0.1::5000
+</code></pre>
+<h3 id="查看端口配置">查看端口配置</h3>
+<pre><code>docker port 容器ID
+</code></pre>
+<h2 id="容器互联">容器互联</h2>
+<h3 id="自定义容器名称">自定义容器名称</h3>
+<pre><code>docker run -d -P --name
+</code></pre>
+<h3 id="容器互联-2">容器互联</h3>
+<pre><code>docker run -d -P --name web --link 容器名称[:内部别名] 
+</code></pre>
+<h1 id="8使用dockerfile创建镜像">8.使用DockerFile创建镜像</h1>
+<h2 id="常用指令">常用指令</h2>
+<h3 id="arg">ARG</h3>
+<h4 id="用途">用途</h4>
+<p>申明创建镜像过程中使用的变量</p>
+<h4 id="用法">用法</h4>
+<p>ARG tag=latest</p>
+<h3 id="from">FROM</h3>
+<h4 id="用途-2">用途</h4>
+<p>指定基础镜像，写在第一行</p>
+<h4 id="用法-2">用法</h4>
+<p>FROM nginx:latest</p>
+<h3 id="label">LABEL</h3>
+<h4 id="用途-3">用途</h4>
+<p>给镜像元数据添加标签</p>
+<h4 id="用法-3">用法</h4>
+<p>LABEL author=lglbc</p>
+<h3 id="expose">EXPOSE</h3>
+<h4 id="用途-4">用途</h4>
+<p>申明需要需要的端口，但是不会做端口映射</p>
+<h4 id="用法-4">用法</h4>
+<p>EXPOSE 80 443</p>
+<h3 id="env">ENV</h3>
+<h4 id="用途-5">用途</h4>
+<p>指定环境变量，在后续容器中也会存在</p>
+<h4 id="用法-5">用法</h4>
+<p>ENV key=value key1=value1</p>
+<h3 id="entrypoint">ENTRYPOINT</h3>
+<h4 id="用途-6">用途</h4>
+<p>设置镜像的默认入口命令，容器启动时，首先会去执行这个命令</p>
+<h4 id="用法-6">用法</h4>
+<p>ENTRYPOINT  [&quot;ls&quot; &quot;-l&quot;]</p>
+<h3 id="workdir">WORKDIR</h3>
+<h4 id="用途-7">用途</h4>
+<p>配置工作目录</p>
+<h4 id="用法-7">用法</h4>
+<p>WORKDIR /a</p>
+<h3 id="onbuild">ONBUILD</h3>
+<h4 id="用途-8">用途</h4>
+<p>build镜像时，优先执行的指令，只会在子镜像中执行</p>
+<h4 id="用法-8">用法</h4>
+<p>ONBUILD 任意dockerfile 指令</p>
+<h2 id="操作指令">操作指令</h2>
+<h3 id="run">RUN</h3>
+<h4 id="用途-9">用途</h4>
+<p>运行指定命令</p>
+<h3 id="用法-9">用法</h3>
+<p>RUN ls -l</p>
+<h3 id="cmd">CMD</h3>
+<h4 id="用途-10">用途</h4>
+<p>CMD 指令用来指定启动容器时默认执行的命令 。与run不同之处在于这个只能出现一次，如果出现多次，则只有最后一条生效</p>
+<h4 id="用法-10">用法</h4>
+<p>CMD java -jar app.jar</p>
+<h3 id="add">ADD</h3>
+<h4 id="用途-11">用途</h4>
+<p>添加内容到镜像</p>
+<h4 id="用法-11">用法</h4>
+<p>ADD ./*.jar /app/</p>
+<h3 id="copy">COPY</h3>
+<h4 id="用途-12">用途</h4>
+<p>复制内容到镜像，如果是本地目录推荐使用COPY</p>
+<h4 id="用法-12">用法</h4>
+<p>COPY ./*.jar /app/</p>
+<h2 id="实战案例">实战案例</h2>
+<pre><code class="language-bash">FROM nginx:latest
+ARG version=1
+LABEL author=&quot;乐哥聊编程&quot;
+EXPOSE 80 443
+ENV profile dev
+#ENTRYPOINT echo 'nginx start success...'
+WORKDIR /usr/share/nginx/html
+ONBUILD RUN apt-get update
+ONBUILD RUN apt install -y tree
+RUN echo 'dockerfile build success ...'
+RUN rm -rf /usr/share/nginx/html/*
+ADD ./html/index.html /usr/share/nginx/html/
+</code></pre>
+
+            </div>
+          </article>
+        </div>
+        <div class="paper" data-aos="fade-in">
+          
+            <div class="next-post">
+              <div class="next">
+                下一篇
+              </div>
+              <a href="https://zhangyiming748.github.io/post/windows_use_ffmpeg_rec_screen/">
+                <h3 class="post-title">
+                  Windows下如何使用ffmpeg录制屏幕
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+        
+          
+
+          
+            <div class="paper" data-aos="fade-in">
+              <div id="disqus_thread"></div>
+            </div>
+          
+        
+      </div>
+
+      <div class="sm-12 md-4 col sidebar">
+  <div class="paper info-container">
+    <img src="https://zhangyiming748.github.io/images/avatar.png?v=1772252160336" class="no-responsive avatar">
+    <div class="text-muted">子非鱼,安知鱼之乐?
+子非我,安知我不知鱼之乐?</div>
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      最新文章
+    </div>
+    <div class="row">
+      <ul>
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/zhang_xiao_lin/">不让老人“掉队”：青年志愿者用行动助力老年人融入数字时代</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/Resolving_the_&#34;Installer_hash_mismatch&#34;_issue_when_installing_programs_using_Winget/">解决Winget安装程序时出现“安装程序哈希不匹配”问题</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/daemon/">daemon.json</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/printershare_readme/">PrinterShare 打印共享工具介绍</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/git_commit_errors_faq/">git 报错分析</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/Windows_10_and_11_prevent_IE_redirect_to_Edge/">Windows 10和11中阻止IE跳转Edge</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/tiny_image/">极简镜像</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/go_without_windows_defender/">将 GoLand 运行的 go 进程排除到 Windows Defender 以提高性能</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/MacOS_unable_to_connect_requires_authenticated_Wi-Fi_solution/">macOS无法连接需要通过认证的Wi-Fi解决办法</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/simple_docker_image/">极简docker镜像</a>
+            </li>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </ul>
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      标签列表
+    </div>
+    <div class="row">
+      
+        <a href="https://zhangyiming748.github.io/tag/x0vICjEMlj/" class="badge secondary">
+          志愿者
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/m-fbGUfZt/" class="badge success">
+          Windows
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/OIVRELVRC/" class="badge warning">
+          Docker
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/vPlO62KOV8/" class="badge ">
+          共享打印机
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/CnfRrFASW/" class="badge warning">
+          Git
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/E2-gGJkDg/" class="badge secondary">
+          Golang
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/wmIzFoEIP/" class="badge secondary">
+          macOS
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/1QbocojG3/" class="badge ">
+          AI
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/KI4qLtXEOu/" class="badge warning">
+          打假卖课
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/tE7JyHymUI/" class="badge secondary">
+          Android
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/tPncTIGxnb/" class="badge warning">
+          bash
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/9S2Hbs5aF/" class="badge secondary">
+          Termux
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/y_Kw8o5PB/" class="badge success">
+          GitHub
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/A_KFuUKds/" class="badge warning">
+          Proxy
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/vYkbFqA51/" class="badge ">
+          Jetbrains
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/oCK_ZlHhX/" class="badge secondary">
+          openKylin
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/vdcblAPcj/" class="badge secondary">
+          adb
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/whd1tmbG7/" class="badge secondary">
+          Linux
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/1CFQNs3S00/" class="badge success">
+          shell
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/bCXMDy8-U/" class="badge secondary">
+          ffmpeg
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/qzc1SQq3q/" class="badge secondary">
+          nVidia
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/7Ibnloi-i/" class="badge success">
+          WSL
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/X945mIRqj/" class="badge secondary">
+          ssh
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/QrQiV5P0S/" class="badge secondary">
+          python
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/85HirN3QA/" class="badge secondary">
+          收费教程
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/SF9usuVqj/" class="badge success">
+          fedora
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/Sf_ODGuJI/" class="badge secondary">
+          Gitea
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/PMvg7E-Fr/" class="badge warning">
+          双系统
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/yitXMMZ8s/" class="badge warning">
+          xiaomi
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/NOMqGtkmio/" class="badge secondary">
+          Magisk
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/uSPmjvKQ6/" class="badge secondary">
+          vim
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/O52S4xod7/" class="badge ">
+          nano
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/y2nV8ofCl/" class="badge secondary">
+          knowledge
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/etvDZTSvp/" class="badge ">
+          nginx
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/svHvfBDw2/" class="badge secondary">
+          UOS
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/Qs-o9CgUP/" class="badge ">
+          五分钟已经很棒了
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/AWiWiIeFs/" class="badge secondary">
+          Deepin
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/fGCndQxpp/" class="badge secondary">
+          Raspberry
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/pHreM0cJf/" class="badge secondary">
+          欧卡2
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/MqthCZEuF/" class="badge warning">
+          HomeBrew
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/9aViM641i/" class="badge success">
+          MySql
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/rMjOn_-Vr/" class="badge warning">
+          tencent
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/YHDkAytMg/" class="badge secondary">
+          oracle
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/Oo5pjqygD/" class="badge secondary">
+          VirtualBox
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/XdGtzoLPj/" class="badge secondary">
+          ChatGPT
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/KWd48Zkke/" class="badge success">
+          npm
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/FrlwPAtkRd/" class="badge ">
+          Nodejs
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/4u1IqSlDf/" class="badge ">
+          openWrt
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/Ps_QL1RK-/" class="badge success">
+          Samba
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/auU862seE/" class="badge warning">
+          小米
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/bZrOQ_cvHC/" class="badge ">
+          电视盒子
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/9R2pw-kMi/" class="badge success">
+          AndroidTV
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/DLTs-6kxd/" class="badge success">
+          COD
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/PNLCUL_aG/" class="badge warning">
+          Game
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/kONTQ9X-u/" class="badge secondary">
+          黑道圣徒
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/3ge3wV01e/" class="badge warning">
+          Steam
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/GYLNJVSdF/" class="badge warning">
+          vmware
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/1O2FuszwC/" class="badge success">
+          snap
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/mWurRYeSd/" class="badge secondary">
+          UWP
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/vU03EjBoU/" class="badge secondary">
+          跨平台
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/8M3Y_WiPK/" class="badge success">
+          Ubuntu
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/vh0_cV9V9/" class="badge warning">
+          RDP
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/RlEfsxIRy/" class="badge secondary">
+          UTM
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/2Li1q3KkK/" class="badge secondary">
+          WineHq
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/akbUFpHWM/" class="badge warning">
+          xfce
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/gHhqkzUH9/" class="badge ">
+          ventoy
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/J2hqqgy1q/" class="badge warning">
+          gparted
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/pmLBkvrEV/" class="badge secondary">
+          openEuler
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/W7ZvoH8Ya/" class="badge ">
+          华为
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/Lw5WL9LfT/" class="badge warning">
+          SaintsRowTheThird
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/tOjoRhGkq/" class="badge warning">
+          Gitlab
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/S5LhsRFML/" class="badge success">
+          AppImage
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/eoLpx9JG3/" class="badge ">
+          NTP
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/gAD6snp8U/" class="badge success">
+          NieR
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/7NJFDXwY-/" class="badge success">
+          Markdown
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/oOmosMagH/" class="badge secondary">
+          网络
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/8jNGiW0SY/" class="badge warning">
+          GTA
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/HhYYX0R-k/" class="badge secondary">
+          youtube
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/WU7bMNjDy/" class="badge success">
+          office
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/HlNHNYrCz/" class="badge warning">
+          体育
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/9_I_W5FOy/" class="badge warning">
+          bat
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/j49MIdPra/" class="badge ">
+          Androidx86
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/cBDrzFROX/" class="badge ">
+          geek
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/kjzWt_8WM/" class="badge secondary">
+          Gridea
+        </a>
+      
+    </div>
+  </div>
+  <div class="paper">
+    Powered by <a href="https://github.com/zhangyiming748" target="_blank">Gridea</a> | <a class="rss" href="https://zhangyiming748.github.io/atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+
+
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+</script>
+
+
+
+  
+
+  
+    <script src="https://unpkg.com/disqusjs@1.1/dist/disqus.js"></script>
+    <script>
+
+    var options = {
+      shortname: 'zhangyiming748-github-io',
+      apikey: 'nmwRR2QnDaSkyLUKsaGV3rCjyY5HsirUNUQA0YQHN8369jhrR8lFqsVmrPuYeadq',
+    }
+    if ('') {
+      options.api = ''
+    }
+    var dsqjs = new DisqusJS(options)
+
+    </script>
+  
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,1915 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>给ai生成的代码查错 | 张益铭的博客</title>
+<meta name="description" content="子非鱼,安知鱼之乐?
+子非我,安知我不知鱼之乐?">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="shortcut icon" href="https://zhangyiming748.github.io/favicon.ico?v=1772252160336">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="stylesheet" href="https://unpkg.com/papercss@1.6.1/dist/paper.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://zhangyiming748.github.io/styles/main.css">
+
+
+  
+
+  
+    <link rel="stylesheet" href="https://unpkg.com/disqusjs@1.1/dist/disqusjs.css" />
+  
+
+<script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-141755803-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-141755803-1');
+</script>
+
+
+  </head>
+  <body>
+  
+    <nav class="navbar border fixed split-nav">
+  <div class="nav-brand">
+    <h3><a href="https://zhangyiming748.github.io">张益铭的博客</a></h3>
+  </div>
+  <div class="collapsible">
+    <input id="collapsible1" type="checkbox" name="collapsible1">
+    <button>
+      <label for="collapsible1">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+      </label>
+    </button>
+    <div class="collapsible-body">
+      <ul class="inline">
+        
+          <li>
+            
+              <a href="/" class="menu">
+                首页
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/archives" class="menu">
+                归档
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/tags" class="menu">
+                标签
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/post/about" class="menu">
+                关于
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/post/test" class="menu">
+                长期测试
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="https://yeasy.gitbook.io/docker_practice/" class="menu" target="_blank">
+                docker
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="https://mirrors.tuna.tsinghua.edu.cn/" class="menu" target="_blank">
+                清华源
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="https://appstorrent.ru/" class="menu" target="_blank">
+                mac软件
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="https://api.lolimi.cn/API/cosplay/api.php?type=image" class="menu" target="_blank">
+                手气不错
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/post/anime" class="menu">
+                下载队列
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="https://linux.do/" class="menu" target="_blank">
+                Linux.do
+              </a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div id="top" class="row site">
+      <div class="sm-12 md-8 col">
+        <div class="paper">
+          <article class="article">
+            <h1>给ai生成的代码查错</h1>
+            <p class="article-meta">
+              2024-05-06
+              
+                <a href="https://zhangyiming748.github.io/tag/1QbocojG3/" class="badge warning">
+                  AI
+                </a>
+              
+                <a href="https://zhangyiming748.github.io/tag/E2-gGJkDg/" class="badge warning">
+                  Golang
+                </a>
+              
+            </p>
+            
+            <div class="post-content" v-pre>
+              <h1 id="目录">目录</h1>
+<ol>
+<li><a href="https://zhangyiming748.github.io/post/debug_ai_code_from_baidu/#:~:text=%E4%B8%BA%E4%B8%80%E4%B8%AA%E6%96%87%E4%BB%B6-,%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%8F%AF%E4%BB%A5%E4%BB%8E%E5%A4%9A%E4%B8%AAgoroutine%E5%AE%89%E5%85%A8%E9%80%92%E5%A2%9E%E7%9A%84%E5%B9%B6%E5%8F%91%E8%AE%A1%E6%95%B0%E5%99%A8,-%E7%AD%94%E6%A1%88">实现一个可以从多个goroutine安全递增的并发计数器</a></li>
+<li><a href="https://zhangyiming748.github.io/post/debug_ai_code_from_baidu/#:~:text=counter%20%E7%9A%84%E8%AE%BF%E9%97%AE.-,%E7%BC%96%E5%86%99%E4%B8%80%E4%B8%AA%E5%87%BD%E6%95%B0%E4%BB%8E%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%A7%A3%E6%9E%90JSON%2C%E5%B9%B6%E4%BC%98%E9%9B%85%E5%9C%B0%E5%A4%84%E7%90%86%E5%8F%AF%E8%83%BD%E7%9A%84%E9%94%99%E8%AF%AF,-%E7%AD%94%E6%A1%88">编写一个函数从字符串解析JSON,并优雅地处理可能的错误</a></li>
+<li><a href="https://zhangyiming748.github.io/post/debug_ai_code_from_baidu/#:~:text=%E5%80%BC%2C%E8%80%8C%E4%B8%8D%E6%98%AF%20nil.-,%E7%BC%96%E5%86%99%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84HTTP%E6%9C%8D%E5%8A%A1%E5%99%A8%2C%E7%94%A8%E4%BA%8E%E5%A4%84%E7%90%86,-%E8%AF%B7%E6%B1%82%2C%E5%B9%B6%E5%90%91">编写一个简单的HTTP服务器,用于处理请求,并向客户端发送问候消息</a></li>
+<li><a href="https://zhangyiming748.github.io/post/debug_ai_code_from_baidu/#:~:text=%E6%B6%88%E6%81%AF%E7%9A%84%E6%A0%BC%E5%BC%8F.-,%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E7%A8%8B%E5%BA%8F%2C%E5%85%B6%E4%B8%AD%E4%B8%A4%E4%B8%AAgoroutine%E4%BD%BF%E7%94%A8%E4%B8%80%E4%B8%AA%E9%80%9A%E9%81%93%E6%9D%A5%E5%9B%9E%E4%BC%A0%E9%80%92%E4%B8%80%E4%B8%AA%E6%95%B4%E6%95%B0%2C%E6%AF%8F%E6%AC%A1,-%E4%BC%A0%E9%80%92%E6%97%B6%E5%A2%9E%E5%8A%A0">创建一个程序,其中两个goroutine使用一个通道来回传递一个整数,每次传递时增加该值,直到该值达到10,然后打印最终值</a></li>
+<li><a href="https://zhangyiming748.github.io/post/debug_ai_code_from_baidu/#:~:text=%E7%A8%8B%E5%BA%8F%E6%97%A0%E6%B3%95%E7%BB%88%E6%AD%A2.-,%E7%BC%96%E5%86%99%E4%B8%80%E4%B8%AA%E5%87%BD%E6%95%B0%2C%E4%BD%BF%E7%94%A8%E5%8F%8D%E5%B0%84%E6%9D%A5%E8%AE%BE%E7%BD%AE%E4%BB%BB%E4%BD%95,-%E7%BB%93%E6%9E%84%E4%BD%93%E4%B8%AD">编写一个函数,使用反射来设置任何结构体中指定字段的值</a></li>
+<li><a href="https://zhangyiming748.github.io/post/debug_ai_code_from_baidu/#:~:text=%E6%AD%A3%E7%A1%AE%E7%9A%84%E7%BB%93%E6%9E%9C.-,%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6%E5%99%A8%2C%E8%AF%A5%E8%B0%83%E5%BA%A6%E5%99%A8%E5%8F%AF%E4%BB%A5%E5%AE%9A%E6%97%B6%E6%89%A7%E8%A1%8C%E4%BB%BB%E5%8A%A1,-%E7%AD%94%E6%A1%88">实现一个简单的定时任务调度器,该调度器可以定时执行任务</a></li>
+<li><a href="https://zhangyiming748.github.io/post/debug_ai_code_from_baidu/#:~:text=%E5%AF%BC%E8%87%B4%E7%A8%8B%E5%BA%8F%E5%B4%A9%E6%BA%83.-,%E7%BC%96%E5%86%99%E4%B8%80%E4%B8%AA%E5%87%BD%E6%95%B0%2C%E4%BD%BF%E7%94%A8%E9%80%9A%E9%81%93%E5%B9%B6%E8%A1%8C%E5%90%88%E5%B9%B6%E5%A4%9A%E4%B8%AA%E5%B7%B2%E6%8E%92%E5%BA%8F%E7%9A%84%E6%95%B4%E6%95%B0%E6%95%B0%E7%BB%84,-%E7%AD%94%E6%A1%88">编写一个函数,使用通道并行合并多个已排序的整数数组</a></li>
+<li><a href="https://zhangyiming748.github.io/post/debug_ai_code_from_baidu/#:~:text=%E8%A2%AB%E5%BC%BA%E5%88%B6%E7%BB%88%E6%AD%A2.-,%E7%BC%96%E5%86%99%E4%B8%80%E4%B8%AA%E6%94%AF%E6%8C%81%E5%B9%B6%E5%8F%91%E8%AF%BB%E5%86%99%E7%9A%84%E7%BC%93%E5%AD%98%E7%B3%BB%E7%BB%9F,-%2C%E4%BD%BF%E7%94%A8%E8%AF%BB%E5%86%99%E9%94%81">编写一个支持并发读写的缓存系统,使用读写锁来提高性能</a></li>
+<li><a href="https://zhangyiming748.github.io/post/debug_ai_code_from_baidu/#:~:text=defer%E9%87%8A%E6%94%BE%E9%94%81-,%E7%BC%96%E5%86%99%E4%B8%80%E4%B8%AAWebSocket%E6%9C%8D%E5%8A%A1%E7%AB%AF%2C%E7%94%A8%E4%BA%8E%E5%AE%9E%E6%97%B6%E5%B9%BF%E6%92%AD%E6%B6%88%E6%81%AF%E7%BB%99%E6%89%80%E6%9C%89%E5%B7%B2%E8%BF%9E%E6%8E%A5%E7%9A%84%E5%AE%A2%E6%88%B7,-%E7%AB%AF">编写一个WebSocket服务端,用于实时广播消息给所有已连接的客户端</a></li>
+<li><a href="https://zhangyiming748.github.io/post/debug_ai_code_from_baidu/#:~:text=%E9%87%8D%E5%A4%8D%E5%85%B3%E9%97%AD%E8%BF%9E%E6%8E%A5.-,%E7%BC%96%E5%86%99%E4%B8%80%E4%B8%AA%E7%A8%8B%E5%BA%8F%2C%E4%BD%BF%E7%94%A8goroutine%E5%B9%B6%E5%8F%91%E4%B8%8B%E8%BD%BD%E5%A4%9A%E4%B8%AA%E6%96%87%E4%BB%B6%2C%E5%B9%B6%E5%B0%86%E7%BB%93%E6%9E%9C%E5%90%88%E5%B9%B6%E4%B8%BA%E4%B8%80%E4%B8%AA%E6%96%87%E4%BB%B6,-%E7%AD%94%E6%A1%88">编写一个程序,使用goroutine并发下载多个文件,并将结果合并为一个文件</a></li>
+</ol>
+<hr>
+<h1 id="实现一个可以从多个goroutine安全递增的并发计数器">实现一个可以从多个goroutine安全递增的并发计数器</h1>
+<h2 id="答案">答案</h2>
+<pre><code class="language-golang">package main
+
+import (
+    &quot;fmt&quot;
+    &quot;sync&quot;
+)
+
+type Counter struct {
+    value int
+}
+
+func (c *Counter) increment() {
+    c.value++
+}
+
+func main() {
+    var wg sync.WaitGroup
+    counter := Counter{}
+    for i := 0; i &lt; 1000; i++ {
+        wg.Add(1)
+        go func() {
+            defer wg.Done()
+            counter.increment()
+        }()
+    }
+    wg.Wait()
+    fmt.Println(&quot;Counter value:&quot;, counter.value)
+}
+
+</code></pre>
+<h2 id="正误">正误</h2>
+<p>错误</p>
+<h2 id="理由">理由</h2>
+<ul>
+<li>在 Counter 结构体中,value 字段没有使用互斥锁来同步访问,这可能会导致多个 goroutine 同时访问和修改 value 字段,从而产生竞态条件.</li>
+<li>在 increment 方法中,直接对 value 字段进行操作,没有使用互斥锁来同步访问.</li>
+<li>在 main 函数中,使用 wg.Add(1) 和 wg.Done() 来管理 goroutine 的执行,但是没有使用互斥锁来同步对 counter 的访问.</li>
+</ul>
+<h1 id="编写一个函数从字符串解析json并优雅地处理可能的错误">编写一个函数从字符串解析JSON,并优雅地处理可能的错误</h1>
+<h2 id="答案-2">答案</h2>
+<pre><code class="language-golang">package main
+
+import (
+    &quot;encoding/json&quot;
+    &quot;fmt&quot;
+)
+
+func parseJSON(input string) (map[string]interface{}, error) {
+    var result map[string]interface{}
+    err := json.Unmarshal([]byte(input), &amp;result)
+    if err != nil {
+        return nil, fmt.Errorf(&quot;Failed to parse JSON: %s&quot;, err)
+    }
+    return result, nil
+}
+
+func main() {
+    jsonStr := `{&quot;name&quot;: &quot;John&quot;, &quot;age&quot;: 30}`
+    result, err := parseJSON(jsonStr)
+    if err != nil {
+        fmt.Println(&quot;Error:&quot;, err)
+        return
+    }
+    fmt.Println(&quot;Result:&quot;, result)
+}
+
+</code></pre>
+<h2 id="正误-2">正误</h2>
+<p>错误</p>
+<h2 id="理由-2">理由</h2>
+<ul>
+<li>在 parseJSON 函数中,使用 json.Unmarshal 来解析 JSON 字符串并将其反序列化为 map[string]interface{} 类型.但是,如果输入的 JSON 字符串中包含无效的 JSON 数据,json.Unmarshal 可能会返回 interface {} 类型的值,而不是 map[string]interface{} 类型.</li>
+<li>在 main 函数中,使用 result, err := parseJSON(jsonStr) 来调用 parseJSON 函数并获取结果.如果解析失败,err 将包含错误信息,但是 result 可能包含无效的值,而不是 nil.</li>
+</ul>
+<h1 id="编写一个简单的http服务器用于处理请求并向客户端发送问候消息">编写一个简单的HTTP服务器,用于处理请求,并向客户端发送问候消息</h1>
+<h2 id="答案-3">答案</h2>
+<pre><code class="language-golang">package main
+
+import (
+    &quot;fmt&quot;
+    &quot;net/http&quot;
+)
+
+func handler(w http.ResponseWriter, r *http.Request) {
+    fmt.Fprintf(w, &quot;Hello, %s!&quot;, r.URL.Path[1:])
+}
+
+func main() {
+    http.HandleFunc(&quot;/&quot;, handler)
+    http.ListenAndServe(&quot;:8080&quot;, nil)
+}
+
+</code></pre>
+<h2 id="正误-3">正误</h2>
+<p>错误</p>
+<h2 id="理由-3">理由</h2>
+<ul>
+<li>在 handler 函数中,使用 fmt.Fprintf 来向客户端发送问候消息.但是,如果客户端发送的请求路径不包含任何额外路径(例如 /),r.URL.Path[1:] 可能会导致索引越界错误.</li>
+<li>在 main 函数中,使用 http.HandleFunc 来注册处理函数,并将根路径/映射到 handler 函数.但是,如果客户端发送的请求路径不包含任何额外路径,handler 函数中的 r.URL.Path[1:] 可能会导致空字符串,从而影响问候消息的格式.</li>
+</ul>
+<h1 id="创建一个程序其中两个goroutine使用一个通道来回传递一个整数每次传递时增加该值直到该值达到10然后打印最终值">创建一个程序,其中两个goroutine使用一个通道来回传递一个整数,每次传递时增加该值,直到该值达到10,然后打印最终值</h1>
+<h2 id="答案-4">答案</h2>
+<pre><code class="language-golang">package main
+
+import (
+    &quot;fmt&quot;
+)
+
+func main() {
+    ch := make(chan int)
+    go func() {
+        for i := 0; i &lt; 10; i++ {
+            val := &lt;-ch
+            ch &lt;- (val + 1)
+        }
+    }()
+    ch &lt;- 0
+    final := &lt;-ch
+    fmt.Println(&quot;Final value:&quot;, final)
+}
+
+</code></pre>
+<h2 id="正误-4">正误</h2>
+<p>错误</p>
+<h2 id="理由-4">理由</h2>
+<ul>
+<li>在 main 函数中,使用 ch &lt;- 0 将初始值 0 发送给通道,但是没有等待另一个 goroutine 处理该值并发送回更新后的值.这可能会导致程序在另一个 goroutine 处理完之前就尝试读取最终值,从而得到不正确的结果.</li>
+<li>在另一个 goroutine 中,使用 for 循环来不断从通道中读取值,并将其增加 1 后发送回通道.但是,如果 main 函数中的代码在另一个 goroutine 处理完之前就尝试读取最终值,该循环可能会一直运行下去,导致程序无法终止.</li>
+</ul>
+<h1 id="编写一个函数使用反射来设置任何结构体中指定字段的值">编写一个函数,使用反射来设置任何结构体中指定字段的值</h1>
+<h2 id="答案-5">答案</h2>
+<pre><code class="language-golang">package main
+
+import (
+    &quot;fmt&quot;
+    &quot;reflect&quot;
+)
+
+type Person struct {
+    Name string
+    Age  int
+}
+
+func SetField(obj interface{}, name string, value interface{}) error {
+    structValue := reflect.ValueOf(obj)
+    fieldVal := structValue.FieldByName(name)
+    if !fieldVal.IsValid() {
+        return fmt.Errorf(&quot;No such field: %s in obj&quot;, name)
+    }
+    if !fieldVal.CanSet() {
+        return fmt.Errorf(&quot;Cannot set %s field value&quot;, name)
+    }
+
+    val := reflect.ValueOf(value)
+    fieldVal.Set(val)
+    return nil
+}
+
+func main() {
+    p := Person{Name: &quot;John&quot;, Age: 30}
+    SetField(&amp;p, &quot;Name&quot;, &quot;David&quot;)
+    fmt.Println(p)
+}
+
+</code></pre>
+<h2 id="正误-5">正误</h2>
+<p>错误</p>
+<h2 id="理由-5">理由</h2>
+<ul>
+<li>在 SetField 函数中,使用 reflect.ValueOf(obj) 来获取对象的值,但是没有检查该值是否为 nil.如果传入的 obj 为 nil,则后续的操作可能会导致程序崩溃.</li>
+<li>在 SetField 函数中,使用 structValue.FieldByName(name) 来获取指定字段的值,但是没有检查该字段是否存在.如果传入的 name 不存在,则后续的操作可能会导致程序崩溃.</li>
+<li>在 main 函数中,使用 SetField(&amp;p, &quot;Name&quot;, &quot;David&quot;) 来设置 Name 字段的值,但是没有检查返回的错误.如果设置失败,程序可能会继续执行,导致不正确的结果.</li>
+</ul>
+<h1 id="实现一个简单的定时任务调度器该调度器可以定时执行任务">实现一个简单的定时任务调度器,该调度器可以定时执行任务</h1>
+<h2 id="答案-6">答案</h2>
+<pre><code class="language-golang">package main
+
+import (
+    &quot;fmt&quot;
+    &quot;time&quot;
+)
+
+func startScheduler(interval time.Duration, task func()) {
+    ticker := time.NewTicker(interval)
+    for {
+        select {
+        case &lt;-ticker.C:
+            go task()
+        }
+    }
+}
+
+func main() {
+    startScheduler(1*time.Second, func() {
+        fmt.Println(&quot;Task executed&quot;, time.Now())
+    })
+}
+
+</code></pre>
+<h2 id="正误-6">正误</h2>
+<p>错误</p>
+<h2 id="理由-6">理由</h2>
+<ul>
+<li>在 startScheduler 函数中,使用 select 语句监听 ticker.C 通道,当接收到来自 ticker.C 的消息时,会执行 task 函数.但是,如果 task 函数执行时间较长,可能会导致后续的 ticker.C 消息被阻塞,从而影响定时任务的执行间隔.</li>
+<li>在 main 函数中,使用 startScheduler 函数来启动定时任务调度器,并传递了一个匿名函数作为任务.但是,如果在执行任务时发生错误,该错误不会被处理,可能会导致程序崩溃.</li>
+</ul>
+<h1 id="编写一个函数使用通道并行合并多个已排序的整数数组">编写一个函数,使用通道并行合并多个已排序的整数数组</h1>
+<h2 id="答案-7">答案</h2>
+<pre><code class="language-golang">package main
+
+import (
+    &quot;fmt&quot;
+    &quot;sort&quot;
+)
+
+func mergeArrays(channels ...&lt;-chan int) &lt;-chan int {
+    out := make(chan int)
+    go func() {
+        var numbers []int
+        for _, ch := range channels {
+            for num := range ch {
+                numbers = append(numbers, num)
+            }
+        }
+        sort.Ints(numbers)
+        for _, num := range numbers {
+            out &lt;- num
+        }
+        close(out)
+    }()
+    return out
+}
+
+func main() {
+    c1 := make(chan int, 3)
+    c2 := make(chan int, 3)
+    c1 &lt;- 1; c1 &lt;- 4; c1 &lt;- 6
+    c2 &lt;- 2; c2 &lt;- 3; c2 &lt;- 5
+    close(c1)
+    close(c2)
+
+    for num := range mergeArrays(c1, c2) {
+        fmt.Println(num)
+    }
+}
+
+</code></pre>
+<h2 id="正误-7">正误</h2>
+<p>错误</p>
+<h2 id="理由-7">理由</h2>
+<ul>
+<li>在 mergeArrays 函数中,使用 for ... range 循环读取每个输入通道中的整数时,没有在循环结束后关闭输入通道.这可能会导致资源泄漏.</li>
+<li>在 main 函数中,没有在发送整数到通道后立即关闭通道.这可能会导致 mergeArrays 函数中的 for ... range 循环一直等待,直到超时或被强制终止.</li>
+</ul>
+<h1 id="编写一个支持并发读写的缓存系统使用读写锁来提高性能">编写一个支持并发读写的缓存系统,使用读写锁来提高性能</h1>
+<h2 id="答案-8">答案</h2>
+<pre><code class="language-golang">package main
+
+import (
+    &quot;fmt&quot;
+    &quot;sync&quot;
+)
+
+type Cache struct {
+    store map[string]string
+    lock  sync.RWMutex
+}
+
+func (c *Cache) Get(key string) string {
+    c.lock.RLock()
+    value := c.store[key]
+    c.lock.RUnlock()
+    return value
+}
+
+func (c *Cache) Set(key string, value string) {
+    c.lock.Lock()
+    c.store[key] = value
+    c.lock.Unlock()
+}
+
+func main() {
+    c := Cache{store: make(map[string]string)}
+    c.Set(&quot;a&quot;, &quot;1&quot;)
+    fmt.Println(c.Get(&quot;a&quot;))
+}
+
+</code></pre>
+<h2 id="正误-8">正误</h2>
+<p>正确</p>
+<h2 id="理由-8">理由</h2>
+<p>可以使用defer释放锁</p>
+<h1 id="编写一个websocket服务端用于实时广播消息给所有已连接的客户端">编写一个WebSocket服务端,用于实时广播消息给所有已连接的客户端</h1>
+<h2 id="答案-9">答案</h2>
+<pre><code class="language-golang">package main
+
+import (
+    &quot;log&quot;
+    &quot;net/http&quot;
+
+    &quot;github.com/gorilla/websocket&quot;
+)
+
+var clients = make(map[*websocket.Conn]bool)
+var broadcast = make(chan string)
+
+var upgrader = websocket.Upgrader{}
+
+func main() {
+    http.HandleFunc(&quot;/ws&quot;, handleConnections)
+
+    go handleMessages()
+
+    log.Println(&quot;http server started on :8080&quot;)
+    err := http.ListenAndServe(&quot;:8080&quot;, nil)
+    if err != nil {
+        log.Fatal(&quot;ListenAndServe: &quot;, err)
+    }
+}
+
+func handleConnections(w http.ResponseWriter, r *http.Request) {
+    ws, err := upgrader.Upgrade(w, r, nil)
+    if err != nil {
+        log.Fatal(err)
+    }
+    defer ws.Close()
+
+    clients[ws] = true
+
+    for {
+        _, message, err := ws.ReadMessage()
+        if err != nil {
+            log.Printf(&quot;error: %v&quot;, err)
+            delete(clients, ws)
+            break
+        }
+        broadcast &lt;- string(message)
+    }
+}
+
+func handleMessages() {
+    for msg := range broadcast {
+        for client := range clients {
+            err := client.WriteMessage(websocket.TextMessage, []byte(msg))
+            if err != nil {
+                log.Printf(&quot;error: %v&quot;, err)
+                client.Close()
+                delete(clients, client)
+            }
+        }
+    }
+}
+
+</code></pre>
+<h2 id="正误-9">正误</h2>
+<p>错误</p>
+<h2 id="理由-9">理由</h2>
+<ul>
+<li>在 handleConnections 函数中,当客户端发送消息时,会将其广播到所有客户端,包括发送消息的客户端本身.这可能不是预期的行为.</li>
+<li>在 handleConnections 函数中,如果读取客户端消息时发生错误,会直接删除该客户端,而不关闭连接.这可能会导致资源泄漏.</li>
+<li>在 handleMessages 函数中,如果向客户端发送消息时发生错误,会直接关闭该客户端,而不从 clients 映射中删除.这可能会导致重复关闭连接.</li>
+</ul>
+<h1 id="编写一个程序使用goroutine并发下载多个文件并将结果合并为一个文件">编写一个程序,使用goroutine并发下载多个文件,并将结果合并为一个文件</h1>
+<h2 id="答案-10">答案</h2>
+<pre><code class="language-golang">package main
+
+import (
+    &quot;fmt&quot;
+    &quot;io&quot;
+    &quot;net/http&quot;
+    &quot;os&quot;
+    &quot;sync&quot;
+)
+
+func main() {
+    urls := []string{
+        &quot;http://example.com/file1.txt&quot;,
+        &quot;http://example.com/file2.txt&quot;,
+        &quot;http://example.com/file3.txt&quot;,
+    }
+
+    var wg sync.WaitGroup
+    for _, url := range urls {
+        wg.Add(1)
+        go func(url string) {
+            defer wg.Done()
+            // 下载文件
+            resp, err := http.Get(url)
+            if err != nil {
+                fmt.Println(&quot;Error downloading:&quot;, url)
+                return
+            }
+            defer resp.Body.Close()
+
+            // 写入文件
+            out, err := os.Create(&quot;result.txt&quot;)
+            if err != nil {
+                fmt.Println(&quot;Error creating file:&quot;, err)
+                return
+            }
+            defer out.Close()
+
+            _, err = io.Copy(out, resp.Body)
+            if err != nil {
+                fmt.Println(&quot;Error writing to file:&quot;, err)
+                return
+            }
+        }(url)
+    }
+    wg.Wait()
+    fmt.Println(&quot;Download completed.&quot;)
+}
+
+</code></pre>
+<h2 id="正误-10">正误</h2>
+<p>错误</p>
+<h2 id="理由-10">理由</h2>
+<p>应为os.OpenFile打开文件以实现 追加写 的功能</p>
+
+            </div>
+          </article>
+        </div>
+        <div class="paper" data-aos="fade-in">
+          
+            <div class="next-post">
+              <div class="next">
+                下一篇
+              </div>
+              <a href="https://zhangyiming748.github.io/post/android_rm_ad/">
+                <h3 class="post-title">
+                  Android删除广告跟踪文件
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+        
+          
+
+          
+            <div class="paper" data-aos="fade-in">
+              <div id="disqus_thread"></div>
+            </div>
+          
+        
+      </div>
+
+      <div class="sm-12 md-4 col sidebar">
+  <div class="paper info-container">
+    <img src="https://zhangyiming748.github.io/images/avatar.png?v=1772252160336" class="no-responsive avatar">
+    <div class="text-muted">子非鱼,安知鱼之乐?
+子非我,安知我不知鱼之乐?</div>
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      最新文章
+    </div>
+    <div class="row">
+      <ul>
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/zhang_xiao_lin/">不让老人“掉队”：青年志愿者用行动助力老年人融入数字时代</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/Resolving_the_&#34;Installer_hash_mismatch&#34;_issue_when_installing_programs_using_Winget/">解决Winget安装程序时出现“安装程序哈希不匹配”问题</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/daemon/">daemon.json</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/printershare_readme/">PrinterShare 打印共享工具介绍</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/git_commit_errors_faq/">git 报错分析</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/Windows_10_and_11_prevent_IE_redirect_to_Edge/">Windows 10和11中阻止IE跳转Edge</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/tiny_image/">极简镜像</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/go_without_windows_defender/">将 GoLand 运行的 go 进程排除到 Windows Defender 以提高性能</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/MacOS_unable_to_connect_requires_authenticated_Wi-Fi_solution/">macOS无法连接需要通过认证的Wi-Fi解决办法</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/simple_docker_image/">极简docker镜像</a>
+            </li>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </ul>
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      标签列表
+    </div>
+    <div class="row">
+      
+        <a href="https://zhangyiming748.github.io/tag/x0vICjEMlj/" class="badge success">
+          志愿者
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/m-fbGUfZt/" class="badge secondary">
+          Windows
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/OIVRELVRC/" class="badge warning">
+          Docker
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/vPlO62KOV8/" class="badge secondary">
+          共享打印机
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/CnfRrFASW/" class="badge secondary">
+          Git
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/E2-gGJkDg/" class="badge secondary">
+          Golang
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/wmIzFoEIP/" class="badge warning">
+          macOS
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/1QbocojG3/" class="badge success">
+          AI
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/KI4qLtXEOu/" class="badge ">
+          打假卖课
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/tE7JyHymUI/" class="badge success">
+          Android
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/tPncTIGxnb/" class="badge secondary">
+          bash
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/9S2Hbs5aF/" class="badge ">
+          Termux
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/y_Kw8o5PB/" class="badge warning">
+          GitHub
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/A_KFuUKds/" class="badge secondary">
+          Proxy
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/vYkbFqA51/" class="badge ">
+          Jetbrains
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/oCK_ZlHhX/" class="badge warning">
+          openKylin
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/vdcblAPcj/" class="badge success">
+          adb
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/whd1tmbG7/" class="badge success">
+          Linux
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/1CFQNs3S00/" class="badge warning">
+          shell
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/bCXMDy8-U/" class="badge warning">
+          ffmpeg
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/qzc1SQq3q/" class="badge success">
+          nVidia
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/7Ibnloi-i/" class="badge success">
+          WSL
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/X945mIRqj/" class="badge secondary">
+          ssh
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/QrQiV5P0S/" class="badge secondary">
+          python
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/85HirN3QA/" class="badge secondary">
+          收费教程
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/SF9usuVqj/" class="badge success">
+          fedora
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/Sf_ODGuJI/" class="badge secondary">
+          Gitea
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/PMvg7E-Fr/" class="badge secondary">
+          双系统
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/yitXMMZ8s/" class="badge warning">
+          xiaomi
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/NOMqGtkmio/" class="badge success">
+          Magisk
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/uSPmjvKQ6/" class="badge success">
+          vim
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/O52S4xod7/" class="badge success">
+          nano
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/y2nV8ofCl/" class="badge success">
+          knowledge
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/etvDZTSvp/" class="badge secondary">
+          nginx
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/svHvfBDw2/" class="badge success">
+          UOS
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/Qs-o9CgUP/" class="badge secondary">
+          五分钟已经很棒了
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/AWiWiIeFs/" class="badge ">
+          Deepin
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/fGCndQxpp/" class="badge secondary">
+          Raspberry
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/pHreM0cJf/" class="badge secondary">
+          欧卡2
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/MqthCZEuF/" class="badge secondary">
+          HomeBrew
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/9aViM641i/" class="badge success">
+          MySql
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/rMjOn_-Vr/" class="badge ">
+          tencent
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/YHDkAytMg/" class="badge secondary">
+          oracle
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/Oo5pjqygD/" class="badge secondary">
+          VirtualBox
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/XdGtzoLPj/" class="badge secondary">
+          ChatGPT
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/KWd48Zkke/" class="badge secondary">
+          npm
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/FrlwPAtkRd/" class="badge success">
+          Nodejs
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/4u1IqSlDf/" class="badge secondary">
+          openWrt
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/Ps_QL1RK-/" class="badge secondary">
+          Samba
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/auU862seE/" class="badge success">
+          小米
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/bZrOQ_cvHC/" class="badge secondary">
+          电视盒子
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/9R2pw-kMi/" class="badge ">
+          AndroidTV
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/DLTs-6kxd/" class="badge success">
+          COD
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/PNLCUL_aG/" class="badge success">
+          Game
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/kONTQ9X-u/" class="badge secondary">
+          黑道圣徒
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/3ge3wV01e/" class="badge secondary">
+          Steam
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/GYLNJVSdF/" class="badge warning">
+          vmware
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/1O2FuszwC/" class="badge secondary">
+          snap
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/mWurRYeSd/" class="badge secondary">
+          UWP
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/vU03EjBoU/" class="badge ">
+          跨平台
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/8M3Y_WiPK/" class="badge ">
+          Ubuntu
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/vh0_cV9V9/" class="badge ">
+          RDP
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/RlEfsxIRy/" class="badge secondary">
+          UTM
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/2Li1q3KkK/" class="badge secondary">
+          WineHq
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/akbUFpHWM/" class="badge secondary">
+          xfce
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/gHhqkzUH9/" class="badge ">
+          ventoy
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/J2hqqgy1q/" class="badge secondary">
+          gparted
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/pmLBkvrEV/" class="badge warning">
+          openEuler
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/W7ZvoH8Ya/" class="badge secondary">
+          华为
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/Lw5WL9LfT/" class="badge ">
+          SaintsRowTheThird
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/tOjoRhGkq/" class="badge secondary">
+          Gitlab
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/S5LhsRFML/" class="badge success">
+          AppImage
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/eoLpx9JG3/" class="badge success">
+          NTP
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/gAD6snp8U/" class="badge secondary">
+          NieR
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/7NJFDXwY-/" class="badge ">
+          Markdown
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/oOmosMagH/" class="badge ">
+          网络
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/8jNGiW0SY/" class="badge success">
+          GTA
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/HhYYX0R-k/" class="badge secondary">
+          youtube
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/WU7bMNjDy/" class="badge secondary">
+          office
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/HlNHNYrCz/" class="badge secondary">
+          体育
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/9_I_W5FOy/" class="badge secondary">
+          bat
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/j49MIdPra/" class="badge secondary">
+          Androidx86
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/cBDrzFROX/" class="badge secondary">
+          geek
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/kjzWt_8WM/" class="badge ">
+          Gridea
+        </a>
+      
+    </div>
+  </div>
+  <div class="paper">
+    Powered by <a href="https://github.com/zhangyiming748" target="_blank">Gridea</a> | <a class="rss" href="https://zhangyiming748.github.io/atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+
+
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+</script>
+
+
+
+  
+
+  
+    <script src="https://unpkg.com/disqusjs@1.1/dist/disqus.js"></script>
+    <script>
+
+    var options = {
+      shortname: 'zhangyiming748-github-io',
+      apikey: 'nmwRR2QnDaSkyLUKsaGV3rCjyY5HsirUNUQA0YQHN8369jhrR8lFqsVmrPuYeadq',
+    }
+    if ('') {
+      options.api = ''
+    }
+    var dsqjs = new DisqusJS(options)
+
+    </script>
+  
+
+
+
+
+  </body>
+</html>

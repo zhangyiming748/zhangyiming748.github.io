@@ -1,0 +1,2172 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>vim常用命令 | 张益铭的博客</title>
+<meta name="description" content="子非鱼,安知鱼之乐?
+子非我,安知我不知鱼之乐?">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="shortcut icon" href="https://zhangyiming748.github.io/favicon.ico?v=1772252160336">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="stylesheet" href="https://unpkg.com/papercss@1.6.1/dist/paper.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://zhangyiming748.github.io/styles/main.css">
+
+
+  
+
+  
+    <link rel="stylesheet" href="https://unpkg.com/disqusjs@1.1/dist/disqusjs.css" />
+  
+
+<script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-141755803-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-141755803-1');
+</script>
+
+
+  </head>
+  <body>
+  
+    <nav class="navbar border fixed split-nav">
+  <div class="nav-brand">
+    <h3><a href="https://zhangyiming748.github.io">张益铭的博客</a></h3>
+  </div>
+  <div class="collapsible">
+    <input id="collapsible1" type="checkbox" name="collapsible1">
+    <button>
+      <label for="collapsible1">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+      </label>
+    </button>
+    <div class="collapsible-body">
+      <ul class="inline">
+        
+          <li>
+            
+              <a href="/" class="menu">
+                首页
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/archives" class="menu">
+                归档
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/tags" class="menu">
+                标签
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/post/about" class="menu">
+                关于
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/post/test" class="menu">
+                长期测试
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="https://yeasy.gitbook.io/docker_practice/" class="menu" target="_blank">
+                docker
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="https://mirrors.tuna.tsinghua.edu.cn/" class="menu" target="_blank">
+                清华源
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="https://appstorrent.ru/" class="menu" target="_blank">
+                mac软件
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="https://api.lolimi.cn/API/cosplay/api.php?type=image" class="menu" target="_blank">
+                手气不错
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/post/anime" class="menu">
+                下载队列
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="https://linux.do/" class="menu" target="_blank">
+                Linux.do
+              </a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div id="top" class="row site">
+      <div class="sm-12 md-8 col">
+        <div class="paper">
+          <article class="article">
+            <h1>vim常用命令</h1>
+            <p class="article-meta">
+              2022-09-26
+              
+                <a href="https://zhangyiming748.github.io/tag/uSPmjvKQ6/" class="badge ">
+                  vim
+                </a>
+              
+            </p>
+            
+            <div class="post-content" v-pre>
+              <p>以下的命令都是纯手工打的,用了一个多小时,如果哪里有拼写错误还希望能在评论区给我指出来,共同进步.本来是想截成图片之后发布的,免得写成文字直接复制粘贴就给我盗走了,后来想想还是算了,程序员何苦为难程序员,冤冤相报何时了</p>
+<!-- more -->
+<h1 id="进入vim">进入vim</h1>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">命令</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">vim filename</td>
+<td style="text-align:center">打开或新建文件并将光标置于第一行首</td>
+</tr>
+<tr>
+<td style="text-align:center">vim +n filename</td>
+<td style="text-align:center">打开文件,并将光标置于第n行首</td>
+</tr>
+<tr>
+<td style="text-align:center">vim + filename</td>
+<td style="text-align:center">打开文件,并将光标置于最后一行首</td>
+</tr>
+<tr>
+<td style="text-align:center">vim + /pattern filename</td>
+<td style="text-align:center">打开文件,并将光标置于第一个与pattern匹配的串处</td>
+</tr>
+<tr>
+<td style="text-align:center">vim -r filename</td>
+<td style="text-align:center">在上次正用vm编辑时发生系统崩溃,恢复filename</td>
+</tr>
+<tr>
+<td style="text-align:center">vim filename filename...</td>
+<td style="text-align:center">打开多个文件,依次编辑</td>
+</tr>
+</tbody>
+</table>
+<h1 id="vim配置">vim配置</h1>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">命令</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">all</td>
+<td style="text-align:center">列出所有选项设置情况</td>
+</tr>
+<tr>
+<td style="text-align:center">term</td>
+<td style="text-align:center">设置终端类型</td>
+</tr>
+<tr>
+<td style="text-align:center">ignorance</td>
+<td style="text-align:center">在搜索中忽略大小写</td>
+</tr>
+<tr>
+<td style="text-align:center">list</td>
+<td style="text-align:center">显示制表位(Ctrl+)和行尾标志()</td>
+</tr>
+<tr>
+<td style="text-align:center">number</td>
+<td style="text-align:center">显示行号</td>
+</tr>
+<tr>
+<td style="text-align:center">report</td>
+<td style="text-align:center">显示由面向行的命令修改过的数目</td>
+</tr>
+<tr>
+<td style="text-align:center">terse</td>
+<td style="text-align:center">显示简短的警告信息</td>
+</tr>
+<tr>
+<td style="text-align:center">warn</td>
+<td style="text-align:center">在转到别的文件时若没保存当前文件则显示NOwrite信息</td>
+</tr>
+<tr>
+<td style="text-align:center">nomagic</td>
+<td style="text-align:center">允许在搜索模式中,使用前面不带的特殊字符</td>
+</tr>
+<tr>
+<td style="text-align:center">nowrapscan</td>
+<td style="text-align:center">禁止vi在搜索到达文件两端时,又从另一端开始</td>
+</tr>
+<tr>
+<td style="text-align:center">mesg</td>
+<td style="text-align:center">允许vi显示其他write用户用写到自己终端上的信息</td>
+</tr>
+<tr>
+<td style="text-align:center">:set number/:setnonumber</td>
+<td style="text-align:center">显示不显示行号</td>
+</tr>
+<tr>
+<td style="text-align:center">:set ruler/:setnoruler</td>
+<td style="text-align:center">显示不显示标尺</td>
+</tr>
+<tr>
+<td style="text-align:center">:set hlsearch/:setnohlsearch</td>
+<td style="text-align:center">高亮显示查找到的单词关闭高亮显示</td>
+</tr>
+<tr>
+<td style="text-align:center">:syntax on</td>
+<td style="text-align:center">语法高亮</td>
+</tr>
+<tr>
+<td style="text-align:center">:set nu</td>
+<td style="text-align:center">显示行号</td>
+</tr>
+<tr>
+<td style="text-align:center">:set tabstop=8</td>
+<td style="text-align:center">设置tab大小8为最常用最普遍的设置</td>
+</tr>
+<tr>
+<td style="text-align:center">:set softtabstop=8</td>
+<td style="text-align:center">4:4个空格8正:常的制表符,12:一个制表符4个空格,16:两个制表符</td>
+</tr>
+<tr>
+<td style="text-align:center">:set autoindent</td>
+<td style="text-align:center">自动缩进</td>
+</tr>
+<tr>
+<td style="text-align:center">:set cindent</td>
+<td style="text-align:center">C语言格式里面的自动缩进</td>
+</tr>
+</tbody>
+</table>
+<h1 id="移动光标">移动光标</h1>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">命令</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">knk</td>
+<td style="text-align:center">上向上移动n行</td>
+</tr>
+<tr>
+<td style="text-align:center">jnj</td>
+<td style="text-align:center">下向下移动n行</td>
+</tr>
+<tr>
+<td style="text-align:center">hnh</td>
+<td style="text-align:center">左向左移动n行</td>
+</tr>
+<tr>
+<td style="text-align:center">lnl</td>
+<td style="text-align:center">右向右移动n行</td>
+</tr>
+<tr>
+<td style="text-align:center">Space</td>
+<td style="text-align:center">光标右移一个字符</td>
+</tr>
+<tr>
+<td style="text-align:center">Backspace</td>
+<td style="text-align:center">光标左移一个字符</td>
+</tr>
+<tr>
+<td style="text-align:center">Enter</td>
+<td style="text-align:center">光标下移一行</td>
+</tr>
+<tr>
+<td style="text-align:center">w/W</td>
+<td style="text-align:center">光标右移一个字至字首</td>
+</tr>
+<tr>
+<td style="text-align:center">b/B</td>
+<td style="text-align:center">光标左移一个字至字首</td>
+</tr>
+<tr>
+<td style="text-align:center">e或E</td>
+<td style="text-align:center">光标右移一个字至字尾</td>
+</tr>
+<tr>
+<td style="text-align:center">)</td>
+<td style="text-align:center">光标移至句尾</td>
+</tr>
+<tr>
+<td style="text-align:center">(</td>
+<td style="text-align:center">光标移至句首</td>
+</tr>
+<tr>
+<td style="text-align:center">}</td>
+<td style="text-align:center">光标移至段首</td>
+</tr>
+<tr>
+<td style="text-align:center">{</td>
+<td style="text-align:center">光标移至段尾</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>n$</code></td>
+<td style="text-align:center">光标移至第n行尾</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>H</code></td>
+<td style="text-align:center">光标移至屏幕顶行</td>
+</tr>
+<tr>
+<td style="text-align:center">M</td>
+<td style="text-align:center">光标移至屏幕中间行</td>
+</tr>
+<tr>
+<td style="text-align:center">L</td>
+<td style="text-align:center">光标移至屏幕最后行</td>
+</tr>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">光标移至当前行首</td>
+</tr>
+<tr>
+<td style="text-align:center">^</td>
+<td style="text-align:center">移动光标到行首第一个非空字符上去</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>$</code></td>
+<td style="text-align:center">光标移至当前行尾</td>
+</tr>
+<tr>
+<td style="text-align:center">gg</td>
+<td style="text-align:center">移到第一行</td>
+</tr>
+<tr>
+<td style="text-align:center">G</td>
+<td style="text-align:center">移到最后一行</td>
+</tr>
+<tr>
+<td style="text-align:center">f</td>
+<td style="text-align:center">移动光标到当前行的字符a上</td>
+</tr>
+<tr>
+<td style="text-align:center">F</td>
+<td style="text-align:center">相反</td>
+</tr>
+<tr>
+<td style="text-align:center">%</td>
+<td style="text-align:center">移动到与之匹配的括号上去</td>
+</tr>
+<tr>
+<td style="text-align:center">nG</td>
+<td style="text-align:center">移动到第n行上</td>
+</tr>
+</tbody>
+</table>
+<h1 id="屏幕滚动">屏幕滚动</h1>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">命令</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Ctrl+u</td>
+<td style="text-align:center">向文件首翻半屏</td>
+</tr>
+<tr>
+<td style="text-align:center">Ctrl+d</td>
+<td style="text-align:center">向文件尾翻半屏</td>
+</tr>
+<tr>
+<td style="text-align:center">Ctrl+f</td>
+<td style="text-align:center">向文件尾翻一屏</td>
+</tr>
+<tr>
+<td style="text-align:center">Ctrl+b</td>
+<td style="text-align:center">向文件首翻一屏</td>
+</tr>
+<tr>
+<td style="text-align:center">nZ</td>
+<td style="text-align:center">将第n行滚至屏幕顶部,不指定n时将当前行滚至屏幕顶部</td>
+</tr>
+</tbody>
+</table>
+<h1 id="插入文本">插入文本</h1>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">命令</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">i</td>
+<td style="text-align:center">在光标前</td>
+</tr>
+<tr>
+<td style="text-align:center">I</td>
+<td style="text-align:center">在当前行首</td>
+</tr>
+<tr>
+<td style="text-align:center">a</td>
+<td style="text-align:center">光标后</td>
+</tr>
+<tr>
+<td style="text-align:center">A</td>
+<td style="text-align:center">在当前行尾</td>
+</tr>
+<tr>
+<td style="text-align:center">o</td>
+<td style="text-align:center">在当前行之下新开一行</td>
+</tr>
+<tr>
+<td style="text-align:center">O</td>
+<td style="text-align:center">在当前行之上新开一行</td>
+</tr>
+<tr>
+<td style="text-align:center">r</td>
+<td style="text-align:center">替换当前字符</td>
+</tr>
+<tr>
+<td style="text-align:center">R</td>
+<td style="text-align:center">替换当前字符及其后的字符,直至按ESC键</td>
+</tr>
+<tr>
+<td style="text-align:center">s</td>
+<td style="text-align:center">从当前光标位置处开始,以输入的文本替代指定数目的字符</td>
+</tr>
+<tr>
+<td style="text-align:center">S</td>
+<td style="text-align:center">删除指定数目的行,并以所输入文本代替之</td>
+</tr>
+<tr>
+<td style="text-align:center">ncw/nCW</td>
+<td style="text-align:center">修改指定数目的字</td>
+</tr>
+<tr>
+<td style="text-align:center">nCC</td>
+<td style="text-align:center">修改指定数目的行</td>
+</tr>
+</tbody>
+</table>
+<h1 id="删除命令">删除命令</h1>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">命令</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">x/X</td>
+<td style="text-align:center">删除一个字符,x删除光标后的,而X删除光标前的</td>
+</tr>
+<tr>
+<td style="text-align:center">dw</td>
+<td style="text-align:center">删除一个单词(删除光标位置到下一个单词开始的位置)</td>
+</tr>
+<tr>
+<td style="text-align:center">dnw</td>
+<td style="text-align:center">删除n个单词</td>
+</tr>
+<tr>
+<td style="text-align:center">dne</td>
+<td style="text-align:center">也可,只是删除到单词尾</td>
+</tr>
+<tr>
+<td style="text-align:center">do</td>
+<td style="text-align:center">删至行首</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>d$</code></td>
+<td style="text-align:center">删至行尾</td>
+</tr>
+<tr>
+<td style="text-align:center">dd</td>
+<td style="text-align:center">删除一行</td>
+</tr>
+<tr>
+<td style="text-align:center">ndd</td>
+<td style="text-align:center">删除当前行及其后n-1行</td>
+</tr>
+<tr>
+<td style="text-align:center">dnl</td>
+<td style="text-align:center">向右删除n个字母</td>
+</tr>
+<tr>
+<td style="text-align:center">dnh</td>
+<td style="text-align:center">向左删除n个字母</td>
+</tr>
+<tr>
+<td style="text-align:center">dnj</td>
+<td style="text-align:center">向下删除n行,当前行+其上n行</td>
+</tr>
+<tr>
+<td style="text-align:center">dnk</td>
+<td style="text-align:center">向上删除n行,当期行+其下n行</td>
+</tr>
+<tr>
+<td style="text-align:center">cnw[word]</td>
+<td style="text-align:center">将n个word改变为word</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>C$</code></td>
+<td style="text-align:center">改变到行尾</td>
+</tr>
+<tr>
+<td style="text-align:center">cc</td>
+<td style="text-align:center">改变整行</td>
+</tr>
+<tr>
+<td style="text-align:center">shift+j</td>
+<td style="text-align:center">删除行尾的换行符,下一行接上来了</td>
+</tr>
+</tbody>
+</table>
+<h1 id="复制粘贴">复制粘贴</h1>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">命令</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">p</td>
+<td style="text-align:center">粘贴用x或d删除的文本</td>
+</tr>
+<tr>
+<td style="text-align:center">ynw</td>
+<td style="text-align:center">复制n个单词</td>
+</tr>
+<tr>
+<td style="text-align:center">yy</td>
+<td style="text-align:center">复制一行</td>
+</tr>
+<tr>
+<td style="text-align:center">ynl</td>
+<td style="text-align:center">复制n个字符</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>y$</code></td>
+<td style="text-align:center">复制当前光标至行尾处</td>
+</tr>
+<tr>
+<td style="text-align:center">nyy</td>
+<td style="text-align:center">拷贝n行</td>
+</tr>
+</tbody>
+</table>
+<h1 id="撤销">撤销</h1>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">命令</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">u</td>
+<td style="text-align:center">撤销前一次的操作</td>
+</tr>
+<tr>
+<td style="text-align:center">shift+u/U</td>
+<td style="text-align:center">撒销对该行的所有操作</td>
+</tr>
+</tbody>
+</table>
+<h1 id="搜索和替换">搜索和替换</h1>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">命令</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">/pattern</td>
+<td style="text-align:center">从光标开始处向文件尾搜索pattern</td>
+</tr>
+<tr>
+<td style="text-align:center">?pattern</td>
+<td style="text-align:center">从光标开始处向文件首搜索pattern</td>
+</tr>
+<tr>
+<td style="text-align:center">n</td>
+<td style="text-align:center">在同一方向重复上一次搜索命令</td>
+</tr>
+<tr>
+<td style="text-align:center">N</td>
+<td style="text-align:center">在反方向上重复上一次搜索命令</td>
+</tr>
+<tr>
+<td style="text-align:center">cwnewword</td>
+<td style="text-align:center">替换为newword</td>
+</tr>
+<tr>
+<td style="text-align:center">n</td>
+<td style="text-align:center">继续查找</td>
+</tr>
+<tr>
+<td style="text-align:center">.</td>
+<td style="text-align:center">执行替换</td>
+</tr>
+<tr>
+<td style="text-align:center">😒/p1/p2/g</td>
+<td style="text-align:center">将当前行中所有p1均用p2替代,g表示执行用c表示需要确认</td>
+</tr>
+<tr>
+<td style="text-align:center">:n1,n2s/p1/p2/g</td>
+<td style="text-align:center">将第n1至n2行中所有p1均用p2替代</td>
+</tr>
+<tr>
+<td style="text-align:center">:g/p1/s//p2/g</td>
+<td style="text-align:center">将文件中所有p1均用p2替换</td>
+</tr>
+<tr>
+<td style="text-align:center">:1,$s/string1/string2/g</td>
+<td style="text-align:center">在全文中将stng1替换为string2</td>
+</tr>
+</tbody>
+</table>
+<h1 id="书签">书签</h1>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">命令</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">m[a-z]</td>
+<td style="text-align:center">在文中做标记,标记号可为a-z的26个字母</td>
+</tr>
+<tr>
+<td style="text-align:center">`a</td>
+<td style="text-align:center">移动到标记a处</td>
+</tr>
+</tbody>
+</table>
+<h1 id="visual模式">visual模式</h1>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">命令</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">v</td>
+<td style="text-align:center">进入visual模式</td>
+</tr>
+<tr>
+<td style="text-align:center">V</td>
+<td style="text-align:center">进入行的visual模式</td>
+</tr>
+<tr>
+<td style="text-align:center">ctrl+v</td>
+<td style="text-align:center">进入块操作模式用o和O改变选择的边的大小</td>
+</tr>
+<tr>
+<td style="text-align:center">在所有行插入相同的内容如include&lt;</td>
+<td style="text-align:center">将光标移到开始插入的位置,按CTRL+V进入VISUAL模式,选择好模块后按I(shift+i),后插入要插入的文本,按[ESC]完成</td>
+</tr>
+</tbody>
+</table>
+<h1 id="行方式命令">行方式命令</h1>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">命令</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">:n1,n2con3</td>
+<td style="text-align:center">换1行到n2行之间的内容转贝到第n3行下</td>
+</tr>
+<tr>
+<td style="text-align:center">:n1,n2mn3</td>
+<td style="text-align:center">将n1行到n2行之间的内容移至到第n3行下</td>
+</tr>
+<tr>
+<td style="text-align:center">:1,n2d</td>
+<td style="text-align:center">将n1行到n2行之间的内容删除</td>
+</tr>
+</tbody>
+</table>
+<h1 id="宏">宏</h1>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">命令</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">q[a-z]</td>
+<td style="text-align:center">开始记录当前开始的操作为宏,名称可为[a-z],然后用q终止录制宏</td>
+</tr>
+<tr>
+<td style="text-align:center">reg</td>
+<td style="text-align:center">显示当前定义的所有的宏,用@[a-z]来在当前光标处执行宏[a-z]</td>
+</tr>
+</tbody>
+</table>
+<h1 id="窗口操作">窗口操作</h1>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">命令</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">:split</td>
+<td style="text-align:center">分割一个窗口</td>
+</tr>
+<tr>
+<td style="text-align:center">:split file.c</td>
+<td style="text-align:center">为另一个文件file.c分隔窗口</td>
+</tr>
+<tr>
+<td style="text-align:center">:nsplit file.c</td>
+<td style="text-align:center">为另一个文件fle.c分隔窗口,并指定其行数</td>
+</tr>
+<tr>
+<td style="text-align:center">ctrl+w</td>
+<td style="text-align:center">在窗口中切换</td>
+</tr>
+<tr>
+<td style="text-align:center">:close</td>
+<td style="text-align:center">关闭当前窗口</td>
+</tr>
+</tbody>
+</table>
+<h1 id="文件和其他">文件和其他</h1>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">命令</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">:q</td>
+<td style="text-align:center">退出vi</td>
+</tr>
+<tr>
+<td style="text-align:center">:q!</td>
+<td style="text-align:center">不保存文件并退出vi</td>
+</tr>
+<tr>
+<td style="text-align:center">:e filename</td>
+<td style="text-align:center">打开文件filename进行编辑</td>
+</tr>
+<tr>
+<td style="text-align:center">:e!</td>
+<td style="text-align:center">放弃修改文件内容,重新载入该文件编辑</td>
+</tr>
+<tr>
+<td style="text-align:center">:w</td>
+<td style="text-align:center">保存当前文件</td>
+</tr>
+<tr>
+<td style="text-align:center">:wq</td>
+<td style="text-align:center">存盘退出</td>
+</tr>
+<tr>
+<td style="text-align:center">:ZZ</td>
+<td style="text-align:center">保存当前文档并退出VIM</td>
+</tr>
+<tr>
+<td style="text-align:center">:!command</td>
+<td style="text-align:center">执行shell命令command</td>
+</tr>
+<tr>
+<td style="text-align:center">:r!command</td>
+<td style="text-align:center">将命令command的输出结果放到当前行</td>
+</tr>
+<tr>
+<td style="text-align:center">:n1,n2writetemp.c</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">:readfile.c</td>
+<td style="text-align:center">将文件file.c的内容插入到当前光标所在的下面</td>
+</tr>
+</tbody>
+</table>
+
+            </div>
+          </article>
+        </div>
+        <div class="paper" data-aos="fade-in">
+          
+            <div class="next-post">
+              <div class="next">
+                下一篇
+              </div>
+              <a href="https://zhangyiming748.github.io/post/ventoy_config/">
+                <h3 class="post-title">
+                  Ventoy配置文件
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+        
+          
+
+          
+            <div class="paper" data-aos="fade-in">
+              <div id="disqus_thread"></div>
+            </div>
+          
+        
+      </div>
+
+      <div class="sm-12 md-4 col sidebar">
+  <div class="paper info-container">
+    <img src="https://zhangyiming748.github.io/images/avatar.png?v=1772252160336" class="no-responsive avatar">
+    <div class="text-muted">子非鱼,安知鱼之乐?
+子非我,安知我不知鱼之乐?</div>
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      最新文章
+    </div>
+    <div class="row">
+      <ul>
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/zhang_xiao_lin/">不让老人“掉队”：青年志愿者用行动助力老年人融入数字时代</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/Resolving_the_&#34;Installer_hash_mismatch&#34;_issue_when_installing_programs_using_Winget/">解决Winget安装程序时出现“安装程序哈希不匹配”问题</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/daemon/">daemon.json</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/printershare_readme/">PrinterShare 打印共享工具介绍</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/git_commit_errors_faq/">git 报错分析</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/Windows_10_and_11_prevent_IE_redirect_to_Edge/">Windows 10和11中阻止IE跳转Edge</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/tiny_image/">极简镜像</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/go_without_windows_defender/">将 GoLand 运行的 go 进程排除到 Windows Defender 以提高性能</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/MacOS_unable_to_connect_requires_authenticated_Wi-Fi_solution/">macOS无法连接需要通过认证的Wi-Fi解决办法</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/simple_docker_image/">极简docker镜像</a>
+            </li>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </ul>
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      标签列表
+    </div>
+    <div class="row">
+      
+        <a href="https://zhangyiming748.github.io/tag/x0vICjEMlj/" class="badge ">
+          志愿者
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/m-fbGUfZt/" class="badge secondary">
+          Windows
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/OIVRELVRC/" class="badge secondary">
+          Docker
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/vPlO62KOV8/" class="badge success">
+          共享打印机
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/CnfRrFASW/" class="badge success">
+          Git
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/E2-gGJkDg/" class="badge ">
+          Golang
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/wmIzFoEIP/" class="badge warning">
+          macOS
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/1QbocojG3/" class="badge ">
+          AI
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/KI4qLtXEOu/" class="badge success">
+          打假卖课
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/tE7JyHymUI/" class="badge ">
+          Android
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/tPncTIGxnb/" class="badge warning">
+          bash
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/9S2Hbs5aF/" class="badge secondary">
+          Termux
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/y_Kw8o5PB/" class="badge ">
+          GitHub
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/A_KFuUKds/" class="badge success">
+          Proxy
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/vYkbFqA51/" class="badge success">
+          Jetbrains
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/oCK_ZlHhX/" class="badge success">
+          openKylin
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/vdcblAPcj/" class="badge secondary">
+          adb
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/whd1tmbG7/" class="badge warning">
+          Linux
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/1CFQNs3S00/" class="badge ">
+          shell
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/bCXMDy8-U/" class="badge success">
+          ffmpeg
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/qzc1SQq3q/" class="badge secondary">
+          nVidia
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/7Ibnloi-i/" class="badge warning">
+          WSL
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/X945mIRqj/" class="badge secondary">
+          ssh
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/QrQiV5P0S/" class="badge warning">
+          python
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/85HirN3QA/" class="badge warning">
+          收费教程
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/SF9usuVqj/" class="badge warning">
+          fedora
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/Sf_ODGuJI/" class="badge ">
+          Gitea
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/PMvg7E-Fr/" class="badge secondary">
+          双系统
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/yitXMMZ8s/" class="badge secondary">
+          xiaomi
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/NOMqGtkmio/" class="badge ">
+          Magisk
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/uSPmjvKQ6/" class="badge secondary">
+          vim
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/O52S4xod7/" class="badge secondary">
+          nano
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/y2nV8ofCl/" class="badge secondary">
+          knowledge
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/etvDZTSvp/" class="badge warning">
+          nginx
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/svHvfBDw2/" class="badge ">
+          UOS
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/Qs-o9CgUP/" class="badge success">
+          五分钟已经很棒了
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/AWiWiIeFs/" class="badge ">
+          Deepin
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/fGCndQxpp/" class="badge ">
+          Raspberry
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/pHreM0cJf/" class="badge ">
+          欧卡2
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/MqthCZEuF/" class="badge secondary">
+          HomeBrew
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/9aViM641i/" class="badge warning">
+          MySql
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/rMjOn_-Vr/" class="badge success">
+          tencent
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/YHDkAytMg/" class="badge warning">
+          oracle
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/Oo5pjqygD/" class="badge ">
+          VirtualBox
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/XdGtzoLPj/" class="badge success">
+          ChatGPT
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/KWd48Zkke/" class="badge secondary">
+          npm
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/FrlwPAtkRd/" class="badge warning">
+          Nodejs
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/4u1IqSlDf/" class="badge secondary">
+          openWrt
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/Ps_QL1RK-/" class="badge ">
+          Samba
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/auU862seE/" class="badge ">
+          小米
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/bZrOQ_cvHC/" class="badge secondary">
+          电视盒子
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/9R2pw-kMi/" class="badge success">
+          AndroidTV
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/DLTs-6kxd/" class="badge success">
+          COD
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/PNLCUL_aG/" class="badge secondary">
+          Game
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/kONTQ9X-u/" class="badge success">
+          黑道圣徒
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/3ge3wV01e/" class="badge secondary">
+          Steam
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/GYLNJVSdF/" class="badge warning">
+          vmware
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/1O2FuszwC/" class="badge ">
+          snap
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/mWurRYeSd/" class="badge success">
+          UWP
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/vU03EjBoU/" class="badge success">
+          跨平台
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/8M3Y_WiPK/" class="badge success">
+          Ubuntu
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/vh0_cV9V9/" class="badge secondary">
+          RDP
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/RlEfsxIRy/" class="badge success">
+          UTM
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/2Li1q3KkK/" class="badge secondary">
+          WineHq
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/akbUFpHWM/" class="badge success">
+          xfce
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/gHhqkzUH9/" class="badge secondary">
+          ventoy
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/J2hqqgy1q/" class="badge success">
+          gparted
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/pmLBkvrEV/" class="badge warning">
+          openEuler
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/W7ZvoH8Ya/" class="badge ">
+          华为
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/Lw5WL9LfT/" class="badge success">
+          SaintsRowTheThird
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/tOjoRhGkq/" class="badge warning">
+          Gitlab
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/S5LhsRFML/" class="badge ">
+          AppImage
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/eoLpx9JG3/" class="badge ">
+          NTP
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/gAD6snp8U/" class="badge success">
+          NieR
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/7NJFDXwY-/" class="badge success">
+          Markdown
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/oOmosMagH/" class="badge success">
+          网络
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/8jNGiW0SY/" class="badge ">
+          GTA
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/HhYYX0R-k/" class="badge ">
+          youtube
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/WU7bMNjDy/" class="badge secondary">
+          office
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/HlNHNYrCz/" class="badge secondary">
+          体育
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/9_I_W5FOy/" class="badge secondary">
+          bat
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/j49MIdPra/" class="badge warning">
+          Androidx86
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/cBDrzFROX/" class="badge ">
+          geek
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/kjzWt_8WM/" class="badge secondary">
+          Gridea
+        </a>
+      
+    </div>
+  </div>
+  <div class="paper">
+    Powered by <a href="https://github.com/zhangyiming748" target="_blank">Gridea</a> | <a class="rss" href="https://zhangyiming748.github.io/atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+
+
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+</script>
+
+
+
+  
+
+  
+    <script src="https://unpkg.com/disqusjs@1.1/dist/disqus.js"></script>
+    <script>
+
+    var options = {
+      shortname: 'zhangyiming748-github-io',
+      apikey: 'nmwRR2QnDaSkyLUKsaGV3rCjyY5HsirUNUQA0YQHN8369jhrR8lFqsVmrPuYeadq',
+    }
+    if ('') {
+      options.api = ''
+    }
+    var dsqjs = new DisqusJS(options)
+
+    </script>
+  
+
+
+
+
+  </body>
+</html>

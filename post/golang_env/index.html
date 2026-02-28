@@ -1,0 +1,1605 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>Go env 参数 | 张益铭的博客</title>
+<meta name="description" content="子非鱼,安知鱼之乐?
+子非我,安知我不知鱼之乐?">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="shortcut icon" href="https://zhangyiming748.github.io/favicon.ico?v=1772252160336">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="stylesheet" href="https://unpkg.com/papercss@1.6.1/dist/paper.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://zhangyiming748.github.io/styles/main.css">
+
+
+  
+
+  
+    <link rel="stylesheet" href="https://unpkg.com/disqusjs@1.1/dist/disqusjs.css" />
+  
+
+<script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-141755803-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-141755803-1');
+</script>
+
+
+  </head>
+  <body>
+  
+    <nav class="navbar border fixed split-nav">
+  <div class="nav-brand">
+    <h3><a href="https://zhangyiming748.github.io">张益铭的博客</a></h3>
+  </div>
+  <div class="collapsible">
+    <input id="collapsible1" type="checkbox" name="collapsible1">
+    <button>
+      <label for="collapsible1">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+      </label>
+    </button>
+    <div class="collapsible-body">
+      <ul class="inline">
+        
+          <li>
+            
+              <a href="/" class="menu">
+                首页
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/archives" class="menu">
+                归档
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/tags" class="menu">
+                标签
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/post/about" class="menu">
+                关于
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/post/test" class="menu">
+                长期测试
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="https://yeasy.gitbook.io/docker_practice/" class="menu" target="_blank">
+                docker
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="https://mirrors.tuna.tsinghua.edu.cn/" class="menu" target="_blank">
+                清华源
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="https://appstorrent.ru/" class="menu" target="_blank">
+                mac软件
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="https://api.lolimi.cn/API/cosplay/api.php?type=image" class="menu" target="_blank">
+                手气不错
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/post/anime" class="menu">
+                下载队列
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="https://linux.do/" class="menu" target="_blank">
+                Linux.do
+              </a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div id="top" class="row site">
+      <div class="sm-12 md-8 col">
+        <div class="paper">
+          <article class="article">
+            <h1>Go env 参数</h1>
+            <p class="article-meta">
+              2022-09-26
+              
+                <a href="https://zhangyiming748.github.io/tag/E2-gGJkDg/" class="badge ">
+                  Golang
+                </a>
+              
+            </p>
+            
+            <div class="post-content" v-pre>
+              <pre><code class="language-shell">go env -w GO111MODULE=on
+go env -w GOBIN=/Users/zen/go/bin
+go env -w GOPROXY=https://goproxy.cn,direct
+</code></pre>
+<!-- more -->
+<p>命令<code>go env</code>用于打印Go语言的环境信息.其中的一些信息我们在之前已经多次提及,但是却没有进行详细的说明.在本小节,我们会对这些信息进行深入介绍.我们先来看一看<code>go env</code>命令情况下都会打印出哪些Go语言通用环境信息.</p>
+<p><code>go env</code>命令可打印出的Go语言通用环境信息</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">名称</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">CGO_ENABLED</td>
+<td style="text-align:center">指明cgo工具是否可用的标识</td>
+</tr>
+<tr>
+<td style="text-align:center">GOARCH</td>
+<td style="text-align:center">程序构建环境的目标计算架构</td>
+</tr>
+<tr>
+<td style="text-align:center">GOBIN</td>
+<td style="text-align:center">存放可执行文件的目录的绝对路径</td>
+</tr>
+<tr>
+<td style="text-align:center">GOCHAR</td>
+<td style="text-align:center">程序构建环境的目标计算架构的单字符标识</td>
+</tr>
+<tr>
+<td style="text-align:center">GOEXE</td>
+<td style="text-align:center">可执行文件的后缀</td>
+</tr>
+<tr>
+<td style="text-align:center">GOHOSTARCH</td>
+<td style="text-align:center">程序运行环境的目标计算架构</td>
+</tr>
+<tr>
+<td style="text-align:center">GOOS</td>
+<td style="text-align:center">程序构建环境的目标操作系统</td>
+</tr>
+<tr>
+<td style="text-align:center">GOHOSTOS</td>
+<td style="text-align:center">程序运行环境的目标操作系统</td>
+</tr>
+<tr>
+<td style="text-align:center">GOPATH</td>
+<td style="text-align:center">工作区目录的绝对路径</td>
+</tr>
+<tr>
+<td style="text-align:center">GORACE</td>
+<td style="text-align:center">用于数据竞争检测的相关选项</td>
+</tr>
+<tr>
+<td style="text-align:center">GOROOT</td>
+<td style="text-align:center">Go语言的安装目录的绝对路径</td>
+</tr>
+<tr>
+<td style="text-align:center">GOTOOLDIR</td>
+<td style="text-align:center">Go工具目录的绝对路径</td>
+</tr>
+</tbody>
+</table>
+<p>下面我们对这些环境信息进行逐一说明.</p>
+<p><strong>CGO_ENABLED</strong></p>
+<p>通过上一小节的介绍,相信读者对cgo工具已经很熟悉了.我们提到过,标准go命令可以自动的使用cgo工具对导入了代码包C的代码包和源码文件进行处理.这里所说的&quot;自动&quot;并不是绝对的.因为当环境变量CGO_ENABLED被设置为0时,标准go命令就不能处理导入了代码包C的代码包和源码文件了.请看下面的示例:</p>
+<pre><code>hc@ubt:~/golang/goc2p/src/basic/cgo$ export CGO_ENABLED=0
+hc@ubt:~/golang/goc2p/src/basic/cgo$ go build -x
+WORK=/tmp/go-build775234613
+</code></pre>
+<p>我们临时把环境变量CGO_ENABLED的值设置为0,然后执行<code>go build</code>命令并加入了标记<code>-x</code>.标记<code>-x</code>会让命令程序将运行期间所有实际执行的命令都打印到标准输出.但是,在执行命令之后没有任何命令被打印出来.这说明对代码包<code>basic/cgo</code>的构建操作并没有被执行.这是因为,构建这个代码包需要用到cgo工具,但cgo工具已经被禁用了.下面,我们再来运行调用了代码包<code>basic/cgo</code>中函数的命令源码文件cgo_demo.go.也就是说,命令源码文件cgo_demo.go间接的导入了代码包<code>C</code>.还记得吗?这个命令源码文件被存放在goc2p项目的代码包<code>basic/cgo</code>中.示例如下:</p>
+<pre><code>hc@ubt:~/golang/goc2p/src/basic/cgo$ export CGO_ENABLED=0
+hc@ubt:~/golang/goc2p/src/basic/cgo$ go run -work cgo_demo.go
+WORK=/tmp/go-build856581210
+# command-line-arguments
+./cgo_demo.go:4: can&amp;#039;t find import: &amp;quot;basic/cgo/lib&amp;quot;
+</code></pre>
+<p>在上面的示例中,我们在执行<code>go run</code>命令时加入了两个标记——<code>-a</code>和<code>-work</code>.标记<code>-a</code>会使命令程序强行重新构建所有的代码包(包括涉及到的标准库),即使它们已经是最新的了.标记<code>-work</code>会使命令程序将临时工作目录的绝对路径打印到标准输出.命令程序输出的错误信息显示,命令程序没有找到代码包<code>basic/cgo</code>.其原因是由于代码包<code>basic/cgo</code>无法被构建.所以,命令程序在临时工作目录和工作区中都找不到代码包basic/cgo对应的归档文件cgo.a.如果我们使用命令<code>ll /tmp/go-build856581210</code>查看临时工作目录,也找不到名为basic的目录.</p>
+<p>不过,如果我们在环境变量CGO_ENABLED的值为1的情况下生成代码包<code>basic/cgo</code>对应的归档文件cgo.a,那么无论我们之后怎样改变环境变量CGO_ENABLED的值也都可以正确的运行命令源码文件cgo_demo.go.即使我们在执行<code>go run</code>命令时加入标记<code>-a</code>也是如此.因为命令程序依然可以在工作区中找到之前在我们执行<code>go install</code>命令时生成的归档文件cgo.a.示例如下:</p>
+<pre><code>hc@ubt:~/golang/goc2p/src/basic/cgo$ export CGO_ENABLED=1
+hc@ubt:~/golang/goc2p/src/basic/cgo$ go install ../basic/cgo
+hc@ubt:~/golang/goc2p/src/basic/cgo$ export CGO_ENABLED=0
+hc@ubt:~/golang/goc2p/src/basic/cgo$ go run -a -work cgo_demo.go
+WORK=/tmp/go-build130612063
+The square root of 2.330000 is 1.526434.
+ABC
+CFunction1() is called.
+GoFunction1() is called.
+</code></pre>
+<p>由此可知,只要我们事先成功安装了引用了代码包C的代码包,即生成了对应的代码包归档文件,即使cgo工具在之后被禁用,也不会影响到其它Go语言代码对该代码包的使用.当然,命令程序首先会到临时工作目录中寻找需要的代码包归档文件.</p>
+<p>关于cgo工具还有一点需要特别注意,即:当存在交叉编译的情况时,cgo工具一定是不可用的.在标准go命令的上下文环境中,交叉编译意味着程序构建环境的目标计算架构的标识与程序运行环境的目标计算架构的标识不同,或者程序构建环境的目标操作系统的标识与程序运行环境的目标操作系统的标识不同.在这里,我们可以粗略认为交叉编译就是在当前的计算架构和操作系统下编译和构建Go语言代码并生成针对于其他计算架构或/和操作系统的编译结果文件和可执行文件.</p>
+<p><strong>GOARCH</strong></p>
+<p>GOARCH的值的含义是程序构建环境的目标计算架构的标识,也就是程序在构建或安装时所对应的计算架构的名称.在默认情况下,它会与程序运行环境的目标计算架构一致.即它的值会与GOHOSTARCH的值是相同.但如果我们显式的设置了环境变量GOARCH,则它的值就会是这个环境变量的值.</p>
+<p><strong>GOBIN</strong></p>
+<p>GOBIN的值为存放可执行文件的目录的绝对路径.它的值来自环境变量GOBIN.在我们使用<code>go tool install</code>命令安装命令源码文件时生成的可执行文件会存放于这个目录中.</p>
+<p><strong>GOCHAR</strong></p>
+<p>GOCHAR的值是程序构建环境的目标计算架构的单字符标识.它的值会根据GOARCH的值来设置.当GOARCH的值为386时,GOCHAR的值就是8.当GOARCH的值为amd64时GOCHAR的值就是6.而GOCHAR的值5与GOARCH的值arm相对应.</p>
+<p>GOCHAR主要有两个用途,列举如下:</p>
+<ol>
+<li>
+<p>Go语言官方的平台相关的工具的名称会以它的值为前缀.的名称会以GOCHAR的值为前缀.比如,在amd64计算架构下,用于编译Go语言代码的编译器的名称是6g,链接器的名称是6l.用于编译C语言代码的编译器的名称是6c.而用于编译汇编语言代码的编译器的名称为6a.</p>
+</li>
+<li>
+<p>Go语言的官方编译器生成的结果文件会以GOCHAR的值作为扩展名.Go语言的官方编译器6g在对命令源码文件编译之后会把结果文件_go_.6存放到临时工作目录的相应位置中.</p>
+</li>
+</ol>
+<p><strong>GOEXE</strong></p>
+<p>GOEXE的值会被作为可执行文件的后缀.它的值与GOOS的值存在一定关系,即只有GOOS的值为&quot;windows&quot;时GOEXE的值才会是&quot;.exe&quot;,否则其值就为空字符串&quot;&quot;.这与在各个操作系统下的可执行文件的默认后缀是一致的.</p>
+<p><strong>GOHOSTARCH</strong></p>
+<p>GOHOSTARCH的值的含义是程序运行环境的目标计算架构的标识,也就是程序在运行时所在的计算机系统的计算架构的名称.在通常情况下,它的值不需要被显式的设置.因为用来安装Go语言的二进制分发文件和MSI(Microsoft软件安装)软件包文件都是平台相关的.所以,对于不同计算架构的Go语言环境来说,它都会是一个常量.</p>
+<p><strong>GOHOSTOS</strong></p>
+<p>GOHOSTOS的值的含义是程序运行环境的目标操作系统的标识,也即程序在运行时所在的计算机系统的操作系统的名称.与GOHOSTARCH类似,它的值在不同的操作系统下是固定不变的,同样不需要显式的设置.</p>
+<p><strong>GOPATH</strong></p>
+<p>这个环境信息我们在之前已经提到过很多次.它的值指明了Go语言工作区目录的绝对路径.我们需要显式的设置环境变量GOPATH.如果有多个工作区,那么多个工作区的绝对路径之间需要用分隔符分隔.在windows操作系统下,这个分隔符为&quot;;&quot;.在其它操作系统下,这个分隔符为&quot;:&quot;.注意,GOPATH的值不能与GOROOT的值相同.</p>
+<p><strong>GORACE</strong></p>
+<p>GORACE的值包含了用于数据竞争检测的相关选项.数据竞争是在并发程序中最常见和最难调试的一类bug.数据竞争会发生在多个Goroutine争相访问相同的变量且至少有一个Goroutine中的程序在对这个变量进行写操作的情况下.</p>
+<p>数据竞争检测需要被显式的开启.还记得标记<code>-race</code>吗?我们可以通过在执行一些标准go命令时加入这个标记来开启数据竞争检测.在这种情况下,GORACE的值就会被使用到了.支持<code>-race</code>标记的标准go命令包括:<code>go test</code>命令<code>go run</code>命令<code>go build</code>命令和<code>go install</code>命令.</p>
+<p>GORACE的值形如&quot;option1=val1 option2=val2&quot;,即:选项名称与选项值之间以等号&quot;=&quot;分隔,多个选项之间以空格&quot; &quot;分隔.数据竞争检测的选项包括log_path\exitcode\strip_path_prefix和history_size.为了设置GORACE的值,我们需要设置环境变量GORACE.或者,我们也可以在执行go命令时临时设置它,像这样:</p>
+<pre><code class="language-shell">hc@ubt:~/golang/goc2p/src/cnet/ctcp$ GORACE=&amp;quot;log_path=/home/hc/golang/goc2p /race/report strip_path_prefix=home/hc/golang/goc2p/&amp;quot; go test -race
+</code></pre>
+<p>关于数据竞争检测的更多细节我们将会在本书的第三部分予以说明.</p>
+<p><strong>GOROOT</strong></p>
+<p>GOROOT会是我们在安装Go语言时第一个碰到Go语言环境变量.它的值指明了Go语言的安装目录的绝对路径.但是,只有在非默认情况下我们才需要显式的设置环境变量GOROOT.这里所说的默认情况是指:在Windows操作系统下我们把Go语言安装到c:\Go目录下,或者在其它操作系统下我们把Go语言安装到/usr/local/go目录下.另外,当我们不是通过二进制分发包来安装Go语言的时候,也不需要设置环境变量GOROOT的值.比如,在Windows操作系统下,我们可以使用MSI软件包文件来安装Go语言.</p>
+<p><strong>GOTOOLDIR</strong></p>
+<p>GOTOOLDIR的值指明了Go工具目录的绝对路径.根据GOROOT\GOHOSTOS和GOHOSTARCH来设置.其值为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>G</mi><mi>O</mi><mi>R</mi><mi>O</mi><mi>O</mi><mi>T</mi><mi mathvariant="normal">/</mi><mi>p</mi><mi>k</mi><mi>g</mi><mi mathvariant="normal">/</mi><mi>t</mi><mi>o</mi><mi>o</mi><mi>l</mi><mi mathvariant="normal">/</mi></mrow><annotation encoding="application/x-tex">GOROOT/pkg/tool/</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">G</span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="mord">/</span><span class="mord mathdefault">p</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord">/</span><span class="mord mathdefault">t</span><span class="mord mathdefault">o</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord">/</span></span></span></span>GOOS_$GOARCH.关于这个目录,我们在之前也提到过多次.</p>
+<p>除了上面介绍的这些通用的Go语言环境信息,还两个针对于非Plan 9操作系统的环境信息.它们是CC和GOGCCFLAGS.环境信息CC的值是操作系统默认的C语言编译器的命令名称.环境信息GOGCCFLAGS的值则是Go语言在使用操作系统的默认C语言编译器对C语言代码进行编译时加入的参数.</p>
+
+            </div>
+          </article>
+        </div>
+        <div class="paper" data-aos="fade-in">
+          
+            <div class="next-post">
+              <div class="next">
+                下一篇
+              </div>
+              <a href="https://zhangyiming748.github.io/post/git_set_proxy/">
+                <h3 class="post-title">
+                  Git设置代理
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+        
+          
+
+          
+            <div class="paper" data-aos="fade-in">
+              <div id="disqus_thread"></div>
+            </div>
+          
+        
+      </div>
+
+      <div class="sm-12 md-4 col sidebar">
+  <div class="paper info-container">
+    <img src="https://zhangyiming748.github.io/images/avatar.png?v=1772252160336" class="no-responsive avatar">
+    <div class="text-muted">子非鱼,安知鱼之乐?
+子非我,安知我不知鱼之乐?</div>
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      最新文章
+    </div>
+    <div class="row">
+      <ul>
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/zhang_xiao_lin/">不让老人“掉队”：青年志愿者用行动助力老年人融入数字时代</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/Resolving_the_&#34;Installer_hash_mismatch&#34;_issue_when_installing_programs_using_Winget/">解决Winget安装程序时出现“安装程序哈希不匹配”问题</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/daemon/">daemon.json</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/printershare_readme/">PrinterShare 打印共享工具介绍</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/git_commit_errors_faq/">git 报错分析</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/Windows_10_and_11_prevent_IE_redirect_to_Edge/">Windows 10和11中阻止IE跳转Edge</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/tiny_image/">极简镜像</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/go_without_windows_defender/">将 GoLand 运行的 go 进程排除到 Windows Defender 以提高性能</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/MacOS_unable_to_connect_requires_authenticated_Wi-Fi_solution/">macOS无法连接需要通过认证的Wi-Fi解决办法</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/simple_docker_image/">极简docker镜像</a>
+            </li>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </ul>
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      标签列表
+    </div>
+    <div class="row">
+      
+        <a href="https://zhangyiming748.github.io/tag/x0vICjEMlj/" class="badge secondary">
+          志愿者
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/m-fbGUfZt/" class="badge secondary">
+          Windows
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/OIVRELVRC/" class="badge secondary">
+          Docker
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/vPlO62KOV8/" class="badge secondary">
+          共享打印机
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/CnfRrFASW/" class="badge warning">
+          Git
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/E2-gGJkDg/" class="badge secondary">
+          Golang
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/wmIzFoEIP/" class="badge warning">
+          macOS
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/1QbocojG3/" class="badge warning">
+          AI
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/KI4qLtXEOu/" class="badge warning">
+          打假卖课
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/tE7JyHymUI/" class="badge warning">
+          Android
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/tPncTIGxnb/" class="badge secondary">
+          bash
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/9S2Hbs5aF/" class="badge secondary">
+          Termux
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/y_Kw8o5PB/" class="badge warning">
+          GitHub
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/A_KFuUKds/" class="badge success">
+          Proxy
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/vYkbFqA51/" class="badge warning">
+          Jetbrains
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/oCK_ZlHhX/" class="badge ">
+          openKylin
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/vdcblAPcj/" class="badge warning">
+          adb
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/whd1tmbG7/" class="badge warning">
+          Linux
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/1CFQNs3S00/" class="badge warning">
+          shell
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/bCXMDy8-U/" class="badge success">
+          ffmpeg
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/qzc1SQq3q/" class="badge secondary">
+          nVidia
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/7Ibnloi-i/" class="badge secondary">
+          WSL
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/X945mIRqj/" class="badge success">
+          ssh
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/QrQiV5P0S/" class="badge warning">
+          python
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/85HirN3QA/" class="badge success">
+          收费教程
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/SF9usuVqj/" class="badge secondary">
+          fedora
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/Sf_ODGuJI/" class="badge success">
+          Gitea
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/PMvg7E-Fr/" class="badge ">
+          双系统
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/yitXMMZ8s/" class="badge secondary">
+          xiaomi
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/NOMqGtkmio/" class="badge success">
+          Magisk
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/uSPmjvKQ6/" class="badge secondary">
+          vim
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/O52S4xod7/" class="badge secondary">
+          nano
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/y2nV8ofCl/" class="badge success">
+          knowledge
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/etvDZTSvp/" class="badge secondary">
+          nginx
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/svHvfBDw2/" class="badge secondary">
+          UOS
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/Qs-o9CgUP/" class="badge success">
+          五分钟已经很棒了
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/AWiWiIeFs/" class="badge secondary">
+          Deepin
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/fGCndQxpp/" class="badge ">
+          Raspberry
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/pHreM0cJf/" class="badge warning">
+          欧卡2
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/MqthCZEuF/" class="badge warning">
+          HomeBrew
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/9aViM641i/" class="badge secondary">
+          MySql
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/rMjOn_-Vr/" class="badge ">
+          tencent
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/YHDkAytMg/" class="badge warning">
+          oracle
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/Oo5pjqygD/" class="badge secondary">
+          VirtualBox
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/XdGtzoLPj/" class="badge secondary">
+          ChatGPT
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/KWd48Zkke/" class="badge secondary">
+          npm
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/FrlwPAtkRd/" class="badge success">
+          Nodejs
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/4u1IqSlDf/" class="badge secondary">
+          openWrt
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/Ps_QL1RK-/" class="badge secondary">
+          Samba
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/auU862seE/" class="badge secondary">
+          小米
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/bZrOQ_cvHC/" class="badge warning">
+          电视盒子
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/9R2pw-kMi/" class="badge ">
+          AndroidTV
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/DLTs-6kxd/" class="badge success">
+          COD
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/PNLCUL_aG/" class="badge ">
+          Game
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/kONTQ9X-u/" class="badge warning">
+          黑道圣徒
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/3ge3wV01e/" class="badge warning">
+          Steam
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/GYLNJVSdF/" class="badge ">
+          vmware
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/1O2FuszwC/" class="badge success">
+          snap
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/mWurRYeSd/" class="badge ">
+          UWP
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/vU03EjBoU/" class="badge warning">
+          跨平台
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/8M3Y_WiPK/" class="badge secondary">
+          Ubuntu
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/vh0_cV9V9/" class="badge warning">
+          RDP
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/RlEfsxIRy/" class="badge warning">
+          UTM
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/2Li1q3KkK/" class="badge secondary">
+          WineHq
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/akbUFpHWM/" class="badge ">
+          xfce
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/gHhqkzUH9/" class="badge secondary">
+          ventoy
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/J2hqqgy1q/" class="badge success">
+          gparted
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/pmLBkvrEV/" class="badge success">
+          openEuler
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/W7ZvoH8Ya/" class="badge success">
+          华为
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/Lw5WL9LfT/" class="badge success">
+          SaintsRowTheThird
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/tOjoRhGkq/" class="badge secondary">
+          Gitlab
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/S5LhsRFML/" class="badge secondary">
+          AppImage
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/eoLpx9JG3/" class="badge secondary">
+          NTP
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/gAD6snp8U/" class="badge secondary">
+          NieR
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/7NJFDXwY-/" class="badge success">
+          Markdown
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/oOmosMagH/" class="badge ">
+          网络
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/8jNGiW0SY/" class="badge success">
+          GTA
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/HhYYX0R-k/" class="badge secondary">
+          youtube
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/WU7bMNjDy/" class="badge ">
+          office
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/HlNHNYrCz/" class="badge success">
+          体育
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/9_I_W5FOy/" class="badge ">
+          bat
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/j49MIdPra/" class="badge secondary">
+          Androidx86
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/cBDrzFROX/" class="badge warning">
+          geek
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/kjzWt_8WM/" class="badge warning">
+          Gridea
+        </a>
+      
+    </div>
+  </div>
+  <div class="paper">
+    Powered by <a href="https://github.com/zhangyiming748" target="_blank">Gridea</a> | <a class="rss" href="https://zhangyiming748.github.io/atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+
+
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+</script>
+
+
+
+  
+
+  
+    <script src="https://unpkg.com/disqusjs@1.1/dist/disqus.js"></script>
+    <script>
+
+    var options = {
+      shortname: 'zhangyiming748-github-io',
+      apikey: 'nmwRR2QnDaSkyLUKsaGV3rCjyY5HsirUNUQA0YQHN8369jhrR8lFqsVmrPuYeadq',
+    }
+    if ('') {
+      options.api = ''
+    }
+    var dsqjs = new DisqusJS(options)
+
+    </script>
+  
+
+
+
+
+  </body>
+</html>

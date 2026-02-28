@@ -1,0 +1,1844 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>更换魔法书上扶不起来的网卡 | 张益铭的博客</title>
+<meta name="description" content="子非鱼,安知鱼之乐?
+子非我,安知我不知鱼之乐?">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="shortcut icon" href="https://zhangyiming748.github.io/favicon.ico?v=1772252160336">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="stylesheet" href="https://unpkg.com/papercss@1.6.1/dist/paper.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://zhangyiming748.github.io/styles/main.css">
+
+
+  
+
+  
+    <link rel="stylesheet" href="https://unpkg.com/disqusjs@1.1/dist/disqusjs.css" />
+  
+
+<script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-141755803-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-141755803-1');
+</script>
+
+
+  </head>
+  <body>
+  
+    <nav class="navbar border fixed split-nav">
+  <div class="nav-brand">
+    <h3><a href="https://zhangyiming748.github.io">张益铭的博客</a></h3>
+  </div>
+  <div class="collapsible">
+    <input id="collapsible1" type="checkbox" name="collapsible1">
+    <button>
+      <label for="collapsible1">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+      </label>
+    </button>
+    <div class="collapsible-body">
+      <ul class="inline">
+        
+          <li>
+            
+              <a href="/" class="menu">
+                首页
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/archives" class="menu">
+                归档
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/tags" class="menu">
+                标签
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/post/about" class="menu">
+                关于
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/post/test" class="menu">
+                长期测试
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="https://yeasy.gitbook.io/docker_practice/" class="menu" target="_blank">
+                docker
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="https://mirrors.tuna.tsinghua.edu.cn/" class="menu" target="_blank">
+                清华源
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="https://appstorrent.ru/" class="menu" target="_blank">
+                mac软件
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="https://api.lolimi.cn/API/cosplay/api.php?type=image" class="menu" target="_blank">
+                手气不错
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/post/anime" class="menu">
+                下载队列
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="https://linux.do/" class="menu" target="_blank">
+                Linux.do
+              </a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div id="top" class="row site">
+      <div class="sm-12 md-8 col">
+        <div class="paper">
+          <article class="article">
+            <h1>更换魔法书上扶不起来的网卡</h1>
+            <p class="article-meta">
+              2019-11-18
+              
+                <a href="https://zhangyiming748.github.io/tag/W7ZvoH8Ya/" class="badge ">
+                  华为
+                </a>
+              
+            </p>
+            
+            <div class="post-content" v-pre>
+              <h1 id="前言">前言</h1>
+<p>魔法书Pro科技尝鲜版自带的是瑞昱8822CE蓝牙Wi-Fi二合一芯片,信号干扰严重,只要蓝牙处在广播状态网络丢包率徘徊80%, 蓝牙数据传输时丢包率直逼100%</p>
+<p>所以<s>我有一个大胆的想法</s></p>
+<ul class="contains-task-list">
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox" id="task-item-4666874"><label class="task-list-item-label" for="task-item-4666874"> 瑞昱某个型号的问题,手动更换一款瑞昱更高等级的无线模块</label></li>
+<li class="task-list-item"><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox" id="task-item-355494"><label class="task-list-item-label" for="task-item-355494"> 如果这是瑞昱无线技术不过关的问题,手动更换一款Intel高大全的无线模块</label></li>
+</ul>
+<p>我假装自己是一个消费者,询问了客服Intel版魔法书的网卡型号</p>
+<p>华为商城客服的回答简单明了三个字<code>不知道</code></p>
+<p>至于为什么不去找华为官方客户服务中心,他们的各种<a href="https://zhangyiming748.github.io/2019/11/04/Honor/">睿智操作</a>已经抵消了我对专业人员的信任</p>
+<hr>
+<h1 id="计划">计划</h1>
+<p>按照维修思想,先从预期收益最大的方式入手</p>
+<p>购买<a href="https://detail.tmall.com/item.htm?spm=a230r.1.14.19.743868c9qB44vR&amp;id=602306932858&amp;ns=1&amp;abbucket=15&amp;skuId=4221965037035">IntelAX200NGW网卡</a></p>
+<p>购买<a href="https://detail.tmall.com/item.htm?id=537354759539&amp;spm=a1z09.2.0.0.6a4a2e8d83hKPI&amp;_u=i2cc9fmub8f4">防静电设备</a></p>
+<p>购买<a href="https://item.jd.com/100005054710.html">螺丝刀套装</a></p>
+<p>等待MagicBook Pro 过保</p>
+<hr>
+<h1 id="睿智客服">睿智客服</h1>
+<p>昨天我以消费者的身份致电华为客服,询问了一下intel版魔法书的网卡型号</p>
+<p>答复居然是<code>由于涉及供应商的涉密信息,我们不能提供详细的硬件信息</code></p>
+<p>我自己开盖看就不涉密,你告诉我电脑里边装的啥就是泄密?</p>
+<hr>
+<h1 id="插播">插播</h1>
+<p>没耐心,不等了</p>
+<p>东西已经在路上了</p>
+<p>到货之后找个黄道吉日就直接换了</p>
+<hr>
+<h1 id="转机">转机</h1>
+<p>刚才接到了华为客服中心的电话</p>
+<p>官方确认是Intel-AC9560</p>
+<p>突然心里一沉</p>
+<p>我买的是AX200</p>
+<p>看下对比</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">Intel® Wi-Fi 6 AX200 Module</th>
+<th style="text-align:center">Intel® Wireless-AC 9560</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">状态</td>
+<td style="text-align:center">Launched</td>
+<td style="text-align:center">Launched</td>
+</tr>
+<tr>
+<td style="text-align:center">发行日期</td>
+<td style="text-align:center">Q2'19</td>
+<td style="text-align:center">Q4'17</td>
+</tr>
+<tr>
+<td style="text-align:center">重量(克)</td>
+<td style="text-align:center">2.8</td>
+<td style="text-align:center">2.8</td>
+</tr>
+<tr>
+<td style="text-align:center">操作温度范围</td>
+<td style="text-align:center">0°C to 80°C</td>
+<td style="text-align:center">0°C to 80°C</td>
+</tr>
+<tr>
+<td style="text-align:center">支持的操作系统</td>
+<td style="text-align:center">Windows 10, 64-bit*, Linux*, Chrome OS*</td>
+<td style="text-align:center">Windows 10, 64-bit*, Linux*, Chrome OS*</td>
+</tr>
+<tr>
+<td style="text-align:center">天线</td>
+<td style="text-align:center">2x2</td>
+<td style="text-align:center">2x2</td>
+</tr>
+<tr>
+<td style="text-align:center">TX/RX 流</td>
+<td style="text-align:center">2x2</td>
+<td style="text-align:center">2x2</td>
+</tr>
+<tr>
+<td style="text-align:center">频带</td>
+<td style="text-align:center">2.4Ghz, 5Ghz (160Mhz)</td>
+<td style="text-align:center">2.4Ghz, 5Ghz (160Mhz)</td>
+</tr>
+<tr>
+<td style="text-align:center">最高速度</td>
+<td style="text-align:center">2.4Gbps</td>
+<td style="text-align:center">1.73Gbps</td>
+</tr>
+<tr>
+<td style="text-align:center">Wi-Fi CERTIFIED*</td>
+<td style="text-align:center">WiFi 6 (802.11ax)</td>
+<td style="text-align:center">802.11ac</td>
+</tr>
+<tr>
+<td style="text-align:center">兼容性</td>
+<td style="text-align:center">FIPS, FISMA</td>
+<td style="text-align:center">FIPS, FISMA</td>
+</tr>
+<tr>
+<td style="text-align:center">集成蓝牙</td>
+<td style="text-align:center">是</td>
+<td style="text-align:center">是</td>
+</tr>
+<tr>
+<td style="text-align:center">主板板型</td>
+<td style="text-align:center">M.2 2230, M.2 1216</td>
+<td style="text-align:center">M.2 2230, M.2 1216</td>
+</tr>
+<tr>
+<td style="text-align:center">封装大小</td>
+<td style="text-align:center">22mm x 30mm x 2.4mm, 12mm x 16mm x 1.65mm</td>
+<td style="text-align:center">22mm x 30mm x 2.4mm, 12mm x 16mm x 1.57mm</td>
+</tr>
+<tr>
+<td style="text-align:center">系统接口类型</td>
+<td style="text-align:center"><font color="#FF0000">Wi-Fi(PCIe), BT(USB)</font></td>
+<td style="text-align:center"><font color="#FF0000">M.2: CNVio</font></td>
+</tr>
+</tbody>
+</table>
+<p>其中系统接口类型的差异让我看的夜不能寐</p>
+<p>常识告诉我,PCIE通道的硬盘通常很贵,接口也很稀有,我买的电脑预装了廉价的小螃蟹芯片会是PCIE通道的吗?一切只有到货之后才知道,现在只能听天由命了</p>
+<p><img src="https://s1.ax1x.com/2022/09/05/vT5LHH.png" alt="包裹" loading="lazy"><center>拜双十一所赐,龟速快递</center></p>
+<hr>
+<h1 id="数据">数据</h1>
+<p>更正,论坛上有人说之前的网卡是8822CE,但是在官网查询并没有这个型号,最接近的一款是<a href="https://www.realtek.com/zh-tw/products/communications-network-ics/item/rtl8821ce">8821CE</a></p>
+<p>已知Intel9560AC由于需要Intel芯片组协同工作,所以理论上不支持锐龙版魔法书</p>
+<p>另外还有</p>
+<ul>
+<li>8822BE</li>
+</ul>
+<blockquote>
+<p>802.11AC/ABGN PCIE WLAN WITH BLUETOOTH 4.2 SINGLE-CHIP CONTROLLER The Realtek RTL8822BE-CG is a highly integrated single-chip that supports 2-stream 802.11ac solutions with Multi-user MIMO (Multiple-Input, Multiple-Output) and Wireless LAN (WLAN) PCI Express network interface controller and integrated Bluetooth 2.1/3.0/4.2 USB interface controller. It combines a WLAN MAC, a 2T2R capable WLAN baseband, and RF in a single chip. The RTL8822BE-CG provides a complete solution for a high-performance integrated wireless and Bluetooth device.FeaturesGeneralTFBGA 6.5x6.5mm package802.11 ac/abgn802.11ac 2x2, Wave-2 compatible with MU-MIMOBluetooth 4.2 (Software only)Host interfacePCI Express 1.1 for WLAN controllerUSB2.0 for Bluetooth controllerApplicationsThe product is applicable for PC/NB, Set-top box applications</p>
+<blockquote>
+<p>(机翻)带蓝牙4.2单片机的802.11AC/ABGN PCIE WLAN Realtek RTL8822BE-CG是一个高度集成的单片机,支持2流802.11ac解决方案,支持多用户MIMO(多输入\多输出)和无线局域网(WLAN) PCI Express网络接口控制器,以及集成的蓝牙2.1/3.0/4.2 USB接口控制器.它将一个WLAN MAC\一个支持2T2R的WLAN基带和射频集成在一个芯片中.RTL8822BE-CG为高性能集成无线和蓝牙设备提供了完整的解决方案.WLAN controllerUSB2.0蓝牙控制器应用本产品适用于PC/NB\机顶盒应用</p>
+</blockquote>
+</blockquote>
+<ul>
+<li>RTL8822BEH-VR</li>
+</ul>
+<blockquote>
+<p>802.11AC/ABGN PCIE WLAN WITH BLUETOOTH 4.1 SINGLE-CHIP CONTROLLER The Realtek RTL8822BEH-VR-CG is a highly integrated single-chip that supports 2-stream 802.11ac solutions with Multi-user MIMO (Multiple-Input, Multiple-Output) and Wireless LAN (WLAN) PCI Express network interface controller with integrated Bluetooth 2.1/3.0/4.1 USB interface controller. It combines a WLAN MAC, a 2T2R capable WLAN baseband, and RF in a single chip. The RTL8822BEH-VR-CG provides a complete solution for a high-performance integrated wireless and Bluetooth device. TFBGA 6.5x6.5mm package 802.11 ac/abgn 802.11ac 2x2, Wave-2 compatible with MU-MIMO Bluetooth 4.1 Host interface PCI Express 1.1 for WLAN controller HS-UART for Bluetooth controller Applications The product is applicable for Set-top box and AP router application</p>
+<blockquote>
+<p>(机翻)802.11AC/ABGN PCIE WLAN带蓝牙4.1单片机控制器 Realtek rtl8822behr - vr - cg是一个高度集成的单片机,支持2流802.11ac解决方案,支持多用户MIMO(多输入\多输出)和无线局域网(WLAN) PCI Express网络接口控制器,支持集成蓝牙2.1/3.0/4.1 USB接口控制器.它将一个WLAN MAC\一个支持2T2R的WLAN基带和射频集成在一个芯片中.rtl8822behr - vr - cg为高性能集成无线和蓝牙设备提供了完整的解决方案.TFBGA 6.5x6.5mm封装802.11ac /abgn 802.11ac 2x2, Wave-2兼容MU-MIMO蓝牙4.1主机接口</p>
+</blockquote>
+</blockquote>
+<ul>
+<li>RTL8822BS</li>
+</ul>
+<blockquote>
+<p>802.11AC/ABGN SDIO WLAN WITH BLUETOOTH 4.1 SINGLE-CHIP CONTROLLER The Realtek RTL8822BS-CG is a highly integrated single-chip that supports 2-stream 802.11ac solutions with Multi-user MIMO (Multiple-Input, Multiple-Output) and Wireless LAN (WLAN) SDIO interface controller with integrated Bluetooth 2.1/3.0/4.1 HS-UART interface controller. It combines a WLAN MAC, a 2T2R capable WLAN baseband, and RF in a single chip. The RTL8822BS-CG provides a complete solution for a high-performance integrated wireless and Bluetooth device. TFBGA 6.5x6.5mm package 802.11 ac/abgn 802.11ac 2x2, Wave-2 compatible with MU-MIMO Bluetooth 4.1 system Host interface SDIO 1.1/2.0/3.0 for WLAN controller HS-UART for Bluetooth controller Applications The product is applicable for Set-top box, virtual reality, and LTE router application</p>
+<blockquote>
+<p>(机翻)Realtek RTL8822BS-CG是一个高度集成的单片机,支持2流802.11AC解决方案,支持多用户MIMO(多输入\多输出)和无线局域网(WLAN) SDIO接口控制器,支持集成蓝牙2.1/3.0/4.1 HS-UART接口控制器.它将一个WLAN MAC\一个支持2T2R的WLAN基带和射频集成在一个芯片中.RTL8822BS-CG为高性能集成无线和蓝牙设备提供了完整的解决方案.TFBGA 6.5x6.5mm封装802.11ac /abgn 802.11ac 2x2, Wave-2兼容MU-MIMO蓝牙4.1系统主机接口SDIO 1.1/2.0/3.0 for WLAN controller HS-UART for Bluetooth controller Applications本产品适用于机顶盒\虚拟现实\LTE路由器应用</p>
+</blockquote>
+</blockquote>
+<ul>
+<li>RTL8822BU</li>
+</ul>
+<blockquote>
+<p>802.11AC/ABGN USB WLAN WITH BLUETOOTH 4.1 SINGLE-CHIP CONTROLLER The Realtek RTL8822BU-CG is a highly integrated single-chip that supports 2-stream 802.11ac solutions with Multi-user MIMO (Multiple-Input, Multiple-Output) and Wireless LAN (WLAN) with integrated Bluetooth 2.1/3.0/4.1 USB-multi interface controller. It combines a WLAN MAC, a 2T2R capable WLAN baseband, and RF in a single chip. The RTL8822BU-CG provides a complete solution for a high-performance integrated wireless and Bluetooth device. TFBGA 6.5x6.5mm package 802.11 ac/abgn 802.11ac 2x2, Wave-2 compatible with MU-MIMO Bluetooth 4.1 system Host interface USB2.0 for WLAN and BT controller Applications The product is applicable for TV and Set-top box application</p>
+<blockquote>
+<p>(机翻)Realtek RTL8822BU-CG是一个高度集成的单片机,支持2流802.11AC解决方案,多用户MIMO(多输入\多输出)和无线局域网(WLAN),集成了蓝牙2.1/3.0/4.1 USB-multi interface CONTROLLER.它将一个WLAN MAC\一个支持2T2R的WLAN基带和射频集成在一个芯片中.RTL8822BU-CG为高性能集成无线和蓝牙设备提供了完整的解决方案.TFBGA 6.5x6.5mm封装802.11ac /abgn 802.11ac 2x2, Wave-2兼容MU-MIMO蓝牙4.1系统主机接口USB2.0用于WLAN和BT控制器应用本产品适用于电视和机顶盒应用</p>
+</blockquote>
+</blockquote>
+<p><font size="18">看来具体型号有待确认,不如现在来有奖竞猜一下,评论区留下你的答案,猜对可获得群成员稀有ASMR,正确答案即将揭晓</font></p>
+<hr>
+<h1 id="到货">到货</h1>
+<p><img src="https://raw.githubusercontent.com/zhangyiming748/zhangyiming748.github.io/master/img/Honor/item.webp" alt="到货" loading="lazy"><center>如果换不成功,最坏的打算,USB无线网卡</center></p>
+<hr>
+<h1 id="开工">开工</h1>
+<p>在我打开电脑的那一刻我惊呆了,电源排线的防拆条完好如新,而我经历过两次拆机级别的&quot;专业工程师&quot;--华为官方客户服务中心的维修</p>
+<p><img src="https://s1.ax1x.com/2022/09/05/vTIG5R.png" alt="没有断电的专业维修" loading="lazy"><center>专业的带电维修师傅</center></p>
+<p>旧网卡确实是 RTL8822CE 但是官网上却查不到这个型号实属蹊跷</p>
+<p>D壳卸下螺丝后需要使用翘片撬开,最容易下手的部分在通风部分</p>
+<figure data-type="image" tabindex="1"><img src="https://s1.ax1x.com/2019/11/27/Q986BQ.png" alt="效果图" loading="lazy"></figure>
+<p>拆机中的难点主要是在新网卡上接天线,手残搞不定,比如我用了半个小时</p>
+<p>高清无码大图由于网络环境问题就不上传了</p>
+<p>重要节点的图片做成了电子相册,自行观看</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/sL-bWYtq4ss" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<p><b>注意</b>换网卡危险性高于加装硬盘,千万注意手部放电,尤其是干燥的冬天,硬盘位不包含主板部件网卡位不同</p>
+<h1 id="效果图">效果图</h1>
+<p><img src="https://s1.ax1x.com/2022/09/05/vTIS8P.png" alt="最终效果" loading="lazy"><center>英特尔WiFi6Bluetooth5.0</center></p>
+<h1 id="见解">见解</h1>
+<p>我理解华为想要扶持中国企业,但有的真的是扶不起来啊,扶瑞昱扶声卡\以太网卡\读卡器和分线器都是可以的,无线网卡还是算了吧</p>
+<hr>
+<h1 id="旧网卡的临终关怀">旧网卡的临终关怀</h1>
+<p>换下来的网卡不要扔,裹上鸡蛋液,粘上面包糠,下锅炸至金黄酥脆控油捞出,老人小孩都爱吃,隔壁小孩都馋哭了</p>
+<hr>
+<h1 id="善后">善后</h1>
+<p>由于更换了网卡,而之前个人判断一碰传实质上是根据网卡MAC地址临时建立虚拟局域网进行数据交换,由此预见更换网卡后NFC标签中并没有记录新网卡的MAC地址,所以更换网卡后一碰传和多屏协同快速建立连接的功能失效,预先在淘宝上购买了<a href="https://item.taobao.com/item.htm?spm=a1z0d.7625083.1998302264.5.5c5f4e69mSrRIE&amp;id=607304808177">NFC贴片</a>,按照各方教程,制作了一张</p>
+<blockquote>
+<p>接下来开始NFC标签的制作,把那个APK用手机安装了,然后查看下电脑蓝牙MAC地址,打开CMD<br>
+ipconfig /all<br>
+我的蓝牙地址是这个98-54-1B-2E-68-77</p>
+<blockquote>
+<p>https://cli.im/text</p>
+<blockquote>
+<p>SN=5EKPM18320000397|MAC=680715939B02|MODELID=00000505</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>把这个MAC改下,其他不动<br>
+SN=5EKPM18320000397|MAC=98541B2E6877|MODELID=00000505<br>
+生成二维码,然后手机用那个APP扫一下<br>
+按提示激活NFC标签,好了</p>
+<p>其中,二维码的内容</p>
+<blockquote>
+<p>SN=5EKPM18320000397|MAC=680715939B02|MODELID=00000505</p>
+</blockquote>
+<p>SN填机器的SN号<br>
+可以用这个命令查询<code>wmic bios get serialnumber</code></p>
+<p>已知部分MODELID如下</p>
+<center>MateBook系列</center>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">型号</th>
+<th style="text-align:center">值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">MateBook</td>
+<td style="text-align:center">0500</td>
+</tr>
+<tr>
+<td style="text-align:center">Matebook</td>
+<td style="text-align:center">0501</td>
+</tr>
+<tr>
+<td style="text-align:center">Matebook X</td>
+<td style="text-align:center">0502</td>
+</tr>
+<tr>
+<td style="text-align:center">Matebook D</td>
+<td style="text-align:center">0503</td>
+</tr>
+<tr>
+<td style="text-align:center">Matebook E</td>
+<td style="text-align:center">0504</td>
+</tr>
+<tr>
+<td style="text-align:center">Matebook D(2018)</td>
+<td style="text-align:center">0505</td>
+</tr>
+<tr>
+<td style="text-align:center">Matebook X Pro</td>
+<td style="text-align:center">0506</td>
+</tr>
+<tr>
+<td style="text-align:center">Matebook 13</td>
+<td style="text-align:center">0507</td>
+</tr>
+<tr>
+<td style="text-align:center">Matebook 14</td>
+<td style="text-align:center">0508</td>
+</tr>
+<tr>
+<td style="text-align:center">Matebook 15</td>
+<td style="text-align:center">0509</td>
+</tr>
+<tr>
+<td style="text-align:center">Matebook E</td>
+<td style="text-align:center">0510</td>
+</tr>
+<tr>
+<td style="text-align:center">Matebook</td>
+<td style="text-align:center">0511</td>
+</tr>
+<tr>
+<td style="text-align:center">Matebook</td>
+<td style="text-align:center">0512</td>
+</tr>
+</tbody>
+</table>
+<center>MagicBook系列</center>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">型号</th>
+<th style="text-align:center">值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">MagicBook</td>
+<td style="text-align:center">0800</td>
+</tr>
+<tr>
+<td style="text-align:center">MagicBook 2019</td>
+<td style="text-align:center">0801</td>
+</tr>
+<tr>
+<td style="text-align:center">MagicBook</td>
+<td style="text-align:center">0802</td>
+</tr>
+<tr>
+<td style="text-align:center">MagicBook</td>
+<td style="text-align:center">0803</td>
+</tr>
+<tr>
+<td style="text-align:center">MagicBook Pro</td>
+<td style="text-align:center">0804</td>
+</tr>
+<tr>
+<td style="text-align:center">MagicBook</td>
+<td style="text-align:center">0805</td>
+</tr>
+<tr>
+<td style="text-align:center">MagicBook</td>
+<td style="text-align:center">0806</td>
+</tr>
+<tr>
+<td style="text-align:center">MagicBook</td>
+<td style="text-align:center">0807</td>
+</tr>
+<tr>
+<td style="text-align:center">MagicBook Pro</td>
+<td style="text-align:center">0808</td>
+</tr>
+<tr>
+<td style="text-align:center">MagicBook</td>
+<td style="text-align:center">0809</td>
+</tr>
+<tr>
+<td style="text-align:center">MagicBook</td>
+<td style="text-align:center">0810</td>
+</tr>
+</tbody>
+</table>
+<p>MAC填芯片的bluetooth地址而不是网卡地址,虽然这俩东西在一张PCB上</p>
+<p>MODELID00000505是MateBook D的型号 <s>但是我无论如何也查不到MagicBook Pro的MODELID 希望能人异士找到后能告诉我一声</s><br>
+MagicBook Pro的MODELID是0804,人还是要靠自己<br>
+读取出来的NFC芯片信息如下,感谢<code>我是传奇snake</code>提供图片</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">IC Info</th>
+<th style="text-align:center">Ndef</th>
+<th style="text-align:center">Extra</th>
+<th style="text-align:center">Full Scan</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><img src="https://raw.githubusercontent.com/zhangyiming748/zhangyiming748.github.io/master/img/Honor/icInfo.webp" alt="IC Info" loading="lazy"></td>
+<td style="text-align:center"><img src="https://raw.githubusercontent.com/zhangyiming748/zhangyiming748.github.io/master/img/Honor/ndef.webp" alt="Ndef" loading="lazy"></td>
+<td style="text-align:center"><img src="https://raw.githubusercontent.com/zhangyiming748/zhangyiming748.github.io/master/img/Honor/extra.webp" alt="Extra" loading="lazy"></td>
+<td style="text-align:center"><img src="https://raw.githubusercontent.com/zhangyiming748/zhangyiming748.github.io/master/img/Honor/fullScan.webp" alt="Full Scan" loading="lazy"></td>
+</tr>
+</tbody>
+</table>
+<p>购买六张NFC标签制作一张还剩五张,剩下的就扔掉吗?</p>
+<p>剩下的贴片不要扔,<s>裹上鸡蛋液,粘上面包糠,下锅炸至金黄酥脆控油捞出,老人小孩都爱吃,隔壁小孩都馋哭了</s>还可以复制门禁卡,电梯卡等(一种不能说的卡)</p>
+<p>那就是后话了</p>
+<h1 id="鸣谢">鸣谢</h1>
+<p>一起奋战的小伙伴们(排名不分先后)</p>
+<p><a href="https://club.huawei.com/space-uid-7719051.html">我是传奇snake</a></p>
+<p><a href="https://club.huawei.com/space-uid-16975468.html">sing238</a></p>
+<p><a href="https://club.huawei.com/space-uid-145794107.html">妖夭柒</a></p>
+<p><a href="https://club.huawei.com/space-uid-137254691.html">huafen854571664</a></p>
+<p><a href="https://club.huawei.com/space-uid-7274763.html">雾海沧狐</a></p>
+<p><a href="https://club.huawei.com/space-uid-23722374.html">君羊主</a></p>
+<p><a href="https://club.huawei.com/space-uid-98447634.html">芥末绿</a></p>
+<h1 id="后记">后记</h1>
+<p>最近总有人说自己更换完网卡之后会失去保修,事实上,拆电脑后盖已经是一种像开冰箱门一样的常规操作了,售后会因为你私自打开过冰箱门不给冰箱保修吗?电脑同理<br>
+换完这个网卡后,自己买的各种nfc卡贴都觉得不美观,利用一代魔法书免费加装nfc卡贴的政策(免物料费),和服务日政策(免手工费)白嫖了一张正版nfc贴纸,去的时候服务人员告诉我直接复制就行,我明确告知他我换了网卡,蓝牙地址改变他就给我重做了一张,等待的时候客服看到我的Mate30Pro手机主动提出免费贴膜,临走还送了我一个陶瓷水杯;后来又走售后流程拿到了一套硬盘线,虽然最后硬盘是我自己装的,总之开电脑后盖和保不保修没关系,再说也没人和电脑滴血认亲</p>
+
+            </div>
+          </article>
+        </div>
+        <div class="paper" data-aos="fade-in">
+          
+            <div class="next-post">
+              <div class="next">
+                下一篇
+              </div>
+              <a href="https://zhangyiming748.github.io/post/export_disk_magicbook/">
+                <h3 class="post-title">
+                  为魔法书扩容的惨痛经历
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+        
+          
+
+          
+            <div class="paper" data-aos="fade-in">
+              <div id="disqus_thread"></div>
+            </div>
+          
+        
+      </div>
+
+      <div class="sm-12 md-4 col sidebar">
+  <div class="paper info-container">
+    <img src="https://zhangyiming748.github.io/images/avatar.png?v=1772252160336" class="no-responsive avatar">
+    <div class="text-muted">子非鱼,安知鱼之乐?
+子非我,安知我不知鱼之乐?</div>
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      最新文章
+    </div>
+    <div class="row">
+      <ul>
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/zhang_xiao_lin/">不让老人“掉队”：青年志愿者用行动助力老年人融入数字时代</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/Resolving_the_&#34;Installer_hash_mismatch&#34;_issue_when_installing_programs_using_Winget/">解决Winget安装程序时出现“安装程序哈希不匹配”问题</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/daemon/">daemon.json</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/printershare_readme/">PrinterShare 打印共享工具介绍</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/git_commit_errors_faq/">git 报错分析</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/Windows_10_and_11_prevent_IE_redirect_to_Edge/">Windows 10和11中阻止IE跳转Edge</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/tiny_image/">极简镜像</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/go_without_windows_defender/">将 GoLand 运行的 go 进程排除到 Windows Defender 以提高性能</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/MacOS_unable_to_connect_requires_authenticated_Wi-Fi_solution/">macOS无法连接需要通过认证的Wi-Fi解决办法</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://zhangyiming748.github.io/post/simple_docker_image/">极简docker镜像</a>
+            </li>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </ul>
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      标签列表
+    </div>
+    <div class="row">
+      
+        <a href="https://zhangyiming748.github.io/tag/x0vICjEMlj/" class="badge ">
+          志愿者
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/m-fbGUfZt/" class="badge success">
+          Windows
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/OIVRELVRC/" class="badge secondary">
+          Docker
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/vPlO62KOV8/" class="badge ">
+          共享打印机
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/CnfRrFASW/" class="badge ">
+          Git
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/E2-gGJkDg/" class="badge ">
+          Golang
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/wmIzFoEIP/" class="badge secondary">
+          macOS
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/1QbocojG3/" class="badge secondary">
+          AI
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/KI4qLtXEOu/" class="badge success">
+          打假卖课
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/tE7JyHymUI/" class="badge warning">
+          Android
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/tPncTIGxnb/" class="badge warning">
+          bash
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/9S2Hbs5aF/" class="badge secondary">
+          Termux
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/y_Kw8o5PB/" class="badge success">
+          GitHub
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/A_KFuUKds/" class="badge secondary">
+          Proxy
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/vYkbFqA51/" class="badge success">
+          Jetbrains
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/oCK_ZlHhX/" class="badge secondary">
+          openKylin
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/vdcblAPcj/" class="badge warning">
+          adb
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/whd1tmbG7/" class="badge ">
+          Linux
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/1CFQNs3S00/" class="badge ">
+          shell
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/bCXMDy8-U/" class="badge success">
+          ffmpeg
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/qzc1SQq3q/" class="badge ">
+          nVidia
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/7Ibnloi-i/" class="badge warning">
+          WSL
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/X945mIRqj/" class="badge warning">
+          ssh
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/QrQiV5P0S/" class="badge secondary">
+          python
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/85HirN3QA/" class="badge ">
+          收费教程
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/SF9usuVqj/" class="badge ">
+          fedora
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/Sf_ODGuJI/" class="badge ">
+          Gitea
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/PMvg7E-Fr/" class="badge ">
+          双系统
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/yitXMMZ8s/" class="badge warning">
+          xiaomi
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/NOMqGtkmio/" class="badge success">
+          Magisk
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/uSPmjvKQ6/" class="badge ">
+          vim
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/O52S4xod7/" class="badge secondary">
+          nano
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/y2nV8ofCl/" class="badge ">
+          knowledge
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/etvDZTSvp/" class="badge secondary">
+          nginx
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/svHvfBDw2/" class="badge warning">
+          UOS
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/Qs-o9CgUP/" class="badge secondary">
+          五分钟已经很棒了
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/AWiWiIeFs/" class="badge warning">
+          Deepin
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/fGCndQxpp/" class="badge secondary">
+          Raspberry
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/pHreM0cJf/" class="badge ">
+          欧卡2
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/MqthCZEuF/" class="badge warning">
+          HomeBrew
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/9aViM641i/" class="badge success">
+          MySql
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/rMjOn_-Vr/" class="badge ">
+          tencent
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/YHDkAytMg/" class="badge ">
+          oracle
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/Oo5pjqygD/" class="badge secondary">
+          VirtualBox
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/XdGtzoLPj/" class="badge success">
+          ChatGPT
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/KWd48Zkke/" class="badge ">
+          npm
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/FrlwPAtkRd/" class="badge secondary">
+          Nodejs
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/4u1IqSlDf/" class="badge ">
+          openWrt
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/Ps_QL1RK-/" class="badge secondary">
+          Samba
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/auU862seE/" class="badge secondary">
+          小米
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/bZrOQ_cvHC/" class="badge warning">
+          电视盒子
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/9R2pw-kMi/" class="badge secondary">
+          AndroidTV
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/DLTs-6kxd/" class="badge ">
+          COD
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/PNLCUL_aG/" class="badge secondary">
+          Game
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/kONTQ9X-u/" class="badge warning">
+          黑道圣徒
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/3ge3wV01e/" class="badge success">
+          Steam
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/GYLNJVSdF/" class="badge success">
+          vmware
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/1O2FuszwC/" class="badge secondary">
+          snap
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/mWurRYeSd/" class="badge secondary">
+          UWP
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/vU03EjBoU/" class="badge warning">
+          跨平台
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/8M3Y_WiPK/" class="badge secondary">
+          Ubuntu
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/vh0_cV9V9/" class="badge secondary">
+          RDP
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/RlEfsxIRy/" class="badge warning">
+          UTM
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/2Li1q3KkK/" class="badge secondary">
+          WineHq
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/akbUFpHWM/" class="badge ">
+          xfce
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/gHhqkzUH9/" class="badge secondary">
+          ventoy
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/J2hqqgy1q/" class="badge secondary">
+          gparted
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/pmLBkvrEV/" class="badge warning">
+          openEuler
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/W7ZvoH8Ya/" class="badge secondary">
+          华为
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/Lw5WL9LfT/" class="badge secondary">
+          SaintsRowTheThird
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/tOjoRhGkq/" class="badge secondary">
+          Gitlab
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/S5LhsRFML/" class="badge success">
+          AppImage
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/eoLpx9JG3/" class="badge secondary">
+          NTP
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/gAD6snp8U/" class="badge ">
+          NieR
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/7NJFDXwY-/" class="badge secondary">
+          Markdown
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/oOmosMagH/" class="badge ">
+          网络
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/8jNGiW0SY/" class="badge secondary">
+          GTA
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/HhYYX0R-k/" class="badge success">
+          youtube
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/WU7bMNjDy/" class="badge secondary">
+          office
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/HlNHNYrCz/" class="badge success">
+          体育
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/9_I_W5FOy/" class="badge warning">
+          bat
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/j49MIdPra/" class="badge secondary">
+          Androidx86
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/cBDrzFROX/" class="badge ">
+          geek
+        </a>
+      
+        <a href="https://zhangyiming748.github.io/tag/kjzWt_8WM/" class="badge secondary">
+          Gridea
+        </a>
+      
+    </div>
+  </div>
+  <div class="paper">
+    Powered by <a href="https://github.com/zhangyiming748" target="_blank">Gridea</a> | <a class="rss" href="https://zhangyiming748.github.io/atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+
+
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+</script>
+
+
+
+  
+
+  
+    <script src="https://unpkg.com/disqusjs@1.1/dist/disqus.js"></script>
+    <script>
+
+    var options = {
+      shortname: 'zhangyiming748-github-io',
+      apikey: 'nmwRR2QnDaSkyLUKsaGV3rCjyY5HsirUNUQA0YQHN8369jhrR8lFqsVmrPuYeadq',
+    }
+    if ('') {
+      options.api = ''
+    }
+    var dsqjs = new DisqusJS(options)
+
+    </script>
+  
+
+
+
+
+  </body>
+</html>

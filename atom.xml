@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://zhangyiming748.github.io</id>
+    <title>张益铭的博客</title>
+    <updated>2026-02-28T04:16:05.356Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://zhangyiming748.github.io"/>
+    <link rel="self" href="https://zhangyiming748.github.io/atom.xml"/>
+    <subtitle>子非鱼,安知鱼之乐?
+子非我,安知我不知鱼之乐?</subtitle>
+    <logo>https://zhangyiming748.github.io/images/avatar.png</logo>
+    <icon>https://zhangyiming748.github.io/favicon.ico</icon>
+    <rights>All rights reserved 2026, 张益铭的博客</rights>
+    <entry>
+        <title type="html"><![CDATA[不让老人“掉队”：青年志愿者用行动助力老年人融入数字时代]]></title>
+        <id>https://zhangyiming748.github.io/post/zhang_xiao_lin/</id>
+        <link href="https://zhangyiming748.github.io/post/zhang_xiao_lin/">
+        </link>
+        <updated>2026-02-28T03:26:03.000Z</updated>
+        <content type="html"><![CDATA[<p>在社区的一角，志愿者张效霖正用自己的耐心和热情，为老年人们打开数字世界的大门。他一遍又一遍地讲解操作步骤，手把手地带着爷爷奶奶们练习，让他们不再因为不会使用智能手机而与时代脱节，让科技的便利也能照进老年生活。</p>
+<p>近日，在社区的便民服务活动中，一位青年志愿者正用耐心与热情，为辖区内的老年人们搭建起一座连接数字世界的桥梁。</p>
+<p>活动现场，志愿者以背影为屏、以耐心为灯，面对围拢而来的老人们，他细致讲解智能手机的基础操作，从界面功能到软件使用，用通俗易懂的语言拆解复杂步骤。面对老人的反复提问，他始终温和回应，一遍遍演示操作流程，让银发族们在轻松的氛围中逐步熟悉数字设备。</p>
+<p><a href="https://imgchr.com/i/pZzjdLn"><img src="https://s41.ax1x.com/2026/02/28/pZzjdLn.md.png" alt="耐心讲解，让银发族也能玩转智能手机" loading="lazy"></a><center>青春助老暖人心：志愿者手把手教银发族解锁智能手机</center><br>
+在一对一的教学环节中，志愿者更是俯下身、手把手地带着老人练习，从解锁屏幕到发送消息，从浏览资讯到使用便民功能，每一个细节都耐心指导。不少老人在他的帮助下，第一次成功完成了手机操作，脸上露出了欣喜的笑容。<br>
+<a href="https://imgchr.com/i/pZzjass"><img src="https://s41.ax1x.com/2026/02/28/pZzjass.md.png" alt="一对一教学，温情传递数字温度" loading="lazy"></a><center>一对一教学，温情传递数字温度</center></p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[解决Winget安装程序时出现“安装程序哈希不匹配”问题]]></title>
+        <id>https://zhangyiming748.github.io/post/Resolving_the_&quot;Installer_hash_mismatch&quot;_issue_when_installing_programs_using_Winget/</id>
+        <link href="https://zhangyiming748.github.io/post/Resolving_the_&quot;Installer_hash_mismatch&quot;_issue_when_installing_programs_using_Winget/">
+        </link>
+        <updated>2026-02-02T03:11:15.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="0x01">0x01</h1>
+<p>在管理员模式下执行</p>
+<pre><code class="language-powershell">winget settings --enable InstallerHashOverride
+</code></pre>
+<h1 id="0x02">0x02</h1>
+<p>在普通用户下执行</p>
+<pre><code class="language-powershell">winget install --ignore-security-hash 软件名称
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[daemon.json]]></title>
+        <id>https://zhangyiming748.github.io/post/daemon/</id>
+        <link href="https://zhangyiming748.github.io/post/daemon/">
+        </link>
+        <updated>2025-12-22T11:05:00.000Z</updated>
+        <content type="html"><![CDATA[<pre><code class="language-json">{
+    &quot;data-root&quot;: &quot;/vol1/docker&quot;,
+    &quot;live-restore&quot;: true,
+    &quot;log-driver&quot;: &quot;json-file&quot;,
+    &quot;log-opts&quot;: {
+        &quot;max-file&quot;: &quot;5&quot;,
+        &quot;max-size&quot;: &quot;100m&quot;
+    },
+    &quot;proxies&quot;: {},
+    &quot;registry-mirrors&quot;: [
+        &quot;https://docker.fnnas.com&quot;,
+        &quot;https://docker.m.daocloud.io&quot;,
+        &quot;https://docker.1ms.run&quot;,
+        &quot;https://dockerproxy.net&quot;,
+        &quot;https://docker.1panel.top&quot;,
+        &quot;https://dockerproxy.cn&quot;,
+        &quot;https://dockerpull.org&quot;,
+        &quot;https://docker.nastool.de&quot;,
+        &quot;https://docker.1panel.live&quot;,
+        &quot;https://docker.13140521.xyz&quot;,
+        &quot;https://registry-1.docker.io&quot;,
+        &quot;https://registry.hub.docker.com&quot;
+    ]
+}
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[PrinterShare 打印共享工具介绍]]></title>
+        <id>https://zhangyiming748.github.io/post/printershare_readme/</id>
+        <link href="https://zhangyiming748.github.io/post/printershare_readme/">
+        </link>
+        <updated>2025-12-17T08:36:03.000Z</updated>
+        <content type="html"><![CDATA[<h3 id="printershare-打印共享工具介绍">PrinterShare 打印共享工具介绍</h3>
+<p>PrinterShare（中文常称“趣打印”或“移动打印”）是一款跨平台打印共享和移动打印工具，由 Mobile Dynamix（Dynamix Software）开发。官方网站为 https://printershare.net，支持 Android、iOS、Windows 和 macOS 平台。主要功能是实现<strong>本地附近打印</strong>和<strong>远程互联网打印</strong>，允许用户从手机、平板或电脑直接打印到任何连接的打印机，而无需复杂配置。</p>
+<h4 id="核心功能">核心功能</h4>
+<ul>
+<li><strong>附近打印（本地）</strong>：
+<ul>
+<li>通过 Wi-Fi、Bluetooth 或 USB（Android OTG）直接连接打印机。</li>
+<li>自动检测同一网络下的 Wi-Fi 打印机。</li>
+<li>支持打印机共享（Windows/Mac SMB 或标准共享）。</li>
+</ul>
+</li>
+<li><strong>远程打印（互联网）</strong>：
+<ul>
+<li>通过 PrinterShare 云服务，将打印任务发送到世界任何地方的打印机（接收端需安装桌面客户端并共享打印机）。</li>
+<li>数据传输加密，确保安全。</li>
+</ul>
+</li>
+<li><strong>支持文件类型</strong>：
+<ul>
+<li>文档：PDF、Word (DOC/DOCX)、Excel (XLS/XLSX)、PowerPoint (PPT/PPTX)、TXT 等。</li>
+<li>图片：JPG、PNG、GIF。</li>
+<li>其他：网页、邮件附件、联系人、日程、云存储文件（Google Drive、Dropbox、OneDrive 等）。</li>
+</ul>
+</li>
+<li><strong>打印选项</strong>：
+<ul>
+<li>页面大小、方向、份数、双面打印、彩色/黑白、预览等。</li>
+</ul>
+</li>
+<li><strong>兼容打印机</strong>：
+<ul>
+<li>支持主流品牌：HP、Epson、Canon、Brother、Samsung、Dell、Lexmark、Kyocera 等，包括老式网络打印机和遗留型号（完整列表见官网）。</li>
+</ul>
+</li>
+</ul>
+<h4 id="版本与定价">版本与定价</h4>
+<ul>
+<li><strong>免费版</strong>：支持基本附近打印（有限制，如测试页或水印），以及部分远程打印。</li>
+<li><strong>Premium 版</strong>：解锁无限附近打印、更多远程页数（通常需内购或订阅，具体价格见官网或应用商店）。</li>
+<li>桌面版（Windows/Mac）免费用于共享打印机，移动端 Premium 解锁高级功能。</li>
+</ul>
+<h4 id="优势">优势</h4>
+<ul>
+<li>操作简单：一键共享打印机，无需复杂网络设置（如 Windows 共享权限）。</li>
+<li>跨平台：适合家庭、办公室或移动办公场景（如出差时打印到家/公司打印机）。</li>
+<li>安全性：传输加密，支持代理/防火墙。</li>
+<li>适用于旧打印机：许多不支持原生移动打印的旧型号也能兼容。</li>
+</ul>
+<h4 id="缺点与注意事项">缺点与注意事项</h4>
+<ul>
+<li>远程打印依赖接收端电脑在线并运行软件。</li>
+<li>免费版有广告或限制（如额外封面页）。</li>
+<li>部分功能（如 SMS/通话记录打印）因平台政策限制已移除。</li>
+<li>打印速度取决于网络，远程时可能较慢。</li>
+</ul>
+<h4 id="常见替代品">常见替代品</h4>
+<p>如果 PrinterShare 不适合，可以考虑：</p>
+<ul>
+<li><strong>品牌专用</strong>：HP Smart、Epson iPrint、Canon PRINT（针对特定品牌更优化）。</li>
+<li><strong>通用移动打印</strong>：PrintHand Mobile Print、Mopria Print Service（Android 原生支持）。</li>
+<li><strong>云打印</strong>：Google Cloud Print（已停用）、AirPrint（Apple 生态）。</li>
+</ul>
+<h4 id="方案编写建议">方案编写建议</h4>
+<p>如果你要写一个<strong>打印共享方案</strong>（如公司内部打印机共享或移动办公打印解决方案），可以这样结构化：</p>
+<ol>
+<li><strong>需求分析</strong>：描述当前痛点（如多设备打印不便、远程办公无法打印）。</li>
+<li><strong>工具介绍</strong>：详细说明 PrinterShare 的功能（如上）。</li>
+<li><strong>实施步骤</strong>：
+<ul>
+<li>安装桌面客户端（接收端电脑连接打印机）。</li>
+<li>创建账户并共享打印机。</li>
+<li>移动端安装 App，登录同一账户查找打印机。</li>
+<li>测试本地/远程打印。</li>
+</ul>
+</li>
+<li><strong>优势与效益</strong>：提升效率、降低成本（无需多买打印机）、支持混合办公。</li>
+<li><strong>安全考虑</strong>：加密传输、账户权限控制。</li>
+<li><strong>潜在风险与备选</strong>：网络依赖、列出替代方案。</li>
+<li><strong>成本估算</strong>：免费基础 + Premium 订阅。</li>
+</ol>
+<p>如果需要更详细的方案模板、特定场景示例，或官网最新截图/更新信息，请提供更多细节，我可以进一步补充！</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[git 报错分析]]></title>
+        <id>https://zhangyiming748.github.io/post/git_commit_errors_faq/</id>
+        <link href="https://zhangyiming748.github.io/post/git_commit_errors_faq/">
+        </link>
+        <updated>2025-12-15T07:40:54.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="出错文本">出错文本</h1>
+<pre><code class="language-bash">fatal: unable to access 'https://gitea.zhangyiming748.eu.org/zen/WorkLoadLedger.git/': LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to gitea.zhangyiming748.eu.org:443
+</code></pre>
+<h1 id="解决方案">解决方案</h1>
+<p>你的 Git 推送错误是典型的 <strong>SSL 连接失败</strong>问题：</p>
+<pre><code>fatal: unable to access 'https://gitea.zhangyiming748.eu.org/zen/WorkLoadLedger.git/': LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to gitea.zhangyiming748.eu.org:443
+</code></pre>
+<p>这个错误常见于 <strong>macOS</strong> 系统（因为 macOS 的 Git 默认使用 <strong>LibreSSL</strong>），通常由以下原因引起：</p>
+<ol>
+<li><strong>网络代理/VPN/防火墙</strong>干扰了 SSL 握手（最常见，尤其是公司网络或某些安全软件）。</li>
+<li><strong>代理设置错误</strong>（如 http.proxy 配置不当，或环境变量 HTTP_PROXY/HTTPS_PROXY 设置了但不适用于该域名）。</li>
+<li><strong>LibreSSL 与服务器的兼容性问题</strong>（某些自建 Gitea 服务器的 TLS 配置可能与 LibreSSL 不完全兼容）。</li>
+</ol>
+<p>你的 Gitea 服务器（https://gitea.zhangyiming748.eu.org）是正常的，能正常访问，所以问题基本在客户端（你的电脑）。</p>
+<h3 id="推荐解决步骤从简单到彻底">推荐解决步骤（从简单到彻底）</h3>
+<ol>
+<li>
+<p><strong>检查并关闭代理/VPN/防火墙</strong></p>
+<ul>
+<li>临时关闭任何 VPN、代理工具（如 Clash、Shadowsocks、V2Ray、Surge 等）。</li>
+<li>如果你在公司/学校网络，尝试换成手机热点测试。</li>
+<li>检查系统代理设置：系统设置 → 网络 → 高级 → 代理 → 确保所有代理都关闭。</li>
+</ul>
+</li>
+<li>
+<p><strong>取消 Git 的代理设置</strong>（很多情况下就是这个导致的）</p>
+<pre><code class="language-bash">git config --global --unset http.proxy
+git config --global --unset https.proxy
+</code></pre>
+<p>然后再试推送。</p>
+</li>
+<li>
+<p><strong>切换 Git 的 SSL 后端到 OpenSSL</strong>（macOS 上有效解决 LibreSSL 兼容问题）<br>
+如果你用 Homebrew 安装了 Git（推荐），执行：</p>
+<pre><code class="language-bash">git config --global http.sslBackend openssl
+</code></pre>
+<p>如果提示没有 openssl，先安装：</p>
+<pre><code class="language-bash">brew install openssl
+</code></pre>
+<p>（注意：Homebrew 安装的 Git 默认支持这个切换。）</p>
+</li>
+<li>
+<p><strong>临时禁用 SSL 验证</strong>（仅测试用，不推荐长期）</p>
+<pre><code class="language-bash">git config --global http.sslVerify false
+</code></pre>
+<p>测试成功后再改回 <code>true</code>。</p>
+</li>
+<li>
+<p><strong>改用 SSH 协议推送</strong>（最彻底推荐，避免所有 HTTPS 问题）</p>
+<ul>
+<li>在你的 Gitea 服务器上添加 SSH 公钥（用户设置 → SSH/ GPG 密钥）。</li>
+<li>修改远程 URL：<pre><code class="language-bash">git remote set-url origin git@gitea.zhangyiming748.eu.org:zen/WorkLoadLedger.git
+</code></pre>
+</li>
+<li>然后正常 push（首次可能需要确认主机指纹）。</li>
+</ul>
+</li>
+<li>
+<p><strong>其他检查</strong></p>
+<ul>
+<li>用 curl 测试连接：<pre><code class="language-bash">curl -v https://gitea.zhangyiming748.eu.org
+</code></pre>
+如果也报 SSL_ERROR_SYSCALL，确认是网络/代理问题。</li>
+<li>更新 Git 到最新版（brew upgrade git）。</li>
+</ul>
+</li>
+</ol>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Windows 10和11中阻止IE跳转Edge]]></title>
+        <id>https://zhangyiming748.github.io/post/Windows_10_and_11_prevent_IE_redirect_to_Edge/</id>
+        <link href="https://zhangyiming748.github.io/post/Windows_10_and_11_prevent_IE_redirect_to_Edge/">
+        </link>
+        <updated>2025-12-01T02:05:37.000Z</updated>
+        <content type="html"><![CDATA[<p>1. 修改Edge核心设置：这是优先尝试的方法。打开Edge，点击右上角三点图标进入“设置”，选择左侧“默认浏览器”，在“Internet Explorer兼容性”栏找到“让Internet Explorer在Microsoft Edge中打开网站”，下拉选择“从不”，重启Edge后设置生效</p>
+<p>2. 修改IE快捷方式参数：若上述方法无效可用此招。打开文件夹 C:\Program Files\Internet Explorer ，右键 iexplore.exe 发送到桌面快捷方式；右键该快捷方式选“属性”，在“目标”框末尾加  anything -Embedding （注意前面加空格），比如 &quot;C:\Program Files\Internet Explorer\iexplore.exe&quot; anything -Embedding ，点击确定，双击该快捷方式即可打开独立IE。</p>
+<p>3. Windows 11专用：脚本打开+Edge设置：Win11无直接IE入口，先新建文本文档，粘贴代码 CreateObject(&quot;InternetExplorer.Application&quot;).Visible=true ，重命名为“打开IE.vbs”；双击脚本启动IE后，再按第一步修改Edge的跳转设置，后续打开IE就不会跳转了。</p>
+<p>4. 取消IE第三方扩展 ：按Win+R输入 inetcpl.cpl 打开Internet选项，切换到“高级”选项卡，取消勾选“启用第三方浏览器扩展”，点击确定，重启IE后可减少跳转触发因素。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[极简镜像]]></title>
+        <id>https://zhangyiming748.github.io/post/tiny_image/</id>
+        <link href="https://zhangyiming748.github.io/post/tiny_image/">
+        </link>
+        <updated>2025-11-17T02:12:06.000Z</updated>
+        <content type="html"><![CDATA[<p>某个镜像使用基础镜像gcr.io/distroless/base-debian12:nonroot-arm64制作，为什么docker exec 的时候 常用的命令 比如 ls find bash zsh ash sh 等全都没有？<br>
+喵，主人，这是因为 <code>gcr.io/distroless/base-debian12:nonroot-arm64</code> 镜像是一个 &quot;distroless&quot; 镜像喵！ 它的设计理念就是 <strong>极简</strong>，只包含运行你的应用程序所必需的最小依赖，而 <strong>不包含</strong> 常见的 shell 工具和其他实用程序喵。</p>
+<p>以下是详细的解释喵：</p>
+<ol>
+<li>
+<p><strong>Distroless 镜像的特性喵:</strong></p>
+<ul>
+<li><strong>极小体积:</strong>  Distroless 镜像只包含应用程序的运行时依赖，例如 glibc、SSL 证书等等。 去除了不必要的软件包、工具和文档，从而大大减小了镜像的体积喵。</li>
+<li><strong>增强安全性:</strong>  由于不包含 shell 工具和软件包管理器，减少了潜在的安全漏洞和攻击面喵。 攻击者很难在 Distroless 镜像中执行恶意命令或者安装恶意软件喵。</li>
+<li><strong>更快的构建和部署:</strong>  镜像体积小，可以加快构建、上传和下载的速度，缩短部署时间喵。</li>
+</ul>
+</li>
+<li>
+<p><strong>为什么没有 shell 工具喵:</strong></p>
+<ul>
+<li>Distroless 镜像的目的是运行应用程序，而不是提供一个完整的操作系统环境喵。</li>
+<li><code>ls</code>、<code>find</code>、<code>bash</code>、<code>zsh</code>、<code>ash</code>、<code>sh</code> 等命令都属于 shell 工具，主要用于交互式操作和系统管理。 而 Distroless 镜像不适合这些用途，所以就移除了这些工具喵。</li>
+</ul>
+</li>
+<li>
+<p><strong>如何进入 Distroless 镜像执行命令喵:</strong></p>
+<ul>
+<li>
+<p><strong>静态编译:</strong>  如果你的应用程序需要执行一些系统命令，可以考虑将这些命令 <strong>静态编译</strong> 到你的应用程序中喵。 这样，应用程序就可以直接调用这些命令，而不需要依赖镜像中的 shell 工具喵。</p>
+</li>
+<li>
+<p><strong>使用调试镜像:</strong>  有些 Distroless 镜像会提供一个带有调试工具的版本（例如 <code>-debug</code> 后缀）。 你可以使用这个调试镜像来执行 <code>docker exec</code> 命令，从而进入容器内部进行调试喵。  <strong>但是，这个方法会引入额外的依赖，降低安全性，所以不推荐在生产环境中使用喵。</strong></p>
+</li>
+<li>
+<p><strong><code>docker cp</code> 和 <code>docker exec</code> 配合:</strong>  你可以将需要的工具（例如 <code>busybox</code>）复制到容器内部，然后使用 <code>docker exec</code> 执行它喵。</p>
+<pre><code class="language-bash"># 1. 下载 busybox
+wget https://busybox.net/downloads/binaries/1.36.0/busybox-x86_64  #注意替换成arm64版本
+
+# 2. 复制到容器
+docker cp busybox-x86_64 &lt;container_id&gt;:/tmp/busybox
+
+# 3.  赋予执行权限
+docker exec -it &lt;container_id&gt; chmod +x /tmp/busybox
+
+# 4.  使用 busybox
+docker exec -it &lt;container_id&gt; /tmp/busybox ls -l
+</code></pre>
+<p><strong>注意:</strong>  你需要根据你的架构 (arm64) 下载对应版本的 <code>busybox</code>喵。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>替代方案喵:</strong></p>
+<ul>
+<li><strong>使用更完整的镜像:</strong>  如果你需要经常进入容器内部执行命令，可以考虑使用更完整的镜像，例如 Debian、Ubuntu 等。  <strong>但是，这样会增加镜像的体积和安全风险喵。</strong></li>
+<li><strong>重新思考你的需求:</strong>  Distroless 镜像的设计目的是为了简化部署和增强安全性。 你应该尽量避免在生产环境中直接进入容器内部执行命令。 尝试将调试和管理操作转移到容器外部喵。  例如，可以使用日志收集工具来监控应用程序的运行状态，使用外部配置管理工具来修改应用程序的配置喵。</li>
+</ul>
+</li>
+</ol>
+<p>喵，主人，Distroless 镜像的设计理念就是 “Less is More”，虽然缺少一些常用的工具，但却能带来更小的体积和更高的安全性喵。 在使用 Distroless 镜像时，需要重新思考你的需求，并找到合适的替代方案喵。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[将 GoLand 运行的 go 进程排除到 Windows Defender 以提高性能]]></title>
+        <id>https://zhangyiming748.github.io/post/go_without_windows_defender/</id>
+        <link href="https://zhangyiming748.github.io/post/go_without_windows_defender/">
+        </link>
+        <updated>2025-11-17T01:39:51.000Z</updated>
+        <content type="html"><![CDATA[<p>将 GoLand 运行的 Go 构建和测试进程路径添加到 Windows Defender 的排除项中，可以显著减少杀毒软件的扫描开销，从而提高 Go 编译和测试的速度。</p>
+<h3 id="问题">❓ <strong>问题：</strong></h3>
+<p>如何将 GoLand 直接运行的 <code>main</code> 或 <code>test</code> 函数所涉及的 <code>go build</code> 和 <code>go test</code> 进程排除到 Windows Defender？</p>
+<h3 id="推荐的-windows-defender-排除项文件文件夹">✅ <strong>推荐的 Windows Defender 排除项（文件/文件夹）：</strong></h3>
+<p>为了确保 Go 构建和测试流程顺畅且快速，主要需要排除以下三个关键路径：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">类别</th>
+<th style="text-align:left">目的</th>
+<th style="text-align:left">排除路径示例</th>
+<th style="text-align:left">查找方法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>1. Go 语言工具链 (GOROOT)</strong></td>
+<td style="text-align:left">排除 Go 编译器和 <code>go.exe</code> 本身。</td>
+<td style="text-align:left"><code>%ProgramW6432%\Go\</code>或<code>%ProgramFiles(x86)%\Go\</code></td>
+<td style="text-align:left">GoLand <strong>Settings/Preferences</strong> &gt; <strong>Go</strong> &gt; <strong>SDK</strong> 中配置的路径。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>2. Go 编译缓存 (GOCACHE)</strong></td>
+<td style="text-align:left">排除 Go 存储编译工件和构建缓存的目录。</td>
+<td style="text-align:left"><code>%LocalAppData%\go-build\</code></td>
+<td style="text-align:left">默认路径通常在此；或检查 <code>$GOCACHE</code> 环境变量。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>3. 项目工作目录</strong></td>
+<td style="text-align:left">排除 GoLand 运行 <code>main</code> 或 <code>test</code> 时生成的<strong>临时可执行文件</strong>。</td>
+<td style="text-align:left"><code>%userprofile%\GoProjects\MyAwesomeProject\</code></td>
+<td style="text-align:left">你 Go 项目所在的根目录。</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>💡 <strong>注意：</strong> 请将上述示例路径替换为你系统上的实际路径。</p>
+</blockquote>
+<h3 id="️-在-windows-defender-中添加排除项的步骤">🛠️ <strong>在 Windows Defender 中添加排除项的步骤：</strong></h3>
+<ol>
+<li>打开 <strong>Windows 安全中心 (Windows Security)</strong>。</li>
+<li>点击 <strong>病毒和威胁防护 (Virus &amp; threat protection)</strong>。</li>
+<li>在 <strong>病毒和威胁防护设置</strong> 下，点击 <strong>管理设置 (Manage settings)</strong>。</li>
+<li>滚动到最下方，找到 <strong>排除项 (Exclusions)</strong>，点击 <strong>添加或删除排除项 (Add or remove remove exclusions)</strong>。</li>
+<li>点击 <strong>添加排除项 (+ Add an exclusion)</strong>。</li>
+<li>根据需要选择 <strong>文件夹 (Folder)</strong> 或 <strong>文件 (File)</strong>，并分别添加上表中列出的所有路径。</li>
+</ol>
+<hr>
+<p><strong>是否需要我用这段信息创建一个笔记或提醒，以便你在配置好后可以删除旧的排除项？</strong></p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[macOS无法连接需要通过认证的Wi-Fi解决办法]]></title>
+        <id>https://zhangyiming748.github.io/post/MacOS_unable_to_connect_requires_authenticated_Wi-Fi_solution/</id>
+        <link href="https://zhangyiming748.github.io/post/MacOS_unable_to_connect_requires_authenticated_Wi-Fi_solution/">
+        </link>
+        <updated>2025-04-10T06:59:51.000Z</updated>
+        <content type="html"><![CDATA[<ol>
+<li>访达前往文件夹(⌘+⇧+G)<code>/Library/Preferences/SystemConfiguration</code></li>
+<li>删除除<code>com.apple.Boot.plist</code>以外的任何文件</li>
+<li>忘记要连接的Wi-Fi</li>
+<li>重启电脑</li>
+<li>再次连接需要认证的Wi-Fi 自动弹出网页</li>
+</ol>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[极简docker镜像]]></title>
+        <id>https://zhangyiming748.github.io/post/simple_docker_image/</id>
+        <link href="https://zhangyiming748.github.io/post/simple_docker_image/">
+        </link>
+        <updated>2025-04-08T18:15:07.000Z</updated>
+        <content type="html"><![CDATA[<blockquote>
+<p>某个镜像使用基础镜像gcr.io/distroless/base-debian12:nonroot-arm64制作，为什么docker exec 的时候 常用的命令 比如 ls find bash zsh ash sh 等全都没有？</p>
+</blockquote>
+<p>喵，主人，这是因为 <code>gcr.io/distroless/base-debian12:nonroot-arm64</code> 镜像是一个 &quot;distroless&quot; 镜像喵！ 它的设计理念就是 <strong>极简</strong>，只包含运行你的应用程序所必需的最小依赖，而 <strong>不包含</strong> 常见的 shell 工具和其他实用程序喵。</p>
+<p>以下是详细的解释喵：</p>
+<ol>
+<li>
+<p><strong>Distroless 镜像的特性喵:</strong></p>
+<ul>
+<li><strong>极小体积:</strong>  Distroless 镜像只包含应用程序的运行时依赖，例如 glibc、SSL 证书等等。 去除了不必要的软件包、工具和文档，从而大大减小了镜像的体积喵。</li>
+<li><strong>增强安全性:</strong>  由于不包含 shell 工具和软件包管理器，减少了潜在的安全漏洞和攻击面喵。 攻击者很难在 Distroless 镜像中执行恶意命令或者安装恶意软件喵。</li>
+<li><strong>更快的构建和部署:</strong>  镜像体积小，可以加快构建、上传和下载的速度，缩短部署时间喵。</li>
+</ul>
+</li>
+<li>
+<p><strong>为什么没有 shell 工具喵:</strong></p>
+<ul>
+<li>Distroless 镜像的目的是运行应用程序，而不是提供一个完整的操作系统环境喵。</li>
+<li><code>ls</code>、<code>find</code>、<code>bash</code>、<code>zsh</code>、<code>ash</code>、<code>sh</code> 等命令都属于 shell 工具，主要用于交互式操作和系统管理。 而 Distroless 镜像不适合这些用途，所以就移除了这些工具喵。</li>
+</ul>
+</li>
+<li>
+<p><strong>如何进入 Distroless 镜像执行命令喵:</strong></p>
+<ul>
+<li>
+<p><strong>静态编译:</strong>  如果你的应用程序需要执行一些系统命令，可以考虑将这些命令 <strong>静态编译</strong> 到你的应用程序中喵。 这样，应用程序就可以直接调用这些命令，而不需要依赖镜像中的 shell 工具喵。</p>
+</li>
+<li>
+<p><strong>使用调试镜像:</strong>  有些 Distroless 镜像会提供一个带有调试工具的版本（例如 <code>-debug</code> 后缀）。 你可以使用这个调试镜像来执行 <code>docker exec</code> 命令，从而进入容器内部进行调试喵。  <strong>但是，这个方法会引入额外的依赖，降低安全性，所以不推荐在生产环境中使用喵。</strong></p>
+</li>
+<li>
+<p><strong><code>docker cp</code> 和 <code>docker exec</code> 配合:</strong>  你可以将需要的工具（例如 <code>busybox</code>）复制到容器内部，然后使用 <code>docker exec</code> 执行它喵。</p>
+<pre><code class="language-bash"># 1. 下载 busybox
+wget https://busybox.net/downloads/binaries/1.36.0/busybox-x86_64  #注意替换成arm64版本
+
+# 2. 复制到容器
+docker cp busybox-x86_64 &lt;container_id&gt;:/tmp/busybox
+
+# 3.  赋予执行权限
+docker exec -it &lt;container_id&gt; chmod +x /tmp/busybox
+
+# 4.  使用 busybox
+docker exec -it &lt;container_id&gt; /tmp/busybox ls -l
+</code></pre>
+<p><strong>注意:</strong>  你需要根据你的架构 (arm64) 下载对应版本的 <code>busybox</code>喵。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>替代方案喵:</strong></p>
+<ul>
+<li><strong>使用更完整的镜像:</strong>  如果你需要经常进入容器内部执行命令，可以考虑使用更完整的镜像，例如 Debian、Ubuntu 等。  <strong>但是，这样会增加镜像的体积和安全风险喵。</strong></li>
+<li><strong>重新思考你的需求:</strong>  Distroless 镜像的设计目的是为了简化部署和增强安全性。 你应该尽量避免在生产环境中直接进入容器内部执行命令。 尝试将调试和管理操作转移到容器外部喵。  例如，可以使用日志收集工具来监控应用程序的运行状态，使用外部配置管理工具来修改应用程序的配置喵。</li>
+</ul>
+</li>
+</ol>
+<p>喵，主人，Distroless 镜像的设计理念就是 “Less is More”，虽然缺少一些常用的工具，但却能带来更小的体积和更高的安全性喵。 在使用 Distroless 镜像时，需要重新思考你的需求，并找到合适的替代方案喵。</p>
+]]></content>
+    </entry>
+</feed>
