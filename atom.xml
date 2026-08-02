@@ -1,0 +1,826 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://zhangyiming748.github.io</id>
+    <title>张益铭的博客</title>
+    <updated>2026-08-02T09:15:21.372Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://zhangyiming748.github.io"/>
+    <link rel="self" href="https://zhangyiming748.github.io/atom.xml"/>
+    <subtitle>子非鱼,安知鱼之乐?
+子非我,安知我不知鱼之乐?</subtitle>
+    <logo>https://zhangyiming748.github.io/images/avatar.png</logo>
+    <icon>https://zhangyiming748.github.io/favicon.ico</icon>
+    <rights>All rights reserved 2026, 张益铭的博客</rights>
+    <entry>
+        <title type="html"><![CDATA[macOS 可用的OpenAI-whisper方案]]></title>
+        <id>https://zhangyiming748.github.io/post/macos_useful_OpenAI_whisper/</id>
+        <link href="https://zhangyiming748.github.io/post/macos_useful_OpenAI_whisper/">
+        </link>
+        <updated>2026-08-02T09:12:09.000Z</updated>
+        <content type="html"><![CDATA[<p>完整操作手册如下（最终输出为 <strong>SRT 字幕文件</strong>）：</p>
+<hr>
+<h1 id="apple-silicon-本地-whisper-字幕生成手册mlx-whisper">Apple Silicon 本地 Whisper 字幕生成手册（mlx-whisper）</h1>
+<p>适用环境：macOS + Apple M 系列芯片<br>
+目标：隔离安装 + 生成 <code>.srt</code> 字幕文件</p>
+<hr>
+<h2 id="1-创建隔离环境">1. 创建隔离环境</h2>
+<pre><code class="language-bash"># 创建专用目录
+mkdir -p ~/whisper-isolated &amp;&amp; cd ~/whisper-isolated
+
+# 创建虚拟环境
+python3 -m venv venv
+
+# 激活虚拟环境
+source venv/bin/activate
+</code></pre>
+<p>激活成功后，命令行前面会出现 <code>(venv)</code>。</p>
+<hr>
+<h2 id="2-安装依赖">2. 安装依赖</h2>
+<pre><code class="language-bash"># 升级 pip
+pip install --upgrade pip
+
+# 安装 mlx-whisper 和 huggingface_hub
+pip install mlx-whisper huggingface_hub
+
+# 安装 ffmpeg（处理音视频必需）
+brew install ffmpeg
+</code></pre>
+<hr>
+<h2 id="3-登录-hugging-face下载模型需要">3. 登录 Hugging Face（下载模型需要）</h2>
+<pre><code class="language-bash">python -c &quot;from huggingface_hub import login; login()&quot;
+</code></pre>
+<ol>
+<li>浏览器打开：https://huggingface.co/settings/tokens</li>
+<li>新建一个 <strong>Read</strong> 权限的 Token</li>
+<li>复制 Token，粘贴到终端（粘贴时不显示字符，正常）</li>
+<li>按回车完成登录</li>
+</ol>
+<hr>
+<h2 id="4-生成-srt-字幕最终命令">4. 生成 SRT 字幕（最终命令）</h2>
+<pre><code class="language-bash">mlx_whisper '/Users/zen/Documents/media/Fucking The Police!The Best Of Hot Cops.mp4' \
+  --model mlx-community/whisper-medium.en-mlx \
+  --language en \
+  --output-format srt \
+  --output-dir .
+</code></pre>
+<h3 id="参数说明">参数说明：</h3>
+<ul>
+<li><code>--model</code>：使用 medium.en 模型（英文优化）</li>
+<li><code>--language en</code>：指定英语</li>
+<li><code>--output-format srt</code>：输出 SRT 字幕文件</li>
+<li><code>--output-dir .</code>：输出到当前目录</li>
+</ul>
+<p>运行成功后，会在当前目录生成：</p>
+<pre><code>Fucking The Police!The Best Of Hot Cops.srt
+</code></pre>
+<hr>
+<h2 id="5-常用可选参数">5. 常用可选参数</h2>
+<pre><code class="language-bash"># 同时输出多种格式（txt + srt + json）
+--output-format all
+
+# 指定输出文件名（不带扩展名）
+--output-name my_subtitle
+
+# 开启词级时间戳（更精确的字幕时间）
+--word-timestamps True
+
+# 翻译成英文（非英语音频时用）
+--task translate
+</code></pre>
+<hr>
+<h2 id="6-以后再次使用">6. 以后再次使用</h2>
+<pre><code class="language-bash">cd ~/whisper-isolated
+source venv/bin/activate
+
+mlx_whisper '你的视频或音频路径' \
+  --model mlx-community/whisper-medium.en-mlx \
+  --language en \
+  --output-format srt
+</code></pre>
+<hr>
+<h2 id="7-完全删除环境不影响系统">7. 完全删除环境（不影响系统）</h2>
+<pre><code class="language-bash">rm -rf ~/whisper-isolated
+</code></pre>
+<p>模型缓存默认在 <code>~/.cache/huggingface</code>，如需一并清理可执行：</p>
+<pre><code class="language-bash">rm -rf ~/.cache/huggingface
+</code></pre>
+<hr>
+<p><strong>当前正在运行的命令如果没有加 <code>--output-format srt</code>，生成的是 txt。</strong><br>
+等它跑完后，直接用上面第 4 步的完整命令重新跑一次即可得到 SRT 文件。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[剑星CNS相关问题]]></title>
+        <id>https://zhangyiming748.github.io/post/stellarblade_use_cns/</id>
+        <link href="https://zhangyiming748.github.io/post/stellarblade_use_cns/">
+        </link>
+        <updated>2026-06-24T11:30:20.000Z</updated>
+        <content type="html"><![CDATA[<p><strong>CNS 是《剑星》（Stellar Blade）的一个重要 MOD 框架，全称 <strong>Custom Nanosuit System</strong>（自定义纳米服系统）。</strong></p>
+<p>它专门解决传统“替换型”服装 MOD 的冲突问题：</p>
+<ul>
+<li>普通 MOD 是覆盖原版某件衣服（容易冲突、只能选一件）。</li>
+<li><strong>CNS MOD</strong> 是<strong>新增</strong>衣服，玩家可以在游戏内通过 UI 菜单自由切换无限多套自定义服装、脸部、发型、耳环、眼镜、武器等（支持 Eve、Adam、Lily、无人机）。</li>
+<li>按 <strong>N 键</strong>（或 Alt+N）在游戏世界里（不是菜单界面！）就能呼出切换界面，非常方便。</li>
+</ul>
+<p>标记了 <strong>“cns”</strong> 的 MOD 就是专门适配这个系统的，必须先装好 CNS 主框架才能用。</p>
+<h3 id="安装步骤保姆级pc-steam-版">安装步骤（保姆级，PC Steam 版）</h3>
+<h4 id="1-先安装-ue4ssmod-加载器必备">1. 先安装 UE4SS（MOD 加载器，必备）</h4>
+<ul>
+<li>去 GitHub 下载 <strong>Stellar Blade 专用版</strong>（不要用 dev 开发版）：<br>
+https://github.com/Chrisr0/RE-UE4SS/releases</li>
+<li>下载最新稳定版 zip，解压后把下面两个东西复制到游戏目录：
+<ul>
+<li><code>dwmapi.dll</code></li>
+<li><code>ue4ss</code> 文件夹</li>
+</ul>
+</li>
+<li>路径：<code>Steam\steamapps\common\StellarBlade\SB\Binaries\Win64\</code></li>
+</ul>
+<h4 id="2-再安装-cns-主框架">2. 再安装 CNS 主框架</h4>
+<ul>
+<li>Nexus 官网下载最新版（目前 2.2 版左右）：<br>
+https://www.nexusmods.com/stellarblade/mods/1496</li>
+<li>解压后把整个 <strong>SB 文件夹</strong> 合并到游戏根目录（覆盖/合并即可）：<br>
+<code>Steam\steamapps\common\StellarBlade\SB\</code></li>
+<li>安装完后会多出几个关键文件夹：
+<ul>
+<li><code>SB\Content\Paks\~mods\CustomNanosuitSystem</code> ← 以后放纯 JSON 的 CNS MOD</li>
+<li><code>SB\Content\Paks\LogicMods</code> ← CNS 的核心 pak 文件在这里</li>
+</ul>
+</li>
+</ul>
+<h4 id="3-安装标记-cns-的服装-mod">3. 安装标记 “cns” 的服装 MOD</h4>
+<ul>
+<li>大部分 CNS MOD 有两种形式：
+<ul>
+<li><strong>带 .pak 的完整版</strong>：直接像普通 MOD 一样解压合并到游戏 SB 文件夹。</li>
+<li><strong>纯 .json 版</strong>（最常见）：把里面的 .dekcns.json 文件（和对应贴图）扔进：<br>
+<code>SB\Content\Paks\~mods\CustomNanosuitSystem\</code></li>
+</ul>
+</li>
+<li>如果你下载的是传统“替换型”MOD，想转成 CNS 版，可以用 <strong>CNS Repacker</strong> 工具一键转换：<br>
+https://www.nexusmods.com/stellarblade/mods/1936</li>
+</ul>
+<h4 id="4-启动游戏验证">4. 启动游戏验证</h4>
+<ul>
+<li>进游戏后在<strong>游戏世界</strong>里（不是菜单）按 <strong>N 键</strong>，应该弹出 CNS 切换界面，能看到所有装好的 CNS 服装。</li>
+<li>如果按不出：检查 UE4SS 是否正确安装、游戏版本是否匹配、是否用了 Mod 管理器冲突。</li>
+</ul>
+<h3 id="推荐懒人方案中文玩家最友好">推荐懒人方案（中文玩家最友好）</h3>
+<ul>
+<li>B站搜 “剑星 CNS 安装教程” 或 “剑星 MOD 安装器”，有很多嘴对嘴视频：
+<ul>
+<li>阿黄玩游戏的教程：https://www.bilibili.com/video/BV1irgGzuEG3/</li>
+<li>还有一键安装器视频，能自动处理 UE4SS + CNS + 大量服装。</li>
+</ul>
+</li>
+<li>很多大佬会打包 “CNS 懒人整合包”，下载后直接解压覆盖就行（但记得备份存档）。</li>
+</ul>
+<p><strong>注意事项</strong>：</p>
+<ul>
+<li>CNS MOD 不会覆盖原版衣服，所以可以和替换型 MOD 混用，但优先用 CNS 版避免冲突。</li>
+<li>游戏更新后可能需要更新 UE4SS 和 CNS（Nexus 首页会标明兼容版本）。</li>
+<li>Steam Deck 用户路径稍有不同，但原理一样。</li>
+</ul>
+<p>装好后你就可以随便换衣服了，基本告别“只能穿一套”的烦恼！有具体哪个 MOD 装不上，贴链接我再帮你看。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Windows开启打印机共享]]></title>
+        <id>https://zhangyiming748.github.io/post/windows_printer_share/</id>
+        <link href="https://zhangyiming748.github.io/post/windows_printer_share/">
+        </link>
+        <updated>2026-06-24T11:28:52.000Z</updated>
+        <content type="html"><![CDATA[<p><strong>以下是 Windows 安全更新后恢复自带打印机共享功能的完整解决步骤</strong>（适用于 Windows 10 / Windows 11）。安全更新常会关闭部分共享功能或加强防火墙/权限限制，按顺序操作即可。</p>
+<h3 id="1-设置网络为专用网络最重要">1. <strong>设置网络为“专用”网络（最重要）</strong></h3>
+<ul>
+<li>打开 <strong>设置</strong>（Win + I）→ <strong>网络和 Internet</strong> → 点击你当前连接的 Wi-Fi / 以太网 → <strong>属性</strong>。</li>
+<li>将<strong>网络配置文件类型</strong>改为 <strong>专用</strong>。</li>
+<li>重启电脑后继续下一步。</li>
+</ul>
+<h3 id="2-开启网络发现和文件打印机共享">2. <strong>开启网络发现和文件/打印机共享</strong></h3>
+<ul>
+<li><strong>设置</strong> → <strong>网络和 Internet</strong> → <strong>高级网络设置</strong> → <strong>高级共享设置</strong>。</li>
+<li>在 <strong>专用网络</strong> 部分：
+<ul>
+<li>开启 <strong>网络发现</strong>。</li>
+<li>开启 <strong>文件和打印机共享</strong>。</li>
+</ul>
+</li>
+<li>在 <strong>所有网络</strong> 部分（可选，如果不需要密码）：
+<ul>
+<li>关闭 <strong>密码保护共享</strong>。</li>
+</ul>
+</li>
+<li>点击 <strong>保存更改</strong>。</li>
+</ul>
+<p>或者用传统方式：</p>
+<ul>
+<li>控制面板 → <strong>网络和共享中心</strong> → 左侧 <strong>更改高级共享设置</strong>，同上操作。</li>
+</ul>
+<h3 id="3-检查并启动相关服务">3. <strong>检查并启动相关服务</strong></h3>
+<ul>
+<li>按 <strong>Win + R</strong>，输入 <code>services.msc</code> 回车。</li>
+<li>找到以下服务，右键 → <strong>属性</strong> → 启动类型改为 <strong>自动</strong>，然后点击 <strong>启动</strong>（如果已停止）：
+<ul>
+<li><strong>Print Spooler</strong>（打印假脱机程序）</li>
+<li><strong>Server</strong>（服务器）</li>
+<li><strong>Function Discovery Provider Host</strong></li>
+<li><strong>Function Discovery Resource Publication</strong></li>
+</ul>
+</li>
+<li>重启电脑。</li>
+</ul>
+<h3 id="4-防火墙放行文件和打印机共享">4. <strong>防火墙放行文件和打印机共享</strong></h3>
+<ul>
+<li>搜索打开 <strong>Windows Defender 防火墙</strong> → <strong>允许应用或功能通过 Windows Defender 防火墙</strong>。</li>
+<li>勾选 <strong>文件和打印机共享</strong>（包括私有和公共，如果需要）。</li>
+<li>或者用命令提示符（管理员）运行：<pre><code>netsh advfirewall firewall set rule group=&quot;File and Printer Sharing&quot; new enable=Yes
+netsh advfirewall firewall set rule group=&quot;Network Discovery&quot; new enable=Yes
+</code></pre>
+</li>
+</ul>
+<h3 id="5-在共享主机上正确共享打印机">5. <strong>在共享主机上正确共享打印机</strong></h3>
+<ul>
+<li>打开 <strong>设置</strong> → <strong>Bluetooth 和设备</strong> → <strong>打印机和扫描仪</strong>。</li>
+<li>点击你的打印机 → <strong>打印机属性</strong> → <strong>共享</strong> 选项卡。</li>
+<li>勾选 <strong>共享这台打印机</strong>，设置一个简短的<strong>共享名称</strong>（如 HPPrinter）。</li>
+<li><strong>安全</strong> 选项卡中，确保 <strong>Everyone</strong> 有 <strong>打印</strong> 权限（如果没有，添加 Everyone 并赋予权限）。</li>
+</ul>
+<h3 id="6-常见安全更新导致的问题修复注册表或策略">6. <strong>常见安全更新导致的问题修复（注册表或策略）</strong></h3>
+<p>如果以上不行，尝试以下（<strong>备份注册表后再操作</strong>）：</p>
+<ul>
+<li>
+<p><strong>修复常见更新导致的 RPC/Point and Print 问题</strong>：</p>
+<ol>
+<li>按 Win + R 输入 <code>regedit</code>。</li>
+<li>导航到 <code>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Print</code></li>
+<li>新建 DWORD（32位）值 <code>RpcAuthnLevelPrivacyEnabled</code>，设为 <code>0</code>。</li>
+<li>重启。</li>
+</ol>
+</li>
+<li>
+<p>其他可能需要的注册表（视具体更新）：</p>
+<ul>
+<li>启用不安全来宾登录（适用于工作组网络）：<br>
+<code>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LanmanWorkstation\Parameters</code><br>
+新建 DWORD <code>AllowInsecureGuestAuth</code> = 1</li>
+</ul>
+</li>
+</ul>
+<p><strong>操作后重启主机和客户端电脑</strong>，然后在其他电脑上添加打印机（搜索 \主机名\打印机共享名）。</p>
+<h3 id="额外提示">额外提示</h3>
+<ul>
+<li>确保主机和客户端在<strong>同一局域网</strong>，Ping 得通对方 IP。</li>
+<li>如果还是提示错误（如 0x0000011b），尝试卸载最近的安全更新测试（设置 → Windows Update → 更新历史记录 → 卸载更新），或更新到最新补丁。</li>
+<li>家庭版 Windows 没有 gpedit.msc，可用注册表替代。</li>
+<li>第三方杀毒/防火墙（如 360、火绒）可能拦截，需在它们设置中放行共享。</li>
+</ul>
+<p>按以上步骤大多数情况下都能恢复。如果指定你的 Windows 版本（10/11）和具体错误代码，我可以给出更针对性的方法。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[android使用vscode写代码的方案]]></title>
+        <id>https://zhangyiming748.github.io/post/vscode_server/</id>
+        <link href="https://zhangyiming748.github.io/post/vscode_server/">
+        </link>
+        <updated>2026-05-21T14:40:18.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="前提与目标">前提与目标</h2>
+<p>在本地机器（Linux/macOS/Windows 支持 Docker）使用 Docker 部署 code-server（通过浏览器访问的 VS Code Web），并配置常用插件、持久化数据、HTTPS（可选）、反向代理、以及示例 docker-compose 部署，目标是在局域网或互联网的 Android 平板/其他设备上通过浏览器访问并开发。</p>
+<p>下面给出一步步可复制的完整手册；按默认合理选项：使用 coder/code-server 官方镜像、通过 docker-compose 管理、在主机上持久化配置与工作目录，并演示使用 Nginx + Let's Encrypt（certbot）做 HTTPS 反向代理的可选配置。</p>
+<hr>
+<h2 id="目录">目录</h2>
+<ol>
+<li>先决条件</li>
+<li>目录与文件结构</li>
+<li>快速单容器运行（命令行）</li>
+<li>推荐的 docker-compose 部署（持久化、环境变量、端口、用户映射）</li>
+<li>配置 code-server（密码、bind、cert）</li>
+<li>安装扩展（命令行/启动时）</li>
+<li>持久化数据与权限问题</li>
+<li>使用 Nginx 反向代理 + Let's Encrypt（HTTPS）</li>
+<li>使用 Cloudflare Tunnel 替代反代（可选）</li>
+<li>安全建议与防火墙</li>
+<li>日常运维命令</li>
+<li>故障排查要点</li>
+</ol>
+<hr>
+<h2 id="1-先决条件">1) 先决条件</h2>
+<ul>
+<li>已安装 Docker Engine 与 docker-compose（或 Docker Compose V2）。</li>
+<li>有可用域名（HTTPS 情形可选，非必须）。</li>
+<li>如果仅局域网访问，只需确保主机 IP 在同一网络且防火墙放行相应端口。</li>
+<li>今天日期： 2026-05-21。</li>
+</ul>
+<hr>
+<h2 id="2-目录与文件结构示例">2) 目录与文件结构（示例）</h2>
+<p>在主机上创建一个目录用于部署，例如 /opt/code-server：<br>
+/opt/code-server</p>
+<ul>
+<li>docker-compose.yml</li>
+<li>data/                 # code-server 持久化配置与 extensions
+<ul>
+<li>config.yaml</li>
+</ul>
+</li>
+<li>projects/             # 工作目录（你的代码）</li>
+<li>nginx/                # 反向代理（可选）
+<ul>
+<li>conf.d/</li>
+<li>Dockerfile (可选)</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="3-快速单容器运行最快上手">3) 快速单容器运行（最快上手）</h2>
+<p>在终端执行（将 /opt/code-server/projects 挂载为工作目录）：<br>
+docker run -d <br>
+--name code-server <br>
+-p 8080:8080 <br>
+-v /opt/code-server/data:/home/coder/.local/share/code-server <br>
+-v /opt/code-server/projects:/home/coder/project <br>
+-e PUID=<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>i</mi><mi>d</mi><mo>−</mo><mi>u</mi><mo>)</mo><mo>−</mo><mi>e</mi><mi>P</mi><mi>G</mi><mi>I</mi><mi>D</mi><mo>=</mo></mrow><annotation encoding="application/x-tex">(id -u) -e PGID=</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault">i</span><span class="mord mathdefault">d</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">u</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mord mathdefault">G</span><span class="mord mathdefault" style="margin-right:0.07847em;">I</span><span class="mord mathdefault" style="margin-right:0.02778em;">D</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span></span></span></span>(id -g) <br>
+-e PASSWORD=&quot;YourStrongPassword123&quot; <br>
+coder/code-server:latest</p>
+<p>解释：</p>
+<ul>
+<li>-p 8080:8080：在主机映射端口为 8080。</li>
+<li>data 卷保存配置与已安装扩展（持久化）。</li>
+<li>projects 卷为工作目录，在 code-server 中显示为 /home/coder/project。</li>
+<li>PASSWORD 环境变量设置访问密码（auth: password）。</li>
+</ul>
+<p>访问：在浏览器打开 http://&lt;HOST_IP&gt;:8080，输入密码登录。</p>
+<hr>
+<h2 id="4-推荐的-docker-compose-部署生产长期使用">4) 推荐的 docker-compose 部署（生产/长期使用）</h2>
+<p>在 /opt/code-server 创建 docker-compose.yml，示例：</p>
+<pre><code class="language-yaml">version: &quot;3.8&quot;
+services:
+  code-server:
+    image: coder/code-server:latest
+    container_name: code-server
+    restart: unless-stopped
+    ports:
+      - &quot;127.0.0.1:8080:8080&quot; # 推荐先只绑定本地回环，配合反代或隧道
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=UTC
+      - PASSWORD=YourStrongPassword123
+      - SUDO_PASSWORD= # 可选
+    volumes:
+      - ./data:/home/coder/.local/share/code-server
+      - ./projects:/home/coder/project
+      - /etc/localtime:/etc/localtime:ro
+</code></pre>
+<p>要全网/局域网直接访问把 ports 改为 &quot;8080:8080&quot; 或 &quot;0.0.0.0:8080:8080&quot;。建议初始阶段绑定 127.0.0.1 并通过反向代理或隧道公开。</p>
+<p>启动：<br>
+cd /opt/code-server<br>
+docker-compose up -d</p>
+<p>查看日志：<br>
+docker-compose logs -f code-server</p>
+<hr>
+<h2 id="5-配置-code-serverconfigyaml">5) 配置 code-server（config.yaml）</h2>
+<p>持久化配置文件位置（容器内）通常在 /home/coder/.config/code-server/config.yaml，但官方镜像把配置写在 ~/.local/share/code-server 或 ~/.config。我们在宿主机 data 文件夹创建配置覆盖默认：</p>
+<p>创建 data/config.yaml（示例）：<br>
+bind-addr: 0.0.0.0:8080      # 或 127.0.0.1:8080（若使用反代）<br>
+auth: password<br>
+password: YourStrongPassword123<br>
+cert: false                 # 若使用反代或 cloudflared，设为 false；若想让 code-server 自带 TLS，提供 cert 文件并设为 true</p>
+<p>如果你用 docker-compose 的环境变量 PASSWORD，则 code-server 会优先使用该密码，但保留 config.yaml 可以设置更多项（例如 locale、extensions-dir 等）。</p>
+<p>重启容器以使配置生效：<br>
+docker-compose restart code-server</p>
+<hr>
+<h2 id="6-安装扩展两种方式">6) 安装扩展（两种方式）</h2>
+<p>A. 在浏览器 GUI 中直接安装：登录 code-server -&gt; Extensions -&gt; 搜索并安装。</p>
+<p>B. 在容器启动时通过命令行安装（适合自动化），示例：<br>
+docker exec -it code-server code-server --install-extension ms-python.python<br>
+或使用 CLI 的 code 命令（镜像内有 code-server 的 code CLI）：<br>
+docker exec -it code-server /usr/bin/code-server --install-extension ms-python.python</p>
+<p>要在 docker-compose 启动时自动安装多个扩展，可用 entrypoint 脚本在容器启动时运行一段安装命令并缓存已安装列表（示例附后）。</p>
+<p>示例自动安装脚本（在宿主机 data/install-extensions.sh）：<br>
+#!/bin/sh<br>
+extensions=&quot;<br>
+ms-python.python<br>
+ms-python.vscode-pylance<br>
+dbaeumer.vscode-eslint<br>
+esbenp.prettier-vscode<br>
+eamodio.gitlens<br>
+&quot;<br>
+for e in <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>e</mi><mi>x</mi><mi>t</mi><mi>e</mi><mi>n</mi><mi>s</mi><mi>i</mi><mi>o</mi><mi>n</mi><mi>s</mi><mo separator="true">;</mo><mi>d</mi><mi>o</mi><mi mathvariant="normal">/</mi><mi>u</mi><mi>s</mi><mi>r</mi><mi mathvariant="normal">/</mi><mi>b</mi><mi>i</mi><mi>n</mi><mi mathvariant="normal">/</mi><mi>c</mi><mi>o</mi><mi>d</mi><mi>e</mi><mo>−</mo><mi>s</mi><mi>e</mi><mi>r</mi><mi>v</mi><mi>e</mi><mi>r</mi><mo>−</mo><mo>−</mo><mi>i</mi><mi>n</mi><mi>s</mi><mi>t</mi><mi>a</mi><mi>l</mi><mi>l</mi><mo>−</mo><mi>e</mi><mi>x</mi><mi>t</mi><mi>e</mi><mi>n</mi><mi>s</mi><mi>i</mi><mi>o</mi><mi>n</mi><mi mathvariant="normal">&quot;</mi></mrow><annotation encoding="application/x-tex">extensions; do
+  /usr/bin/code-server --install-extension &quot;</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">e</span><span class="mord mathdefault">x</span><span class="mord mathdefault">t</span><span class="mord mathdefault">e</span><span class="mord mathdefault">n</span><span class="mord mathdefault">s</span><span class="mord mathdefault">i</span><span class="mord mathdefault">o</span><span class="mord mathdefault">n</span><span class="mord mathdefault">s</span><span class="mpunct">;</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault">o</span><span class="mord">/</span><span class="mord mathdefault">u</span><span class="mord mathdefault">s</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord">/</span><span class="mord mathdefault">b</span><span class="mord mathdefault">i</span><span class="mord mathdefault">n</span><span class="mord">/</span><span class="mord mathdefault">c</span><span class="mord mathdefault">o</span><span class="mord mathdefault">d</span><span class="mord mathdefault">e</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.77777em;vertical-align:-0.08333em;"></span><span class="mord">−</span><span class="mord mathdefault">i</span><span class="mord mathdefault">n</span><span class="mord mathdefault">s</span><span class="mord mathdefault">t</span><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">e</span><span class="mord mathdefault">x</span><span class="mord mathdefault">t</span><span class="mord mathdefault">e</span><span class="mord mathdefault">n</span><span class="mord mathdefault">s</span><span class="mord mathdefault">i</span><span class="mord mathdefault">o</span><span class="mord mathdefault">n</span><span class="mord">&quot;</span></span></span></span>e&quot; || true<br>
+done</p>
+<p>在 docker-compose 中以 volumes 挂载并在容器命令或 entrypoint 调用该脚本一次性安装。</p>
+<hr>
+<h2 id="7-持久化数据与权限">7) 持久化数据与权限</h2>
+<ul>
+<li>官方镜像中用户是 coder（uid 1000）。宿主机挂载目录请确保 UID/GID 对应或使用 PUID/PGID 环境变量（官方镜像支持）。</li>
+<li>若遇到权限问题，调整宿主目录属主：<br>
+sudo chown -R 1000:1000 ./data ./projects</li>
+</ul>
+<p>确保 SELinux 环境（如 CentOS/RHEL）下加上 😒 或 :Z 选项，例如：</p>
+<ul>
+<li>./projects:/home/coder/project:Z</li>
+</ul>
+<hr>
+<h2 id="8-使用-nginx-反向代理-lets-encrypt推荐用于公网与-https">8) 使用 Nginx 反向代理 + Let's Encrypt（推荐用于公网与 HTTPS）</h2>
+<p>思路：将 code-server 绑定到 127.0.0.1:8080，仅在本地可达；Nginx 作为反代监听 80/443，使用 certbot 自动申请 TLS 证书。</p>
+<p>示例 docker-compose.yml（包含 nginx 和 certbot）：</p>
+<ul>
+<li>此处仅给出关键片段，完整文件请创建两个服务： code-server（如上，ports 127.0.0.1:8080:8080）与 nginx（监听 80/443，反代到 code-server:8080），并可用 certbot/certbot 镜像或使用 nginx-proxy + acme companion 等自动化方案。</li>
+</ul>
+<p>简单 nginx 配置示例（nginx/conf.d/code-server.conf）：<br>
+server {<br>
+listen 80;<br>
+server_name your.domain.example;<br>
+location /.well-known/acme-challenge/ { root /var/www/certbot; }<br>
+location / {<br>
+return 301 https://<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>h</mi><mi>o</mi><mi>s</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">host</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">h</span><span class="mord mathdefault">o</span><span class="mord mathdefault">s</span><span class="mord mathdefault">t</span></span></span></span>request_uri;<br>
+}<br>
+}<br>
+server {<br>
+listen 443 ssl;<br>
+server_name your.domain.example;<br>
+ssl_certificate /etc/letsencrypt/live/your.domain.example/fullchain.pem;<br>
+ssl_certificate_key /etc/letsencrypt/live/your.domain.example/privkey.pem;<br>
+location / {<br>
+proxy_pass http://code-server:8080/;<br>
+proxy_set_header Host $host;<br>
+proxy_set_header X-Real-IP $remote_addr;<br>
+proxy_set_header Upgrade $http_upgrade;<br>
+proxy_set_header Connection &quot;upgrade&quot;;<br>
+proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;<br>
+proxy_set_header X-Forwarded-Proto $scheme;<br>
+}<br>
+}</p>
+<p>申请证书（示例命令在宿主机或 certbot 容器内运行）：<br>
+sudo certbot certonly --webroot -w /var/www/certbot -d your.domain.example</p>
+<p>证书申请成功后，重新加载 nginx：<br>
+docker exec nginx_container nginx -s reload</p>
+<p>注意：</p>
+<ul>
+<li>推荐使用现成的 docker 反代方案：nginx-proxy + jwilder/nginx-proxy + nginx-letsencrypt 或 Traefik（自动 TLS）。Traefik 配置会更简单并能自动获取证书。</li>
+</ul>
+<hr>
+<h2 id="9-使用-cloudflare-tunnelcloudflared替代反代更简单免端口转发">9) 使用 Cloudflare Tunnel（cloudflared）替代反代（更简单，免端口转发）</h2>
+<ul>
+<li>安装 cloudflared 并在宿主机上运行：<br>
+cloudflared tunnel --url http://localhost:8080 --no-autoupdate</li>
+<li>或用 Docker 运行 cloudflared，关联到 code-server 服务。<br>
+优点：无需开放端口、自动 HTTPS 与域名映射（需 Cloudflare 账户）。</li>
+</ul>
+<hr>
+<h2 id="10-安全建议">10) 安全建议</h2>
+<ul>
+<li>永远启用密码（PASSWORD）或外部 TLS 反向代理；不要将 auth 设置为 none。</li>
+<li>将 code-server 绑定到 127.0.0.1 并通过反代或隧道公开，减少直接暴露风险。</li>
+<li>使用强密码或 OAuth/OIDC（若使用企业版或额外认证）；</li>
+<li>定期更新镜像： docker pull coder/code-server:latest 并重建容器。</li>
+<li>使用防火墙（ufw/iptables）限制能访问 8080/443 的源 IP（如果可行）。</li>
+</ul>
+<hr>
+<h2 id="11-日常运维命令">11) 日常运维命令</h2>
+<ul>
+<li>
+<p>启动/停止/重启：<br>
+docker-compose up -d<br>
+docker-compose down<br>
+docker-compose restart code-server</p>
+</li>
+<li>
+<p>更新镜像并重建：<br>
+docker-compose pull<br>
+docker-compose up -d --force-recreate</p>
+</li>
+<li>
+<p>查看日志：<br>
+docker-compose logs -f code-server</p>
+</li>
+<li>
+<p>进入容器调试：<br>
+docker exec -it code-server /bin/sh</p>
+</li>
+<li>
+<p>列出已安装扩展：<br>
+docker exec -it code-server /usr/bin/code-server --list-extensions</p>
+</li>
+</ul>
+<hr>
+<h2 id="12-常见问题与排查">12) 常见问题与排查</h2>
+<ul>
+<li>无法访问：
+<ul>
+<li>检查容器是否运行： docker ps</li>
+<li>检查绑定地址（127.0.0.1 vs 0.0.0.0）</li>
+<li>检查防火墙与路由器端口转发</li>
+</ul>
+</li>
+<li>权限错误：
+<ul>
+<li>chown -R 1000:1000 data projects</li>
+</ul>
+</li>
+<li>扩展安装失败：
+<ul>
+<li>查看日志，确保网络可达 Marketplace，或使用离线 VSIX 安装： code-server --install-extension /path/to/extension.vsix</li>
+</ul>
+</li>
+<li>HTTPS 证书问题：
+<ul>
+<li>确认域名解析指向反代服务器、80 端口能被外网访问以完成 ACME 验证。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="附完整示例-docker-composeymlcode-server-nginx-certbot-简化版">附：完整示例 docker-compose.yml（code-server + nginx + certbot 简化版）</h2>
+<p>请按需调整域名、路径与权限；此为示例用于理解组件关系。</p>
+<pre><code class="language-yaml">version: &quot;3.8&quot;
+services:
+  code-server:
+    image: coder/code-server:latest
+    container_name: code-server
+    restart: unless-stopped
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=UTC
+      - PASSWORD=YourStrongPassword123
+    volumes:
+      - ./data:/home/coder/.local/share/code-server
+      - ./projects:/home/coder/project
+    expose:
+      - &quot;8080&quot;
+
+  nginx:
+    image: nginx:stable
+    container_name: code-server-nginx
+    restart: unless-stopped
+    ports:
+      - &quot;80:80&quot;
+      - &quot;443:443&quot;
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d:ro
+      - ./nginx/www:/var/www/certbot
+      - /etc/letsencrypt:/etc/letsencrypt:ro
+    depends_on:
+      - code-server
+
+  certbot:
+    image: certbot/certbot
+    container_name: certbot
+    volumes:
+      - ./nginx/www:/var/www/certbot
+      - /etc/letsencrypt:/etc/letsencrypt
+    entrypoint: /bin/sh -c 'trap exit TERM; while :; do sleep 12h &amp; wait $${!}; certbot renew; done'
+</code></pre>
+<p>使用流程：</p>
+<ol>
+<li>配置 nginx/conf.d/code-server.conf（见上文）。</li>
+<li>启动： docker-compose up -d</li>
+<li>申请证书（第一次）：<br>
+docker run --rm -v &quot;$(pwd)/nginx/www&quot;:/var/www/certbot -v /etc/letsencrypt:/etc/letsencrypt certbot/certbot certonly --webroot --webroot-path=/var/www/certbot -d your.domain.example --email you@example.com --agree-tos --no-eff-email</li>
+<li>reload nginx。</li>
+</ol>
+<hr>
+<p>如需我直接生成你主机（或具体 OS）上的完整 docker-compose.yml、nginx conf、certbot 命令和扩展自动安装脚本（按你的域名与路径替换），或提供只在局域网内无需 HTTPS 的最简配置文件，请告诉我你的偏好（局域网 vs 公网；是否需要自动 TLS；宿主机操作系统）；我会给出可直接复制粘贴的文件。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[不让老人“掉队”：青年志愿者用行动助力老年人融入数字时代]]></title>
+        <id>https://zhangyiming748.github.io/post/zhang_xiao_lin/</id>
+        <link href="https://zhangyiming748.github.io/post/zhang_xiao_lin/">
+        </link>
+        <updated>2026-02-28T03:26:03.000Z</updated>
+        <content type="html"><![CDATA[<p>在社区的一角，志愿者张效霖正用自己的耐心和热情，为老年人们打开数字世界的大门。他一遍又一遍地讲解操作步骤，手把手地带着爷爷奶奶们练习，让他们不再因为不会使用智能手机而与时代脱节，让科技的便利也能照进老年生活。</p>
+<p>近日，在社区的便民服务活动中，一位青年志愿者正用耐心与热情，为辖区内的老年人们搭建起一座连接数字世界的桥梁。</p>
+<p>活动现场，志愿者以背影为屏、以耐心为灯，面对围拢而来的老人们，他细致讲解智能手机的基础操作，从界面功能到软件使用，用通俗易懂的语言拆解复杂步骤。面对老人的反复提问，他始终温和回应，一遍遍演示操作流程，让银发族们在轻松的氛围中逐步熟悉数字设备。</p>
+<p><a href="https://imgchr.com/i/pZzjdLn"><img src="https://s41.ax1x.com/2026/02/28/pZzjdLn.md.png" alt="耐心讲解，让银发族也能玩转智能手机" loading="lazy"></a><center>青春助老暖人心：志愿者手把手教银发族解锁智能手机</center><br>
+在一对一的教学环节中，志愿者更是俯下身、手把手地带着老人练习，从解锁屏幕到发送消息，从浏览资讯到使用便民功能，每一个细节都耐心指导。不少老人在他的帮助下，第一次成功完成了手机操作，脸上露出了欣喜的笑容。<br>
+<a href="https://imgchr.com/i/pZzjass"><img src="https://s41.ax1x.com/2026/02/28/pZzjass.md.png" alt="一对一教学，温情传递数字温度" loading="lazy"></a><center>一对一教学，温情传递数字温度</center></p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[解决Winget安装程序时出现“安装程序哈希不匹配”问题]]></title>
+        <id>https://zhangyiming748.github.io/post/Resolving_the_-Installer_hash_mismatch-_issue_when_installing_programs_using_Winget/</id>
+        <link href="https://zhangyiming748.github.io/post/Resolving_the_-Installer_hash_mismatch-_issue_when_installing_programs_using_Winget/">
+        </link>
+        <updated>2026-02-02T03:11:15.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="0x01">0x01</h1>
+<p>在管理员模式下执行</p>
+<pre><code class="language-powershell">winget settings --enable InstallerHashOverride
+</code></pre>
+<h1 id="0x02">0x02</h1>
+<p>在普通用户下执行</p>
+<pre><code class="language-powershell">winget install --ignore-security-hash 软件名称
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[daemon.json]]></title>
+        <id>https://zhangyiming748.github.io/post/daemon/</id>
+        <link href="https://zhangyiming748.github.io/post/daemon/">
+        </link>
+        <updated>2025-12-22T11:05:00.000Z</updated>
+        <content type="html"><![CDATA[<pre><code class="language-json">{
+    &quot;data-root&quot;: &quot;/vol1/docker&quot;,
+    &quot;live-restore&quot;: true,
+    &quot;log-driver&quot;: &quot;json-file&quot;,
+    &quot;log-opts&quot;: {
+        &quot;max-file&quot;: &quot;5&quot;,
+        &quot;max-size&quot;: &quot;100m&quot;
+    },
+    &quot;proxies&quot;: {},
+    &quot;registry-mirrors&quot;: [
+        &quot;https://docker.fnnas.com&quot;,
+        &quot;https://docker.m.daocloud.io&quot;,
+        &quot;https://docker.1ms.run&quot;,
+        &quot;https://dockerproxy.net&quot;,
+        &quot;https://docker.1panel.top&quot;,
+        &quot;https://dockerproxy.cn&quot;,
+        &quot;https://dockerpull.org&quot;,
+        &quot;https://docker.nastool.de&quot;,
+        &quot;https://docker.1panel.live&quot;,
+        &quot;https://docker.13140521.xyz&quot;,
+        &quot;https://registry-1.docker.io&quot;,
+        &quot;https://registry.hub.docker.com&quot;
+    ]
+}
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[PrinterShare 打印共享工具介绍]]></title>
+        <id>https://zhangyiming748.github.io/post/printershare_readme/</id>
+        <link href="https://zhangyiming748.github.io/post/printershare_readme/">
+        </link>
+        <updated>2025-12-17T08:36:03.000Z</updated>
+        <content type="html"><![CDATA[<h3 id="printershare-打印共享工具介绍">PrinterShare 打印共享工具介绍</h3>
+<p>PrinterShare（中文常称“趣打印”或“移动打印”）是一款跨平台打印共享和移动打印工具，由 Mobile Dynamix（Dynamix Software）开发。官方网站为 https://printershare.net，支持 Android、iOS、Windows 和 macOS 平台。主要功能是实现<strong>本地附近打印</strong>和<strong>远程互联网打印</strong>，允许用户从手机、平板或电脑直接打印到任何连接的打印机，而无需复杂配置。</p>
+<h4 id="核心功能">核心功能</h4>
+<ul>
+<li><strong>附近打印（本地）</strong>：
+<ul>
+<li>通过 Wi-Fi、Bluetooth 或 USB（Android OTG）直接连接打印机。</li>
+<li>自动检测同一网络下的 Wi-Fi 打印机。</li>
+<li>支持打印机共享（Windows/Mac SMB 或标准共享）。</li>
+</ul>
+</li>
+<li><strong>远程打印（互联网）</strong>：
+<ul>
+<li>通过 PrinterShare 云服务，将打印任务发送到世界任何地方的打印机（接收端需安装桌面客户端并共享打印机）。</li>
+<li>数据传输加密，确保安全。</li>
+</ul>
+</li>
+<li><strong>支持文件类型</strong>：
+<ul>
+<li>文档：PDF、Word (DOC/DOCX)、Excel (XLS/XLSX)、PowerPoint (PPT/PPTX)、TXT 等。</li>
+<li>图片：JPG、PNG、GIF。</li>
+<li>其他：网页、邮件附件、联系人、日程、云存储文件（Google Drive、Dropbox、OneDrive 等）。</li>
+</ul>
+</li>
+<li><strong>打印选项</strong>：
+<ul>
+<li>页面大小、方向、份数、双面打印、彩色/黑白、预览等。</li>
+</ul>
+</li>
+<li><strong>兼容打印机</strong>：
+<ul>
+<li>支持主流品牌：HP、Epson、Canon、Brother、Samsung、Dell、Lexmark、Kyocera 等，包括老式网络打印机和遗留型号（完整列表见官网）。</li>
+</ul>
+</li>
+</ul>
+<h4 id="版本与定价">版本与定价</h4>
+<ul>
+<li><strong>免费版</strong>：支持基本附近打印（有限制，如测试页或水印），以及部分远程打印。</li>
+<li><strong>Premium 版</strong>：解锁无限附近打印、更多远程页数（通常需内购或订阅，具体价格见官网或应用商店）。</li>
+<li>桌面版（Windows/Mac）免费用于共享打印机，移动端 Premium 解锁高级功能。</li>
+</ul>
+<h4 id="优势">优势</h4>
+<ul>
+<li>操作简单：一键共享打印机，无需复杂网络设置（如 Windows 共享权限）。</li>
+<li>跨平台：适合家庭、办公室或移动办公场景（如出差时打印到家/公司打印机）。</li>
+<li>安全性：传输加密，支持代理/防火墙。</li>
+<li>适用于旧打印机：许多不支持原生移动打印的旧型号也能兼容。</li>
+</ul>
+<h4 id="缺点与注意事项">缺点与注意事项</h4>
+<ul>
+<li>远程打印依赖接收端电脑在线并运行软件。</li>
+<li>免费版有广告或限制（如额外封面页）。</li>
+<li>部分功能（如 SMS/通话记录打印）因平台政策限制已移除。</li>
+<li>打印速度取决于网络，远程时可能较慢。</li>
+</ul>
+<h4 id="常见替代品">常见替代品</h4>
+<p>如果 PrinterShare 不适合，可以考虑：</p>
+<ul>
+<li><strong>品牌专用</strong>：HP Smart、Epson iPrint、Canon PRINT（针对特定品牌更优化）。</li>
+<li><strong>通用移动打印</strong>：PrintHand Mobile Print、Mopria Print Service（Android 原生支持）。</li>
+<li><strong>云打印</strong>：Google Cloud Print（已停用）、AirPrint（Apple 生态）。</li>
+</ul>
+<h4 id="方案编写建议">方案编写建议</h4>
+<p>如果你要写一个<strong>打印共享方案</strong>（如公司内部打印机共享或移动办公打印解决方案），可以这样结构化：</p>
+<ol>
+<li><strong>需求分析</strong>：描述当前痛点（如多设备打印不便、远程办公无法打印）。</li>
+<li><strong>工具介绍</strong>：详细说明 PrinterShare 的功能（如上）。</li>
+<li><strong>实施步骤</strong>：
+<ul>
+<li>安装桌面客户端（接收端电脑连接打印机）。</li>
+<li>创建账户并共享打印机。</li>
+<li>移动端安装 App，登录同一账户查找打印机。</li>
+<li>测试本地/远程打印。</li>
+</ul>
+</li>
+<li><strong>优势与效益</strong>：提升效率、降低成本（无需多买打印机）、支持混合办公。</li>
+<li><strong>安全考虑</strong>：加密传输、账户权限控制。</li>
+<li><strong>潜在风险与备选</strong>：网络依赖、列出替代方案。</li>
+<li><strong>成本估算</strong>：免费基础 + Premium 订阅。</li>
+</ol>
+<p>如果需要更详细的方案模板、特定场景示例，或官网最新截图/更新信息，请提供更多细节，我可以进一步补充！</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[git 报错分析]]></title>
+        <id>https://zhangyiming748.github.io/post/git_commit_errors_faq/</id>
+        <link href="https://zhangyiming748.github.io/post/git_commit_errors_faq/">
+        </link>
+        <updated>2025-12-15T07:40:54.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="出错文本">出错文本</h1>
+<pre><code class="language-bash">fatal: unable to access 'https://gitea.zhangyiming748.eu.org/zen/WorkLoadLedger.git/': LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to gitea.zhangyiming748.eu.org:443
+</code></pre>
+<h1 id="解决方案">解决方案</h1>
+<p>你的 Git 推送错误是典型的 <strong>SSL 连接失败</strong>问题：</p>
+<pre><code>fatal: unable to access 'https://gitea.zhangyiming748.eu.org/zen/WorkLoadLedger.git/': LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to gitea.zhangyiming748.eu.org:443
+</code></pre>
+<p>这个错误常见于 <strong>macOS</strong> 系统（因为 macOS 的 Git 默认使用 <strong>LibreSSL</strong>），通常由以下原因引起：</p>
+<ol>
+<li><strong>网络代理/VPN/防火墙</strong>干扰了 SSL 握手（最常见，尤其是公司网络或某些安全软件）。</li>
+<li><strong>代理设置错误</strong>（如 http.proxy 配置不当，或环境变量 HTTP_PROXY/HTTPS_PROXY 设置了但不适用于该域名）。</li>
+<li><strong>LibreSSL 与服务器的兼容性问题</strong>（某些自建 Gitea 服务器的 TLS 配置可能与 LibreSSL 不完全兼容）。</li>
+</ol>
+<p>你的 Gitea 服务器（https://gitea.zhangyiming748.eu.org）是正常的，能正常访问，所以问题基本在客户端（你的电脑）。</p>
+<h3 id="推荐解决步骤从简单到彻底">推荐解决步骤（从简单到彻底）</h3>
+<ol>
+<li>
+<p><strong>检查并关闭代理/VPN/防火墙</strong></p>
+<ul>
+<li>临时关闭任何 VPN、代理工具（如 Clash、Shadowsocks、V2Ray、Surge 等）。</li>
+<li>如果你在公司/学校网络，尝试换成手机热点测试。</li>
+<li>检查系统代理设置：系统设置 → 网络 → 高级 → 代理 → 确保所有代理都关闭。</li>
+</ul>
+</li>
+<li>
+<p><strong>取消 Git 的代理设置</strong>（很多情况下就是这个导致的）</p>
+<pre><code class="language-bash">git config --global --unset http.proxy
+git config --global --unset https.proxy
+</code></pre>
+<p>然后再试推送。</p>
+</li>
+<li>
+<p><strong>切换 Git 的 SSL 后端到 OpenSSL</strong>（macOS 上有效解决 LibreSSL 兼容问题）<br>
+如果你用 Homebrew 安装了 Git（推荐），执行：</p>
+<pre><code class="language-bash">git config --global http.sslBackend openssl
+</code></pre>
+<p>如果提示没有 openssl，先安装：</p>
+<pre><code class="language-bash">brew install openssl
+</code></pre>
+<p>（注意：Homebrew 安装的 Git 默认支持这个切换。）</p>
+</li>
+<li>
+<p><strong>临时禁用 SSL 验证</strong>（仅测试用，不推荐长期）</p>
+<pre><code class="language-bash">git config --global http.sslVerify false
+</code></pre>
+<p>测试成功后再改回 <code>true</code>。</p>
+</li>
+<li>
+<p><strong>改用 SSH 协议推送</strong>（最彻底推荐，避免所有 HTTPS 问题）</p>
+<ul>
+<li>在你的 Gitea 服务器上添加 SSH 公钥（用户设置 → SSH/ GPG 密钥）。</li>
+<li>修改远程 URL：<pre><code class="language-bash">git remote set-url origin git@gitea.zhangyiming748.eu.org:zen/WorkLoadLedger.git
+</code></pre>
+</li>
+<li>然后正常 push（首次可能需要确认主机指纹）。</li>
+</ul>
+</li>
+<li>
+<p><strong>其他检查</strong></p>
+<ul>
+<li>用 curl 测试连接：<pre><code class="language-bash">curl -v https://gitea.zhangyiming748.eu.org
+</code></pre>
+如果也报 SSL_ERROR_SYSCALL，确认是网络/代理问题。</li>
+<li>更新 Git 到最新版（brew upgrade git）。</li>
+</ul>
+</li>
+</ol>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Windows 10和11中阻止IE跳转Edge]]></title>
+        <id>https://zhangyiming748.github.io/post/Windows_10_and_11_prevent_IE_redirect_to_Edge/</id>
+        <link href="https://zhangyiming748.github.io/post/Windows_10_and_11_prevent_IE_redirect_to_Edge/">
+        </link>
+        <updated>2025-12-01T02:05:37.000Z</updated>
+        <content type="html"><![CDATA[<p>1. 修改Edge核心设置：这是优先尝试的方法。打开Edge，点击右上角三点图标进入“设置”，选择左侧“默认浏览器”，在“Internet Explorer兼容性”栏找到“让Internet Explorer在Microsoft Edge中打开网站”，下拉选择“从不”，重启Edge后设置生效</p>
+<p>2. 修改IE快捷方式参数：若上述方法无效可用此招。打开文件夹 C:\Program Files\Internet Explorer ，右键 iexplore.exe 发送到桌面快捷方式；右键该快捷方式选“属性”，在“目标”框末尾加  anything -Embedding （注意前面加空格），比如 &quot;C:\Program Files\Internet Explorer\iexplore.exe&quot; anything -Embedding ，点击确定，双击该快捷方式即可打开独立IE。</p>
+<p>3. Windows 11专用：脚本打开+Edge设置：Win11无直接IE入口，先新建文本文档，粘贴代码 CreateObject(&quot;InternetExplorer.Application&quot;).Visible=true ，重命名为“打开IE.vbs”；双击脚本启动IE后，再按第一步修改Edge的跳转设置，后续打开IE就不会跳转了。</p>
+<p>4. 取消IE第三方扩展 ：按Win+R输入 inetcpl.cpl 打开Internet选项，切换到“高级”选项卡，取消勾选“启用第三方浏览器扩展”，点击确定，重启IE后可减少跳转触发因素。</p>
+]]></content>
+    </entry>
+</feed>
